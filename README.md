@@ -1,0 +1,2 @@
+# glogchain
+blockchain micro blog
