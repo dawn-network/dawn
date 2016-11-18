@@ -1,2 +1,2 @@
 # glogchain
-blockchain micro blog
+golang blockchain micro blog
