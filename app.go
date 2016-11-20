@@ -26,7 +26,13 @@ func (app *GlogChainApp) SetOption(key string, value string) (log string) {
 }
 
 func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
-	app.txCount += 1
+	//app.txCount += 1
+
+	// tx is json string, need to convert to text and then parse into json object
+	s := string(tx[:])
+
+
+
 	return types.OK
 }
 
