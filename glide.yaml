@@ -1,0 +1,7 @@
+package: github.com/baabeetaa/glogchain
+import:
+- package: github.com/tendermint/go-common
+- package: github.com/tendermint/tmsp
+  subpackages:
+  - server
+  - types
