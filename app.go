@@ -6,6 +6,9 @@ import (
 
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/types"
+	"glogchain/protocol"
+	"log"
+	"glogchain/blog"
 )
 
 type GlogChainApp struct {
@@ -26,12 +29,29 @@ func (app *GlogChainApp) SetOption(key string, value string) (log string) {
 }
 
 func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
-	//app.txCount += 1
-
 	// tx is json string, need to convert to text and then parse into json object
-	s := string(tx[:])
+	jsonstring := string(tx[:])
 
+	obj , err := protocol.UnMarshal(jsonstring)
 
+	if err != nil {
+		log.Fatal(err)
+		return types.ErrEncodingError
+	}
+
+	switch v:=obj.(type) {
+	case protocol.PostOperation:
+		var objPostOperation protocol.PostOperation
+
+		objPostOperation = v
+		//fmt.Println("Title=" + objPostOperation.Title)
+		//fmt.Println("Body=" + objPostOperation.Body)
+		//fmt.Println("Author=" + objPostOperation.Author)
+
+		blog.CreatePost(&objPostOperation)
+
+	default:
+	}
 
 	return types.OK
 }
