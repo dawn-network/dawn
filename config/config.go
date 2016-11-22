@@ -11,7 +11,8 @@ import (
 
 
 type GlogCfg struct {
-	TmspAddr string	`json:"tmspAddr"`
+	GlogchainWebAddr string	`json:"glogchainWebAddr"`
+	TmspAddr string		`json:"tmspAddr"`
 	HugoPostPath string	`json:"hugoPostPath"`
 }
 

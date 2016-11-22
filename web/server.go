@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"glogchain/config"
 )
 
 // simple web server
@@ -60,7 +61,7 @@ func StartWebServer() error  {
 	http.HandleFunc("/", Home)
 	http.HandleFunc("/about/", About)
 	http.HandleFunc(STATIC_URL, StaticHandler)
-	err := http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
