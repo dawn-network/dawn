@@ -5,6 +5,7 @@ import (
 
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/server"
+	"glogchain/web"
 )
 
 func main() {
@@ -18,6 +19,10 @@ func main() {
 	if err != nil {
 		Exit(err.Error())
 	}
+
+
+	// start web server on port 8000
+	go web.StartWebServer()
 
 	// Wait forever
 	TrapSignal(func() {

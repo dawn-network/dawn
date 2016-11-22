@@ -14,7 +14,7 @@ import (
 const HUGO_CONTENT_POST_PATH = "/Users/tuanpa/Projects/glogchain/hugocontent/bookshelf/content/"
 
 func CreatePost(post *protocol.PostOperation) error {
-
+	// use lib https://github.com/extemporalgenome/slug
 	slugTitle := slug.Slug(post.Title)
 
 	f := createFile(HUGO_CONTENT_POST_PATH + slugTitle + ".md")
@@ -33,11 +33,6 @@ func CreatePost(post *protocol.PostOperation) error {
 	return nil
 }
 
-//func writeFile(f *os.File, ) {
-//	fmt.Println("writing")
-//	fmt.Fprintln(f, "data")
-//}
-
 func createFile(p string) *os.File {
 	fmt.Println("creating")
 	f, err := os.Create(p)
@@ -47,7 +42,3 @@ func createFile(p string) *os.File {
 	return f
 }
 
-//func closeFile(f *os.File) {
-//	fmt.Println("closing")
-//	f.Close()
-//}
