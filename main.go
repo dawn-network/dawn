@@ -6,10 +6,11 @@ import (
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/server"
 	"glogchain/web"
+	"glogchain/config"
 )
 
 func main() {
-	addrPtr := flag.String("addr", "tcp://0.0.0.0:46658", "Listen address")
+	addrPtr := flag.String("addr", config.GlogchainConfigGlobal.TmspAddr, "Listen address")
 
 	flag.Parse()
 	app := NewGlogChainApp()

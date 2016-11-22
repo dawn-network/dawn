@@ -5,19 +5,20 @@ import (
 	"os"
 	"glogchain/protocol"
 	"github.com/extemporalgenome/slug"
+	"glogchain/config"
 )
 
 // we use hugo blog
 // to create a post, just create a file in the content/post folder of the hugo site
 // the content of the file must be in hugo format
 
-const HUGO_CONTENT_POST_PATH = "/Users/tuanpa/Projects/glogchain/hugocontent/bookshelf/content/"
+//const HUGO_CONTENT_POST_PATH = "/Users/tuanpa/Projects/glogchain/hugocontent/bookshelf/content/"
 
 func CreatePost(post *protocol.PostOperation) error {
 	// use lib https://github.com/extemporalgenome/slug
 	slugTitle := slug.Slug(post.Title)
 
-	f := createFile(HUGO_CONTENT_POST_PATH + slugTitle + ".md")
+	f := createFile(config.GlogchainConfigGlobal.HugoPostPath + slugTitle + ".md")
 
 	defer f.Close()
 

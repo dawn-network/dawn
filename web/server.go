@@ -32,8 +32,7 @@ func About(w http.ResponseWriter, req *http.Request) {
 
 func render(w http.ResponseWriter, tmpl string, context Context) {
 	context.Static = STATIC_URL
-	tmpl_list := []string{"web/templates/base.html",
-		fmt.Sprintf("web/templates/%s.html", tmpl)}
+	tmpl_list := []string{"web/templates/base.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
 	t, err := template.ParseFiles(tmpl_list...)
 	if err != nil {
 		log.Print("template parsing error: ", err)
