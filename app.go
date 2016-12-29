@@ -1,14 +1,13 @@
 package main
 
 import (
-	"encoding/binary"
 	"fmt"
-
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/types"
 	"github.com/baabeetaa/glogchain/protocol"
 	"log"
 	"github.com/baabeetaa/glogchain/blog"
+	"encoding/hex"
 )
 
 type GlogChainApp struct {
@@ -44,32 +43,33 @@ func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
 		var objPostOperation protocol.PostOperation
 
 		objPostOperation = v
-		//fmt.Println("Title=" + objPostOperation.Title)
-		//fmt.Println("Body=" + objPostOperation.Body)
-		//fmt.Println("Author=" + objPostOperation.Author)
-
 		blog.CreatePost(&objPostOperation)
 
 	default:
 	}
 
-	return types.OK
+	//return types.OK
+	return types.NewResult(types.CodeType_OK, tx, "AppendTx OK")
 }
 
 func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
+	dst := make([]byte, len(tx) * 2)
+	hex.Encode(dst, tx)
+	fmt.Println("CheckTx: %s\n", dst)
+
 	return types.OK
 }
 
 func (app *GlogChainApp) Commit() types.Result {
 	app.hashCount += 1
 
-	if app.txCount == 0 {
+	//if app.txCount == 0 {
 		return types.OK
-	} else {
-		hash := make([]byte, 8)
-		binary.BigEndian.PutUint64(hash, uint64(app.txCount))
-		return types.NewResultOK(hash, "")
-	}
+	//} else {
+	//	hash := make([]byte, 8)
+	//	binary.BigEndian.PutUint64(hash, uint64(app.txCount))
+	//	return types.NewResultOK(hash, "")
+	//}
 }
 
 func (app *GlogChainApp) Query(query []byte) types.Result {

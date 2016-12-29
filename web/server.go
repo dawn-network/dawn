@@ -10,9 +10,11 @@ import (
 	"github.com/baabeetaa/glogchain/config"
 //	"github.com/baabeetaa/glogchain/protocol"
 	//"github.com/baabeetaa/glogchain/blog"
-	"github.com/tendermint/tmsp/client"
+	//"github.com/tendermint/tmsp/client"
 	"encoding/hex"
 	//"github.com/tendermint/tmsp/types"
+	"io/ioutil"
+	//"net/url"
 )
 
 // simple web server
@@ -51,25 +53,52 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 	fmt.Printf("---------------------------------\n")
 	fmt.Printf("newPostString: %s\n", newPostString)
 
-	client, err := tmspcli.NewGRPCClient(config.GlogchainConfigGlobal.TmspAddr, false)
-	client.Start()
-	defer client.Stop()
+	//client, err := tmspcli.NewGRPCClient(config.GlogchainConfigGlobal.TmspAddr, false)
+	//client.Start()
+	//defer client.Stop()
+	//
+	//if err == nil {
+	//	txBytes := stringOrHexToBytes(newPostString)
+	//	res := client.AppendTxSync(txBytes)
+	//
+	//	if ( !res.IsOK()) {
+	//		log.Print("PostCreateSave AppendTxSync error: ", res.Code)
+	//	}
+	//
+	//	client.CommitSync()
+	//} else {
+	//	log.Print("PostCreateSave error: ", err)
+	//}
 
-	if err == nil {
-		txBytes := stringOrHexToBytes(newPostString)
-		res := client.AppendTxSync(txBytes)
+	newPostStringHex := make([]byte, len([]byte(newPostString)) * 2)
+	hex.Encode(newPostStringHex, []byte(newPostString))
+	fmt.Println("newPostStringHex: %s\n", newPostStringHex)
 
-		if ( !res.IsOK()) {
-			log.Print("PostCreateSave AppendTxSync error: ", res.Code)
-		}
-	} else {
-		log.Print("PostCreateSave error: ", err)
+	/// example
+	// {"Type": "PostOperation" , "Operation" : {"Title": "aaa", "Body": "aaa", "Author": "aaa"} }
+	// http://10.0.0.11:46657/broadcast_tx_commit?tx=%227b2254797065223a2022506f73744f7065726174696f6e22202c20224f7065726174696f6e22203a207b225469746c65223a2022616161222c2022426f6479223a2022616161222c2022417574686f72223a2022616161227d207d%22
+
+	var url_request string = config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + string(newPostStringHex[:]) + "%22"
+	log.Print("url_request: %#v\n", url_request)
+	resp, err := http.Get(url_request)
+	//req, err := http.NewRequest("GET", url_request, nil)
+	//resp, err := http.PostForm(config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit", url.Values{"tx": {"%22" + string(newPostStringHex[:]) + "%22"}})
+	if err != nil {
+		log.Print("http.Get error: %#v\n", err)
+		return;
 	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Print("ioutil.ReadAll error: %#v\n", err)
+		return;
+	}
+	json_response_string := string(body[:])
+	fmt.Println("json_response_string: %#v\n", json_response_string)
 
 	// delay sometime to make sure hugo loading new page content
 	time.Sleep(1000 * time.Millisecond) // 1s
-
-	http.Redirect(w, req, "http://localhost:1313/post/" + Title  + "/", http.StatusFound)
+	http.Redirect(w, req, config.GlogchainConfigGlobal.HugoBaseUrl + "/post/" + Title  + "/", http.StatusFound)
 }
 
 func render(w http.ResponseWriter, tmpl string, context Context) {
@@ -118,15 +147,15 @@ func main() {
 
 
 ////////////
-// NOTE: s is interpreted as a string unless prefixed with 0x
-func stringOrHexToBytes(s string) []byte {
-	if len(s) > 2 && s[:2] == "0x" {
-		b, err := hex.DecodeString(s[2:])
-		if err != nil {
-			fmt.Println("Error decoding hex argument:", err.Error())
-		}
-		return b
-	}
-	return []byte(s)
-}
+//// NOTE: s is interpreted as a string unless prefixed with 0x
+//func stringOrHexToBytes(s string) []byte {
+//	if len(s) > 2 && s[:2] == "0x" {
+//		b, err := hex.DecodeString(s[2:])
+//		if err != nil {
+//			fmt.Println("Error decoding hex argument:", err.Error())
+//		}
+//		return b
+//	}
+//	return []byte(s)
+//}
 

@@ -1,6 +1,9 @@
 {
-  "glogchainWebAddr": ":8000",
-  "tmspAddr": "tcp://0.0.0.0:46658",
-  "hugoPostPath": "/Users/tuanpa/Work/blockchain/tendermint/hugo/bookshelf/content/post/"
+  "glogchainWebAddr": "10.0.0.11:8000",
+  "tmspAddr": "tcp://10.0.0.11:46658",
+  "tmRpcLaddr" : "http://10.0.0.11:46657",
+  "hugoPostPath": "/Users/tuanpa/Work/blockchain/tendermint/hugo/bookshelf/content/post/",
+  "hugoBaseUrl" : "http://10.0.0.11:1313/"
+
 }
 
