@@ -6,9 +6,9 @@ import (
 
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/types"
-	"glogchain/protocol"
+	"github.com/baabeetaa/glogchain/protocol"
 	"log"
-	"glogchain/blog"
+	"github.com/baabeetaa/glogchain/blog"
 )
 
 type GlogChainApp struct {

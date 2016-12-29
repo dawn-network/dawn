@@ -3,9 +3,9 @@ package blog
 import (
 	"fmt"
 	"os"
-	"glogchain/protocol"
+	"github.com/baabeetaa/glogchain/protocol"
 	"github.com/extemporalgenome/slug"
-	"glogchain/config"
+	"github.com/baabeetaa/glogchain/config"
 )
 
 // we use hugo blog

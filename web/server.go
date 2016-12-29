@@ -7,7 +7,12 @@ import (
 	"log"
 	"net/http"
 	"time"
-	"glogchain/config"
+	"github.com/baabeetaa/glogchain/config"
+//	"github.com/baabeetaa/glogchain/protocol"
+	//"github.com/baabeetaa/glogchain/blog"
+	"github.com/tendermint/tmsp/client"
+	"encoding/hex"
+	//"github.com/tendermint/tmsp/types"
 )
 
 // simple web server
@@ -29,6 +34,42 @@ func Home(w http.ResponseWriter, req *http.Request) {
 func About(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "About"}
 	render(w, "about", context)
+}
+
+func PostCreate(w http.ResponseWriter, req *http.Request) {
+	context := Context{Title: "PostCreate"}
+	render(w, "PostCreate", context)
+}
+
+func PostCreateSave(w http.ResponseWriter, req *http.Request) {
+	//var postOperation protocol.PostOperation
+	Title := req.FormValue("Title")
+	Author := req.FormValue("Author")
+	Body := req.FormValue("Body")
+
+	var newPostString string = "{\"Type\": \"PostOperation\" , \"Operation\" : {\"Title\": \"" +  Title + "\", \"Body\": \"" + Body + "\", \"Author\": \"" + Author + "\"} }"
+	fmt.Printf("---------------------------------\n")
+	fmt.Printf("newPostString: %s\n", newPostString)
+
+	client, err := tmspcli.NewGRPCClient(config.GlogchainConfigGlobal.TmspAddr, false)
+	client.Start()
+	defer client.Stop()
+
+	if err == nil {
+		txBytes := stringOrHexToBytes(newPostString)
+		res := client.AppendTxSync(txBytes)
+
+		if ( !res.IsOK()) {
+			log.Print("PostCreateSave AppendTxSync error: ", res.Code)
+		}
+	} else {
+		log.Print("PostCreateSave error: ", err)
+	}
+
+	// delay sometime to make sure hugo loading new page content
+	time.Sleep(1000 * time.Millisecond) // 1s
+
+	http.Redirect(w, req, "http://localhost:1313/post/" + Title  + "/", http.StatusFound)
 }
 
 func render(w http.ResponseWriter, tmpl string, context Context) {
@@ -60,6 +101,8 @@ func StaticHandler(w http.ResponseWriter, req *http.Request) {
 func StartWebServer() error  {
 	http.HandleFunc("/", Home)
 	http.HandleFunc("/about/", About)
+	http.HandleFunc("/post/create", PostCreate)
+	http.HandleFunc("/post/create/save", PostCreateSave)
 	http.HandleFunc(STATIC_URL, StaticHandler)
 	err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
 	if err != nil {
@@ -71,5 +114,19 @@ func StartWebServer() error  {
 
 func main() {
 	StartWebServer()
+}
+
+
+////////////
+// NOTE: s is interpreted as a string unless prefixed with 0x
+func stringOrHexToBytes(s string) []byte {
+	if len(s) > 2 && s[:2] == "0x" {
+		b, err := hex.DecodeString(s[2:])
+		if err != nil {
+			fmt.Println("Error decoding hex argument:", err.Error())
+		}
+		return b
+	}
+	return []byte(s)
 }
 

@@ -5,8 +5,8 @@ import (
 
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/server"
-	"glogchain/web"
-	"glogchain/config"
+	"github.com/baabeetaa/glogchain/web"
+	"github.com/baabeetaa/glogchain/config"
 )
 
 func main() {

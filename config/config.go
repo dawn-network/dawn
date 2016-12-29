@@ -21,7 +21,7 @@ var GlogchainConfigGlobal = GlogCfg{}
 func ReadConfig() error  {
 	//config := GlogCfg{}
 
-	filename, _ := filepath.Abs("../config.json")
+	filename, _ := filepath.Abs("./config.json")
 	fmt.Printf("filename: %s\n", filename)
 
 	yamlFile, err := ioutil.ReadFile(filename)
