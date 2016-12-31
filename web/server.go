@@ -3,7 +3,7 @@ package web
 import (
 	"fmt"
 	"html/template"
-	"io"
+	//"io"
 	"log"
 	"net/http"
 	"time"
@@ -15,20 +15,25 @@ import (
 	//"github.com/tendermint/tmsp/types"
 	"io/ioutil"
 	//"net/url"
+	"strings"
+	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 )
 
 // simple web server
 // ref https://reinbach.com/golang-webapps-1.html
 
-const STATIC_URL string = "/static/"
-const STATIC_ROOT string = "web/static/"
+//const STATIC_URL string = "/static/"
+//const STATIC_ROOT string = "web/static/"
 
 type Context struct {
 	Title  string
 	Static string
 }
 
-func Home(w http.ResponseWriter, req *http.Request) {
+var store = sessions.NewCookieStore([]byte("something-very-secret"))
+
+func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
 	render(w, "index", context)
 }
@@ -101,8 +106,31 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, config.GlogchainConfigGlobal.HugoBaseUrl + "/post/" + Title  + "/", http.StatusFound)
 }
 
+func LoginHandler(w http.ResponseWriter, req *http.Request) {
+	// If method is GET serve an html login page
+	if req.Method != "POST" {
+		http.ServeFile(w, req, "web/templates/login.html")
+		return
+	}
+
+	// Grab the username/password from the submitted post form
+	username := req.FormValue("username")
+	password := req.FormValue("password")
+
+	// If wrong password redirect to the login
+	if !((strings.Compare(username, "admin") == 0) && (strings.Compare(password, "123456") == 0)) {
+		http.Redirect(w, req, "/login", 301)
+		return
+	}
+
+	// If the login succeeded
+	//res.Write([]byte("Hello " + databaseUsername))
+	http.Redirect(w, req, "/", http.StatusFound)
+}
+
+
 func render(w http.ResponseWriter, tmpl string, context Context) {
-	context.Static = STATIC_URL
+	context.Static = "/static/"
 	tmpl_list := []string{"web/templates/base.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
 	t, err := template.ParseFiles(tmpl_list...)
 	if err != nil {
@@ -114,36 +142,96 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 	}
 }
 
-func StaticHandler(w http.ResponseWriter, req *http.Request) {
-	static_file := req.URL.Path[len(STATIC_URL):]
-	if len(static_file) != 0 {
-		f, err := http.Dir(STATIC_ROOT).Open(static_file)
-		if err == nil {
-			content := io.ReadSeeker(f)
-			http.ServeContent(w, req, static_file, time.Now(), content)
+//func StaticHandler(w http.ResponseWriter, req *http.Request) {
+//	static_file := req.URL.Path[len(STATIC_URL):]
+//	if len(static_file) != 0 {
+//		f, err := http.Dir(STATIC_ROOT).Open(static_file)
+//		if err == nil {
+//			content := io.ReadSeeker(f)
+//			http.ServeContent(w, req, static_file, time.Now(), content)
+//			return
+//		}
+//	}
+//	http.NotFound(w, req)
+//}
+
+func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
+	// called once per wrapping
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println("MyWrapper")
+
+		// Get a session. We're ignoring the error resulted from decoding an
+		// existing session: Get() always returns a session, even if empty.
+		session, err := store.Get(r, "session-name")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+
+		// Retrieve our struct and type-assert it
+		val := session.Values["person"]
+
+		if (val == nil) {
+			LoginHandler(w, r)
+			return
+		}
+
+		//var person = &Person{}
+		//if person, ok := val.(*Person); !ok {
+		//	// Handle the case that it's not an expected type
+		//}
+		//
+		// Now we can use our person object
+
+		fn(w, r)
 	}
-	http.NotFound(w, req)
 }
 
 func StartWebServer() error  {
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/about/", About)
-	http.HandleFunc("/post/create", PostCreate)
-	http.HandleFunc("/post/create/save", PostCreateSave)
-	http.HandleFunc(STATIC_URL, StaticHandler)
-	err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
+	//http.HandleFunc("/", HomeHandler)
+	//http.HandleFunc("/login", LoginHandler)
+	//http.HandleFunc("/about/", About)
+	//http.HandleFunc("/post/create", PostCreate)
+	//http.HandleFunc("/post/create/save", PostCreateSave)
+	//http.HandleFunc(STATIC_URL, StaticHandler)
+	//err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
+	//if err != nil {
+	//	log.Fatal("ListenAndServe: ", err)
+	//}
+
+	// use https://github.com/gorilla/mux
+	r := mux.NewRouter()
+
+	// This will serve files under http://localhost:8000/static/<filename>
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
+
+	r.HandleFunc("/", HomeHandler)
+	r.HandleFunc("/login", LoginHandler)
+	//r.HandleFunc("/products", ProductsHandler)
+	//r.HandleFunc("/articles", ArticlesHandler)
+	//http.Handle("/", r)
+
+	s := r.PathPrefix("/secure").Subrouter()
+	// /secure/test
+	s.HandleFunc("/test", AuthWrapper(HomeHandler))
+
+	srv := &http.Server{
+		Handler:      r,
+		Addr:         config.GlogchainConfigGlobal.GlogchainWebAddr,
+		// Good practice: enforce timeouts for servers you create!
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
 	}
+
+	// Bind to a port and pass our router in
+	log.Fatal(srv.ListenAndServe())
 
 	return nil
 }
 
-func main() {
-	StartWebServer()
-}
+//func main() {
+//	StartWebServer()
+//}
 
 
 ////////////

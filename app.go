@@ -55,7 +55,7 @@ func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
 func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 	dst := make([]byte, len(tx) * 2)
 	hex.Encode(dst, tx)
-	fmt.Println("CheckTx: %s\n", dst)
+	fmt.Println("CheckTx: ", dst)
 
 	return types.OK
 }
