@@ -1,30 +1,20 @@
 package web
 
+// base on simple web server - ref https://reinbach.com/golang-webapps-1.html
+
 import (
 	"fmt"
 	"html/template"
-	//"io"
 	"log"
 	"net/http"
 	"time"
 	"github.com/baabeetaa/glogchain/config"
-//	"github.com/baabeetaa/glogchain/protocol"
-	//"github.com/baabeetaa/glogchain/blog"
-	//"github.com/tendermint/tmsp/client"
 	"encoding/hex"
-	//"github.com/tendermint/tmsp/types"
 	"io/ioutil"
-	//"net/url"
-	"strings"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"encoding/gob"
 )
-
-// simple web server
-// ref https://reinbach.com/golang-webapps-1.html
-
-//const STATIC_URL string = "/static/"
-//const STATIC_ROOT string = "web/static/"
 
 type Context struct {
 	Title  string
@@ -106,29 +96,6 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, config.GlogchainConfigGlobal.HugoBaseUrl + "/post/" + Title  + "/", http.StatusFound)
 }
 
-func LoginHandler(w http.ResponseWriter, req *http.Request) {
-	// If method is GET serve an html login page
-	if req.Method != "POST" {
-		http.ServeFile(w, req, "web/templates/login.html")
-		return
-	}
-
-	// Grab the username/password from the submitted post form
-	username := req.FormValue("username")
-	password := req.FormValue("password")
-
-	// If wrong password redirect to the login
-	if !((strings.Compare(username, "admin") == 0) && (strings.Compare(password, "123456") == 0)) {
-		http.Redirect(w, req, "/login", 301)
-		return
-	}
-
-	// If the login succeeded
-	//res.Write([]byte("Hello " + databaseUsername))
-	http.Redirect(w, req, "/", http.StatusFound)
-}
-
-
 func render(w http.ResponseWriter, tmpl string, context Context) {
 	context.Static = "/static/"
 	tmpl_list := []string{"web/templates/base.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
@@ -155,44 +122,10 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 //	http.NotFound(w, req)
 //}
 
-func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
-	// called once per wrapping
-	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println("MyWrapper")
-
-		// Get a session. We're ignoring the error resulted from decoding an
-		// existing session: Get() always returns a session, even if empty.
-		session, err := store.Get(r, "session-name")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		// Retrieve our struct and type-assert it
-		val := session.Values["person"]
-
-		if (val == nil) {
-			LoginHandler(w, r)
-			return
-		}
-
-		//var person = &Person{}
-		//if person, ok := val.(*Person); !ok {
-		//	// Handle the case that it's not an expected type
-		//}
-		//
-		// Now we can use our person object
-
-		fn(w, r)
-	}
-}
 
 func StartWebServer() error  {
-	//http.HandleFunc("/", HomeHandler)
-	//http.HandleFunc("/login", LoginHandler)
-	//http.HandleFunc("/about/", About)
-	//http.HandleFunc("/post/create", PostCreate)
-	//http.HandleFunc("/post/create/save", PostCreateSave)
+	gob.Register(&User{})
+
 	//http.HandleFunc(STATIC_URL, StaticHandler)
 	//err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
 	//if err != nil {
@@ -205,15 +138,18 @@ func StartWebServer() error  {
 	// This will serve files under http://localhost:8000/static/<filename>
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
-	r.HandleFunc("/", HomeHandler)
-	r.HandleFunc("/login", LoginHandler)
-	//r.HandleFunc("/products", ProductsHandler)
-	//r.HandleFunc("/articles", ArticlesHandler)
-	//http.Handle("/", r)
+	r.HandleFunc("/", AuthWrapper(HomeHandler))
 
-	s := r.PathPrefix("/secure").Subrouter()
-	// /secure/test
-	s.HandleFunc("/test", AuthWrapper(HomeHandler))
+	r.HandleFunc("/login", LoginHandler)
+	r.HandleFunc("/logout", LogoutHandler)
+
+	r.HandleFunc("/about/", AuthWrapper(About))
+	r.HandleFunc("/post/create", AuthWrapper(PostCreate))
+
+	// Subrouter
+	//s := r.PathPrefix("/secure").Subrouter()
+	//// /secure/test
+	//s.HandleFunc("/test", AuthWrapper(HomeHandler))
 
 	srv := &http.Server{
 		Handler:      r,
@@ -228,6 +164,10 @@ func StartWebServer() error  {
 
 	return nil
 }
+
+//func init() {
+//	gob.Register(&User{})
+//}
 
 //func main() {
 //	StartWebServer()
