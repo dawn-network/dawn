@@ -1,0 +1,874 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2015-07-22 16:40-0500\n"
+"PO-Revision-Date: 2015-07-22 21:57-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: 404.php:22
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+"<span>¡Uups!</span> La página que buscas <span>no se puede</span> encontrar."
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Try the search below."
+msgstr ""
+"Parece que no se encontró nada en este lugar. Tal vez quiera una nueva "
+"búsqueda?"
+
+#: archive.php:36
+#, php-format
+msgid "Author: %s"
+msgstr "Autor: %s"
+
+#: archive.php:44
+#, php-format
+msgid "Day: %s"
+msgstr "Día: %s"
+
+#: archive.php:47
+#, php-format
+msgid "Month: %s"
+msgstr "Mes: %s"
+
+#: archive.php:50
+#, php-format
+msgid "Year: %s"
+msgstr "Año: %s"
+
+#: archive.php:53
+msgid "Asides"
+msgstr "Apartado"
+
+#: archive.php:56
+msgid "Images"
+msgstr "Imagenes"
+
+#: archive.php:59
+msgid "Videos"
+msgstr "Videos"
+
+#: archive.php:62
+msgid "Quotes"
+msgstr "Citas"
+
+#: archive.php:65
+msgid "Links"
+msgstr "Enlaces"
+
+#: archive.php:68
+msgid "Archives"
+msgstr "Archivos"
+
+#: comments.php:31
+#, php-format
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "﻿Deja un comentario en: &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s thoughts on &ldquo;%2$s&rdquo;"
+
+#: comments.php:38 comments.php:55
+msgid "Comment navigation"
+msgstr "Navegación de comentarios"
+
+#: comments.php:39 comments.php:56
+msgid "&larr; Older Comments"
+msgstr "Comentarios anteriores"
+
+#: comments.php:40 comments.php:57
+msgid "Newer Comments &rarr;"
+msgstr "Comentarios recientes &rarr;"
+
+#: comments.php:67
+msgid "Comments are closed."
+msgstr "Los comentarios están cerrados."
+
+#: content-page.php:24 content-single.php:48
+msgid "Pages:"
+msgstr "Páginas:"
+
+#: content.php:38
+msgid "Read more"
+msgstr "Leer más"
+
+#: functions.php:44
+msgid "Primary Menu"
+msgstr "Menú Principal"
+
+#: inc/admin/meta-boxes.php:16 inc/admin/meta-boxes.php:18
+msgid "Select Layout"
+msgstr "Seleccione Diseño"
+
+#: inc/admin/meta-boxes.php:28
+msgid "Default Layout"
+msgstr "Diseño predeterminado"
+
+#: inc/admin/meta-boxes.php:33 inc/widgets/widgets.php:21
+msgid "Right Sidebar"
+msgstr "Barra lateral derecha"
+
+#: inc/admin/meta-boxes.php:38 inc/widgets/widgets.php:32
+msgid "Left Sidebar"
+msgstr "Barra Lateral Izquierda"
+
+#: inc/admin/meta-boxes.php:43
+msgid "No Sidebar Full Width"
+msgstr "Sin Barras laterales Ancho completo"
+
+#: inc/admin/meta-boxes.php:48
+msgid "No Sidebar Content Centered"
+msgstr "Sin Barras Laterales Contenido Centrado"
+
+#: inc/customizer.php:22
+msgid "Documentation"
+msgstr "Documentación"
+
+#: inc/customizer.php:26
+msgid "Support"
+msgstr "Soporte"
+
+#: inc/customizer.php:30
+msgid "View Demo"
+msgstr "Ver Demo"
+
+#: inc/customizer.php:34
+msgid "Rate This Theme"
+msgstr "Califica este tema"
+
+#: inc/customizer.php:46
+msgid "ColorMag Theme Important Links"
+msgstr "Enlaces importantes del tema Colormag "
+
+#: inc/customizer.php:58
+msgid "Important Links"
+msgstr "Enlaces Importantes"
+
+#: inc/customizer.php:67
+msgid "Change the Header Settings from here as you want"
+msgstr "Cambiar la configuración de encabezado "
+
+#: inc/customizer.php:69
+msgid "Header Options"
+msgstr "Opciones de cabecera"
+
+#: inc/customizer.php:74
+msgid "Breaking News"
+msgstr "Noticias de última hora"
+
+#: inc/customizer.php:87
+msgid "Check to enable the breaking news section"
+msgstr "Activar la sección noticias de última hora"
+
+#: inc/customizer.php:94
+msgid "Show Date"
+msgstr "Mostrar Fecha"
+
+#: inc/customizer.php:107
+msgid "Check to show the date in header"
+msgstr "Mostrar la fecha en la cabecera"
+
+#: inc/customizer.php:114
+msgid "Show Home Icon"
+msgstr "Mostrar icono de home"
+
+#: inc/customizer.php:127
+msgid "Check to show the home icon in the primary menu"
+msgstr "Mostrar el icono de home en el menú principal"
+
+#: inc/customizer.php:134
+msgid "Sticky Menu"
+msgstr "Menú fijo"
+
+#: inc/customizer.php:147
+msgid "Check to enable the sticky behavior of the primary menu"
+msgstr "Habilitar el comportamiento fijo del menú principal"
+
+#: inc/customizer.php:154
+msgid "Search Icon"
+msgstr "Icono de Busqueda"
+
+#: inc/customizer.php:167
+msgid "Check to display the Search Icon in the primary menu"
+msgstr "Mostrar el icono de búsqueda en el menú principal"
+
+#: inc/customizer.php:174
+msgid "Random Post"
+msgstr "Publicaciones al azar"
+
+#: inc/customizer.php:187
+msgid "Check to display the Random Post Icon in the primary menu"
+msgstr "Mostrar el icono de Publicaciones aleatorias en el menú principal"
+
+#: inc/customizer.php:195
+msgid "Header Logo"
+msgstr "Logo de la Cabecera"
+
+#: inc/customizer.php:206
+msgid "Upload logo for your header"
+msgstr "Subir el logo de la cabecera"
+
+#: inc/customizer.php:219
+msgid "Choose the option that you want"
+msgstr "Elija la opción que desee"
+
+#: inc/customizer.php:222 inc/customizer.php:760
+msgid "Header Logo Only"
+msgstr "Solo el logo del encabezado"
+
+#: inc/customizer.php:223 inc/customizer.php:761
+msgid "Header Text Only"
+msgstr "Solo el texto del encabezado"
+
+#: inc/customizer.php:224 inc/customizer.php:762
+msgid "Show Both"
+msgstr "Mostrar ambos"
+
+#: inc/customizer.php:225 inc/customizer.php:763
+msgid "Disable"
+msgstr "Inhabilitar"
+
+#: inc/customizer.php:232
+msgid "Header Image Position"
+msgstr "Posición de la imagen de cabecera"
+
+#: inc/customizer.php:244
+msgid "Header image display position"
+msgstr "Muestra la posición en la imagen de cabecera"
+
+#: inc/customizer.php:247 inc/customizer.php:774
+msgid "Display the Header image just above the site title/text."
+msgstr ""
+"Visualización de la imagen de cabecera justo por encima del título del "
+"sitio / texto."
+
+#: inc/customizer.php:248 inc/customizer.php:775
+msgid ""
+"Default: Display the Header image between site title/text and the main/"
+"primary menu."
+msgstr ""
+"Por defecto: Visualice la imagen de cabecera entre el título del sitio/texto "
+"y el menú/menú principal"
+
+#: inc/customizer.php:249 inc/customizer.php:776
+msgid "Display the Header image below main/primary menu."
+msgstr "Visualice la imagen de cabecera abajo del menú/menú principal "
+
+#: inc/customizer.php:261
+msgid "Check to make header image link back to home page"
+msgstr "Comprobar el enlace de la imagen de encabezado a la página de home "
+
+#: inc/customizer.php:268
+msgid "Change the Design Settings from here as you want"
+msgstr "Cambiar la configuración del diseño "
+
+#: inc/customizer.php:270
+msgid "Design Options"
+msgstr "Opciones de Diseño"
+
+#: inc/customizer.php:276
+msgid "Front Page Settings"
+msgstr "Configuración de la Pagina de Portada"
+
+#: inc/customizer.php:287
+msgid "Check to hide blog posts/static page on front page"
+msgstr "Activar ocultar publicaciones del blog / página estática en portada"
+
+#: inc/customizer.php:294
+msgid "Site Layout"
+msgstr "Diseño del sitio"
+
+#: inc/customizer.php:306
+msgid "Choose your site layout. The change is reflected in whole site"
+msgstr "Elija su diseño del sitio. El cambio se refleja en todo el sitio"
+
+#: inc/customizer.php:308 inc/customizer.php:787
+msgid "Boxed Layout"
+msgstr "Caja de Diseño"
+
+#: inc/customizer.php:309 inc/customizer.php:788
+msgid "Wide Layout"
+msgstr "Diseño amplio"
+
+#: inc/customizer.php:379
+msgid "Default layout"
+msgstr "Diseño por defecto"
+
+#: inc/customizer.php:391
+msgid ""
+"Select default layout. This layout will be reflected in whole site archives, "
+"categories, search page etc. The layout for a single post and page can be "
+"controlled from below options"
+msgstr ""
+"Seleccionar diseño predeterminado . Este diseño se verá reflejado en todo el "
+"sitio, archivos, categorías,  página de búsqueda , etc. El diseño para una "
+"sola publicación y  página se puede controlar en las opciones de abajo"
+
+#: inc/customizer.php:405
+msgid "Default layout for pages only"
+msgstr "Diseño por defecto para solo páginas "
+
+#: inc/customizer.php:417
+msgid ""
+"Select default layout for pages. This layout will be reflected in all pages "
+"unless unique layout is set for specific page"
+msgstr ""
+"Selecciona el diseño por defecto para paginas. Este diseño se vera reflejado "
+"en todas las paginas a no ser que el diseño se establezca para una página en "
+"especifico."
+
+#: inc/customizer.php:431
+msgid "Default layout for single posts only"
+msgstr "Diseño por defecto para una sola publicación"
+
+#: inc/customizer.php:443
+msgid ""
+"Select default layout for single posts. This layout will be reflected in all "
+"single posts unless unique layout is set for specific post"
+msgstr ""
+"Selecciona el diseño por defecto para una sola publicación. Este diseño se "
+"vera reflejado en todas las publicaciones individuales a menos que se "
+"establezca un diseño unico para alguna publicación en especifico"
+
+#: inc/customizer.php:458
+msgid "Primary color option"
+msgstr "Opción de color principal"
+
+#: inc/customizer.php:469
+msgid ""
+"This will reflect in links, buttons and many others. Choose a color to match "
+"your site"
+msgstr ""
+"Esto se reflejará en los enlaces , botones y muchos otros. Elija un color "
+"que coincida con su sitio"
+
+#: inc/customizer.php:492
+msgid "Custom CSS"
+msgstr "Personalizar Css"
+
+#: inc/customizer.php:504
+msgid "Write your custom css"
+msgstr "Escriba su css personalizado"
+
+#: inc/customizer.php:513
+msgid "Social Options"
+msgstr "Opciones de Redes Sociales"
+
+#: inc/customizer.php:514
+msgid "Change the Social Links Settings from here as you want"
+msgstr "Cambiar la configuración de los links de las redes sociales "
+
+#: inc/customizer.php:520
+msgid "Activate social links area"
+msgstr "Activar zona de redes sociales"
+
+#: inc/customizer.php:532
+msgid "Check to activate social links area"
+msgstr "Activar zona de redes sociales"
+
+#: inc/customizer.php:540 inc/header-functions.php:20
+msgid "Facebook"
+msgstr "Facebook"
+
+#: inc/customizer.php:545 inc/header-functions.php:21
+msgid "Twitter"
+msgstr "Twitter"
+
+#: inc/customizer.php:550 inc/header-functions.php:22
+msgid "Google-Plus"
+msgstr "Google-Plus"
+
+#: inc/customizer.php:555 inc/header-functions.php:23
+msgid "Instagram"
+msgstr "Instagram"
+
+#: inc/customizer.php:560 inc/header-functions.php:24
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: inc/customizer.php:565 inc/header-functions.php:25
+msgid "YouTube"
+msgstr "YouTube"
+
+#: inc/customizer.php:595
+msgid "Check to show in new tab"
+msgstr "Mostrar en una nueva pestaña"
+
+#: inc/customizer.php:609
+msgid "Change the Additional Settings from here as you want"
+msgstr "Cambiar la configuración"
+
+#: inc/customizer.php:611
+msgid "Additional Options"
+msgstr "Opciones Adicionales"
+
+#: inc/customizer.php:617
+msgid "Activate favicon"
+msgstr "Activar favicon"
+
+#: inc/customizer.php:629
+msgid "Check to activate favicon. Upload favicon from below option"
+msgstr "Activar favicon. Subir favicon desde la opción de abajo"
+
+#: inc/customizer.php:641
+msgid "Upload favicon for your site"
+msgstr "Subir favicon para su sitio"
+
+#: inc/customizer.php:649
+msgid "Related Posts"
+msgstr "Publicaciones Relacionadas"
+
+#: inc/customizer.php:661
+msgid "Check to activate the related posts"
+msgstr "Activar las publicaciones Relacionadas"
+
+#: inc/customizer.php:674
+msgid "Related Posts Must Be Shown As:"
+msgstr "Las publicaciones relacionadas se mostrarán como:"
+
+#: inc/customizer.php:678 inc/customizer.php:748
+msgid "Related Posts By Categories"
+msgstr "Publicaciones Relacionadas por categorías"
+
+#: inc/customizer.php:679 inc/customizer.php:749
+msgid "Related Posts By Tags"
+msgstr "Publicaciones Relacionadas por Etiquetas"
+
+#: inc/customizer.php:686
+msgid "Image Lightbox"
+msgstr "Imagen Lightbox"
+
+#: inc/customizer.php:698
+msgid "Check to enable the lightbox for the featured images in single post"
+msgstr ""
+"Habilitar el  lightbox  para las imagenes destacadas en las publicaciones"
+
+#: inc/customizer.php:707
+msgid "Category Color Options"
+msgstr "Opciones de colores en las Categorias"
+
+#: inc/customizer.php:709
+msgid "Change the color of each category items as you want."
+msgstr "Cambiar el color de cada categoría de los artículos"
+
+#: inc/customizer.php:714
+msgid "Category Color Settings"
+msgstr "Configuración de color de las categorias"
+
+#: inc/customizer.php:736
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: inc/functions.php:247 inc/related-posts.php:33 inc/widgets/widgets.php:313
+#: inc/widgets/widgets.php:439 inc/widgets/widgets.php:589
+#: inc/widgets/widgets.php:746
+#, php-format
+msgid ""
+"<span class=\"posted-on\"><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark"
+"\"><i class=\"fa fa-calendar-o\"></i> %3$s</a></span>"
+msgstr ""
+"<span class=\"posted-on\"><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark"
+"\"><i class=\"fa fa-calendar-o\"></i> %3$s</a></span>"
+
+#: inc/functions.php:257
+msgid "<i class=\"fa fa-comment\"></i> 0 Comment"
+msgstr "<i class=\"fa fa-comment\"></i> 0 Comentarios"
+
+#: inc/functions.php:257
+msgid "<i class=\"fa fa-comment\"></i> 1 Comment"
+msgstr "<i class=\"fa fa-comment\"></i> 1 Comentario"
+
+#: inc/functions.php:257
+msgid "<i class=\"fa fa-comments\"></i> % Comments"
+msgstr "<i class=\"fa fa-comments\"></i> % Comentarios"
+
+#: inc/functions.php:259
+msgid ", "
+msgstr ", "
+
+#: inc/functions.php:262
+msgid "Edit"
+msgstr "Editar"
+
+#: inc/functions.php:356
+msgid "Post navigation"
+msgstr "Navegación de Publicaciones"
+
+#: inc/functions.php:360 navigation.php:44
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr "&larr; Anterior"
+
+#: inc/functions.php:361 navigation.php:45
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr "Siguiente &rarr;"
+
+#: inc/functions.php:366
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr "<span class=\"meta-nav\">&larr;</span>Publicaciones más antigüas"
+
+#: inc/functions.php:370
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Publicaciones más recientes <span class=\"meta-nav\">&rarr;</span>"
+
+#: inc/functions.php:396
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: inc/functions.php:396
+msgid "(Edit)"
+msgstr "(Editar)"
+
+#: inc/functions.php:411
+msgid "Post author"
+msgstr "Autor"
+
+#: inc/functions.php:414
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s en %2$s"
+
+#: inc/functions.php:422
+msgid "Your comment is awaiting moderation."
+msgstr "Su comentario está a la espera de ser aprobado."
+
+#: inc/functions.php:427
+msgid "Reply"
+msgstr "Responder"
+
+#: inc/functions.php:447
+msgid "WordPress"
+msgstr "WordPress"
+
+#: inc/functions.php:449
+msgid "ThemeGrill"
+msgstr "ThemeGrill"
+
+#: inc/functions.php:451
+#, php-format
+msgid "Copyright &copy; %1$s %2$s. All rights reserved."
+msgstr "Copyright &copy; %1$s %2$s. Todos los derechos reservados."
+
+#: inc/functions.php:451
+#, php-format
+msgid "Theme: %1$s by %2$s."
+msgstr "Tema: %1$s by %2$s."
+
+#: inc/functions.php:451
+#, php-format
+msgid "Powered by %s."
+msgstr "Desarrollado con %s."
+
+#: inc/functions.php:491
+msgid "Latest:"
+msgstr "Noticias:"
+
+#: inc/functions.php:536
+msgid "View a random post"
+msgstr "Ver un articulo al azar"
+
+#: inc/related-posts.php:5
+msgid "You May Also Like"
+msgstr "También te puede gustar..."
+
+#: inc/widgets/widgets.php:23
+msgid "Shows widgets at Right side."
+msgstr "Muestra los widgets al lado derecho "
+
+#: inc/widgets/widgets.php:34
+msgid "Shows widgets at Left side."
+msgstr "Muestra los widgets al lado izquierdo"
+
+#: inc/widgets/widgets.php:43
+msgid "Header Sidebar"
+msgstr "Barra de Encabezado"
+
+#: inc/widgets/widgets.php:45
+msgid "Shows widgets in header section just above the main navigation menu."
+msgstr ""
+"Muestra widgets en la sección de cabecera justo por encima del menú "
+"principal de navegación."
+
+#: inc/widgets/widgets.php:54
+msgid "Front Page: Slider Area"
+msgstr "Página Frontal: Area de Slider"
+
+#: inc/widgets/widgets.php:56
+msgid "Show widget just below menu. Suitable for TG: Featured Cat Slider."
+msgstr ""
+"Mostrar widget de justo debajo del menú. Adecuado para TG: Slider de "
+"publicaciones destacadas "
+
+#: inc/widgets/widgets.php:65
+msgid "Front Page: Area beside slider"
+msgstr "Página Frontal: Area al lado del Slider"
+
+#: inc/widgets/widgets.php:67
+msgid "Show widget beside the slider. Suitable for TG: Highlighted Posts."
+msgstr ""
+"Mostrar widget al lado del slider . Adecuado para TG : Highlighted "
+"Publicaciones destacadas"
+
+#: inc/widgets/widgets.php:76
+msgid "Front Page: Content Top Section"
+msgstr "Página Frontal:  Contenido Sección superior"
+
+#: inc/widgets/widgets.php:78
+msgid "Content Top Section"
+msgstr "Contenido Sección superior"
+
+#: inc/widgets/widgets.php:87
+msgid "Front Page: Content Middle Left Section"
+msgstr "Página Frontal: Contenido Medio Sección izquierda"
+
+#: inc/widgets/widgets.php:89
+msgid "Content Middle Left Section"
+msgstr "Contenido Medio sección izquierda"
+
+#: inc/widgets/widgets.php:98
+msgid "Front Page: Content Middle Right Section"
+msgstr "Página Frontal: Contenido Medio sección derecha"
+
+#: inc/widgets/widgets.php:100
+msgid "Content Middle Right Section"
+msgstr "Contenido Medio sección derecha"
+
+#: inc/widgets/widgets.php:109
+msgid "Front Page: Content Bottom Section"
+msgstr "Pagina Frontal:  Contenido Sección Inferior"
+
+#: inc/widgets/widgets.php:111
+msgid "Content Middle Bottom Section"
+msgstr "Contenido Medio en sección inferior"
+
+#: inc/widgets/widgets.php:120
+msgid "Contact Page Sidebar"
+msgstr "Sidebar Página de contacto"
+
+#: inc/widgets/widgets.php:122
+msgid "Shows widgets on Contact Page Template."
+msgstr "Muestra widgets en la Plantilla de Pagina de Contacto"
+
+#: inc/widgets/widgets.php:131
+msgid "Error 404 Page Sidebar"
+msgstr "Sidebar Pagina Error 404 "
+
+#: inc/widgets/widgets.php:133
+msgid "Shows widgets on Error 404 page."
+msgstr "Muestra widgets en la pagina de Error 404"
+
+#: inc/widgets/widgets.php:142
+msgid "Advertisement Above The Footer"
+msgstr "Anuncio arriba del pie de pagina"
+
+#: inc/widgets/widgets.php:144
+msgid "Shows widgets Just Above The Footer, suitable for TG: 728x90 widget."
+msgstr ""
+"Muestra los widgets justo por encima del pie de página, apto para TG : "
+"widget de 728x90 "
+
+#: inc/widgets/widgets.php:153
+msgid "Footer Sidebar One"
+msgstr "Pie de página sidebar uno"
+
+#: inc/widgets/widgets.php:155
+msgid "Shows widgets at footer sidebar one."
+msgstr "Muestra los widgets en el pie de página barra lateral uno"
+
+#: inc/widgets/widgets.php:164
+msgid "Footer Sidebar Two"
+msgstr "Pie de página sidebar dos"
+
+#: inc/widgets/widgets.php:166
+msgid "Shows widgets at footer sidebar two."
+msgstr "Muestra los widgets en el pie de página barra lateral dos"
+
+#: inc/widgets/widgets.php:175
+msgid "Footer Sidebar Three"
+msgstr "Pie de página sidebar tres"
+
+#: inc/widgets/widgets.php:177
+msgid "Shows widgets at footer sidebar three."
+msgstr "Muestra los widgets en el pie de página barra lateral tres"
+
+#: inc/widgets/widgets.php:186
+msgid "Footer Sidebar Four"
+msgstr "Pie de página sidebar cuatro"
+
+#: inc/widgets/widgets.php:188
+msgid "Shows widgets at footer sidebar four."
+msgstr "Muestra los widgets en el pie de página barra lateral cuatro"
+
+#: inc/widgets/widgets.php:212 inc/widgets/widgets.php:342
+#: inc/widgets/widgets.php:468 inc/widgets/widgets.php:625
+msgid "Display latest posts or posts of specific category"
+msgstr ""
+"Mostrar ultimas publicaciones o publicaciones de una categoría en especifica"
+
+#: inc/widgets/widgets.php:214
+msgid "TG: Featured Cat Slider"
+msgstr "TG: Slider de publicaciones destacadas"
+
+#: inc/widgets/widgets.php:227 inc/widgets/widgets.php:357
+#: inc/widgets/widgets.php:494 inc/widgets/widgets.php:651
+msgid "Number of posts to display:"
+msgstr "Número de publicaciones a mostrar:"
+
+#: inc/widgets/widgets.php:231 inc/widgets/widgets.php:361
+#: inc/widgets/widgets.php:498 inc/widgets/widgets.php:655
+msgid "Show latest Posts"
+msgstr "Mostrar últimas Publicaciones"
+
+#: inc/widgets/widgets.php:232 inc/widgets/widgets.php:362
+#: inc/widgets/widgets.php:499 inc/widgets/widgets.php:656
+msgid "Show posts from a category"
+msgstr "Mostrar publicaciones de una categoría"
+
+#: inc/widgets/widgets.php:235 inc/widgets/widgets.php:365
+#: inc/widgets/widgets.php:502 inc/widgets/widgets.php:659
+msgid "Select category"
+msgstr "Selecciona Categoria"
+
+#: inc/widgets/widgets.php:344
+msgid "TG: Highligted Posts"
+msgstr "TG: Highligted Publicaciones Destacadas"
+
+#: inc/widgets/widgets.php:470
+msgid "TG: Featured Posts"
+msgstr "TG: Publicaciones destacadas"
+
+#: inc/widgets/widgets.php:488 inc/widgets/widgets.php:645
+#: inc/widgets/widgets.php:802 inc/widgets/widgets.php:903
+#: inc/widgets/widgets.php:1005
+msgid "Title:"
+msgstr "Título:"
+
+#: inc/widgets/widgets.php:491 inc/widgets/widgets.php:648
+msgid "Description"
+msgstr "Descripción"
+
+#: inc/widgets/widgets.php:627
+msgid "TG: Featured Posts Vertical"
+msgstr "TG: Publicaciones destacadas en Vertical"
+
+#: inc/widgets/widgets.php:784
+msgid "Add your 300x250 Advertisement here"
+msgstr "Añadir tu Anuncio/Publicidad de 300x250 Aquí"
+
+#: inc/widgets/widgets.php:786
+msgid "TG: 300x250 Advertisement"
+msgstr "TG: 300x250 Anuncio/Publicidad"
+
+#: inc/widgets/widgets.php:805
+msgid "Add your Advertisement 300x250 Images Here"
+msgstr "Añadir tu imagen de Anuncio/Publicidad de 300x250 Aquí "
+
+#: inc/widgets/widgets.php:807 inc/widgets/widgets.php:908
+#: inc/widgets/widgets.php:1015
+msgid "Advertisement Image Link "
+msgstr "Enlace de la Imagen del Anuncio/Publicidad"
+
+#: inc/widgets/widgets.php:811 inc/widgets/widgets.php:912
+#: inc/widgets/widgets.php:1019
+msgid "Advertisement Image "
+msgstr "Imagen de Publicidad/Anuncio"
+
+#: inc/widgets/widgets.php:821 inc/widgets/widgets.php:922
+#: inc/widgets/widgets.php:1029
+msgid "Upload Image"
+msgstr "Subir Imagen"
+
+#: inc/widgets/widgets.php:885
+msgid "Add your 728x90 Advertisement here"
+msgstr "Añadir tu Anuncio/Publicidad de 728x90 Aquí"
+
+#: inc/widgets/widgets.php:887
+msgid "TG: 728x90 Advertisement"
+msgstr "TG: 728x90 Anuncio/Publicidad"
+
+#: inc/widgets/widgets.php:906
+msgid "Add your Advertisement 728x90 Images Here"
+msgstr "Añadir tus Imágenes de Anuncio/Publicidad 728x90 Aquí"
+
+#: inc/widgets/widgets.php:987
+msgid "Add your 125x125 Advertisement here"
+msgstr "Añadir tu Anuncio/Publicidad de  125x125 aqui"
+
+#: inc/widgets/widgets.php:989
+msgid "TG: 125x125 Advertisement"
+msgstr "TG: 125x125 Anuncio/Publicidad"
+
+#: inc/widgets/widgets.php:1008
+msgid "Add your Advertisement 125x125 Images Here"
+msgstr "Añadir tus imagenes de Anuncio/Publicidad de 125x125 Aquí"
+
+#: navigation.php:24 navigation.php:36
+msgid "&larr; Previous"
+msgstr "&larr; Anterior"
+
+#: navigation.php:25 navigation.php:37
+msgid "Next &rarr;"
+msgstr "Siguiente &rarr;"
+
+#: no-results.php:18
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"Listo para publicar tu primera entrada? <a href=\"%1$s\">Empezar aquí</a>."
+
+#: no-results.php:22
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"Lo sentimos, pero no hay publicaciones relacionados a tu búsqueda. Por "
+"favor, intenta nuevamente con otras palabras clave."
+
+#: no-results.php:27
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr "No podemos encontrar lo que busca. Tal vez una búsqueda puede ayudar"
+
+#: searchform.php:12
+msgid "Search"
+msgstr "Buscar"
+
+#: sidebar-left.php:24 sidebar.php:24
+msgid "Contact Page"
+msgstr "Página de contacto"
+
+#: sidebar-left.php:26
+msgid "Left"
+msgstr "Izquierda"
+
+#: sidebar-left.php:30 sidebar.php:30
+msgid "Example Widget"
+msgstr "Ejemplo de un Widget"
+
+#: sidebar-left.php:31 sidebar.php:31
+#, php-format
+msgid ""
+"This is an example widget to show how the %s Sidebar looks by default. You "
+"can add custom widgets from the %swidgets screen%s in the admin. If custom "
+"widgets is added than this will be replaced by those widgets."
+msgstr ""
+"Este es un ejemplo de un widget  para mostrar cómo el %  se ve la barra "
+"lateral de forma predeterminada. Puede agregar widgets personalizados del "
+"% swidgets pantalla completa % s en administración . Si los widgets "
+"personalizados son añadidos serán reemplazados por los widgets."
+
+#: sidebar.php:26
+msgid "Right"
+msgstr "Derecha"

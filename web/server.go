@@ -29,6 +29,10 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	render(w, "index", context)
 }
 
+func HomePageHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "web/templates/home.html")
+}
+
 func AboutHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "About"}
 	render(w, "about", context)
@@ -102,6 +106,8 @@ func StartWebServer() error  {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
 	r.HandleFunc("/", AuthWrapper(HomeHandler))
+	r.HandleFunc("/home", HomePageHandler)
+
 
 	r.HandleFunc("/login", LoginHandler)
 	r.HandleFunc("/logout", LogoutHandler)

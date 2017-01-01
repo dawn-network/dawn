@@ -1,0 +1,1198 @@
+# Copyright (C) 2016 ThemeGrill
+# This file is distributed under the GNU General Public License, version 3 (GPLv3).
+msgid ""
+msgstr ""
+"Project-Id-Version: ColorMag 1.1.6\n"
+"Report-Msgid-Bugs-To: themegrill@gmail.com\n"
+"POT-Creation-Date: 2016-12-08 08:55:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+
+#: inc/admin/class-colormag-admin.php:361
+#: inc/admin/class-colormag-admin.php:396
+msgid "1"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:397
+msgid "2"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:401
+msgid "4"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:386
+msgid "6"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:381
+#: inc/admin/class-colormag-admin.php:402
+msgid "7"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:382
+msgid "16"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:362
+msgid "22"
+msgstr ""
+
+#: 404.php:22
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Try the search below."
+msgstr ""
+
+#: archive.php:36
+msgid "Author: %s"
+msgstr ""
+
+#: archive.php:44
+msgid "Day: %s"
+msgstr ""
+
+#: archive.php:47
+msgid "Month: %s"
+msgstr ""
+
+#: archive.php:50
+msgid "Year: %s"
+msgstr ""
+
+#: archive.php:53
+msgid "Asides"
+msgstr ""
+
+#: archive.php:56
+msgid "Images"
+msgstr ""
+
+#: archive.php:59
+msgid "Videos"
+msgstr ""
+
+#: archive.php:62
+msgid "Quotes"
+msgstr ""
+
+#: archive.php:65
+msgid "Links"
+msgstr ""
+
+#: archive.php:71
+msgid "Archives"
+msgstr ""
+
+#: comments.php:38 comments.php:55
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:39 comments.php:56
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:40 comments.php:57
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:67
+msgid "Comments are closed."
+msgstr ""
+
+#: content-page.php:30 content-single.php:48
+msgid "Pages:"
+msgstr ""
+
+#: content.php:38
+msgid "Read more"
+msgstr ""
+
+#: functions.php:63
+msgid "Primary Menu"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:36 inc/admin/class-colormag-admin.php:115
+msgid "About"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:74
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:78
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:92
+msgid "Dismiss"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:93
+msgid ""
+"Welcome! Thank you for choosing colormag! To fully take advantage of the "
+"best our theme can offer please make sure you visit our %swelcome page%s."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:95
+msgid "Get started with ColorMag"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:130 inc/customizer.php:26
+msgid "Theme Info"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:132 inc/customizer.php:38
+msgid "View Demo"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:134
+#: inc/admin/class-colormag-admin.php:204
+msgid "View PRO version"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:136 inc/customizer.php:42
+msgid "Rate this theme"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:144
+msgid "Supported Plugins"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:147
+msgid "Free Vs Pro"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:150
+msgid "Changelog"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:184
+msgid "Theme Customizer"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:185
+msgid "All Theme Options are available via Customize screen."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:186
+msgid "Customize"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:190
+#: inc/admin/class-colormag-admin.php:192 inc/customizer.php:34
+msgid "Documentation"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:191
+msgid "Please view our documentation page to setup the theme."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:196
+msgid "Got theme support question?"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:197
+msgid "Please put it in our dedicated support forum."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:198
+#: inc/admin/class-colormag-admin.php:355 inc/customizer.php:30
+msgid "Support"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:202
+msgid "Need more features?"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:203
+#: inc/admin/class-colormag-admin.php:343
+msgid "Upgrade to PRO version for more exciting features."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:208
+msgid "Got sales related question?"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:209
+msgid "Please send it via our sales contact page."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:210 sidebar-left.php:24 sidebar.php:24
+msgid "Contact Page"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:216
+#: inc/admin/class-colormag-admin.php:224
+msgid "Translate"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:220
+msgid "Click below to translate this theme into your own language."
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:236
+msgid "Return to Updates"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:236
+msgid "Return to Dashboard &rarr; Updates"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:239
+msgid "Go to Dashboard &rarr; Home"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:239
+msgid "Go to Dashboard"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:256
+msgid "View changelog below:"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:309
+msgid "This theme recommends following plugins:"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:311
+#: inc/admin/class-colormag-admin.php:385
+msgid "Social Icons"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:312
+#: inc/admin/class-colormag-admin.php:315
+msgid " by ThemeGrill"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:314
+msgid "Easy Social Sharing"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:317
+msgid "Contact Form 7"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:318
+msgid "WP-PageNavi"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:319
+msgid "WooCommerce"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:321
+msgid "Polylang"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:322
+#: inc/admin/class-colormag-admin.php:326
+msgid "Fully Compatible in Pro Version"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:325
+msgid "WPML"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:348
+msgid "Features"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "ColorMag"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:350
+msgid "ColorMag Pro"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:356
+msgid "Forum"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:357
+msgid "Forum + Emails/Support Ticket"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:360
+msgid "Color Options"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:365 inc/customizer.php:468
+msgid "Primary color option"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:370
+msgid "Font Size Options"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:375
+msgid "Google Fonts Options"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:377
+msgid "600+"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:380
+msgid "Custom Widgets"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:387
+msgid "18 + 6 Custom"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:390
+msgid "Social Sharing"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:395
+msgid "Custom Menu"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:400
+msgid "Footer Sidebar"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:405
+msgid "Site Layout Option"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:410
+msgid "Options in Breaking News"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:415
+msgid "Unique Post System"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:420
+msgid "Change Read More Text"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:425 inc/customizer.php:663
+msgid "Related Posts"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:430
+msgid "Author Biography"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:435
+msgid "Author Biography with Social Icons"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:440
+msgid "Footer Copyright Editor"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:445 inc/widgets/widgets.php:989
+msgid "TG: 125x125 Advertisement"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:450 inc/widgets/widgets.php:788
+msgid "TG: 300x250 Advertisement"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:455 inc/widgets/widgets.php:888
+msgid "TG: 728x90 Advertisement"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:460 inc/widgets/widgets.php:214
+msgid "TG: Featured Category Slider"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:465 inc/widgets/widgets.php:344
+msgid "TG: Highlighted Posts"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:470
+msgid "TG: Random Posts Widget"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:475
+msgid "TG: Tabbed Widget"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:480
+msgid "TG: Videos"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:485 inc/widgets/widgets.php:470
+msgid "TG: Featured Posts (Style 1)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:490 inc/widgets/widgets.php:628
+msgid "TG: Featured Posts (Style 2)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:495
+msgid "TG: Featured Posts (Style 3)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:500
+msgid "TG: Featured Posts (Style 4)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:505
+msgid "TG: Featured Posts (Style 5)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:510
+msgid "TG: Featured Posts (Style 6)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:515
+msgid "TG: Featured Posts (Style 7)"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:520 inc/customizer.php:721
+msgid "Category Color Options"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:525
+msgid "WPML Compatible"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:530
+msgid "Polylang Compatible"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:535
+msgid "WooCommerce Compatible"
+msgstr ""
+
+#: inc/admin/class-colormag-admin.php:543 inc/customizer.php:22
+msgid "View Pro"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:16 inc/admin/meta-boxes.php:18
+msgid "Select Layout"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:28
+msgid "Default Layout"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:33 inc/widgets/widgets.php:21
+msgid "Right Sidebar"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:38 inc/widgets/widgets.php:32
+msgid "Left Sidebar"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:43
+msgid "No Sidebar Full Width"
+msgstr ""
+
+#: inc/admin/meta-boxes.php:48
+msgid "No Sidebar Content Centered"
+msgstr ""
+
+#: inc/customizer.php:54
+msgid "ColorMag Important Links"
+msgstr ""
+
+#: inc/customizer.php:66
+msgid "Important Links"
+msgstr ""
+
+#: inc/customizer.php:75
+msgid "Change the Header Settings from here as you want"
+msgstr ""
+
+#: inc/customizer.php:77
+msgid "Header Options"
+msgstr ""
+
+#: inc/customizer.php:82
+msgid "Breaking News"
+msgstr ""
+
+#: inc/customizer.php:95
+msgid "Check to enable the breaking news section"
+msgstr ""
+
+#: inc/customizer.php:102
+msgid "Show Date"
+msgstr ""
+
+#: inc/customizer.php:115
+msgid "Check to show the date in header"
+msgstr ""
+
+#: inc/customizer.php:122
+msgid "Show Home Icon"
+msgstr ""
+
+#: inc/customizer.php:135
+msgid "Check to show the home icon in the primary menu"
+msgstr ""
+
+#: inc/customizer.php:142
+msgid "Sticky Menu"
+msgstr ""
+
+#: inc/customizer.php:155
+msgid "Check to enable the sticky behavior of the primary menu"
+msgstr ""
+
+#: inc/customizer.php:162
+msgid "Search Icon"
+msgstr ""
+
+#: inc/customizer.php:175
+msgid "Check to display the Search Icon in the primary menu"
+msgstr ""
+
+#: inc/customizer.php:182
+msgid "Random Post"
+msgstr ""
+
+#: inc/customizer.php:195
+msgid "Check to display the Random Post Icon in the primary menu"
+msgstr ""
+
+#: inc/customizer.php:203
+msgid "Header Logo"
+msgstr ""
+
+#: inc/customizer.php:215
+msgid "Upload logo for your header"
+msgstr ""
+
+#: inc/customizer.php:229
+msgid "Choose the option that you want"
+msgstr ""
+
+#: inc/customizer.php:232 inc/customizer.php:774
+msgid "Header Logo Only"
+msgstr ""
+
+#: inc/customizer.php:233 inc/customizer.php:775
+msgid "Header Text Only"
+msgstr ""
+
+#: inc/customizer.php:234 inc/customizer.php:776
+msgid "Show Both"
+msgstr ""
+
+#: inc/customizer.php:235 inc/customizer.php:777
+msgid "Disable"
+msgstr ""
+
+#: inc/customizer.php:242
+msgid "Header Image Position"
+msgstr ""
+
+#: inc/customizer.php:254
+msgid "Header image display position"
+msgstr ""
+
+#: inc/customizer.php:257 inc/customizer.php:788
+msgid "Display the Header image just above the site title/text."
+msgstr ""
+
+#: inc/customizer.php:258 inc/customizer.php:789
+msgid ""
+"Default: Display the Header image between site title/text and the "
+"main/primary menu."
+msgstr ""
+
+#: inc/customizer.php:259 inc/customizer.php:790
+msgid "Display the Header image below main/primary menu."
+msgstr ""
+
+#: inc/customizer.php:271
+msgid "Check to make header image link back to home page"
+msgstr ""
+
+#: inc/customizer.php:278
+msgid "Change the Design Settings from here as you want"
+msgstr ""
+
+#: inc/customizer.php:280
+msgid "Design Options"
+msgstr ""
+
+#: inc/customizer.php:286
+msgid "Front Page Settings"
+msgstr ""
+
+#: inc/customizer.php:297
+msgid "Check to hide blog posts/static page on front page"
+msgstr ""
+
+#: inc/customizer.php:304
+msgid "Site Layout"
+msgstr ""
+
+#: inc/customizer.php:316
+msgid "Choose your site layout. The change is reflected in whole site"
+msgstr ""
+
+#: inc/customizer.php:318 inc/customizer.php:801
+msgid "Boxed Layout"
+msgstr ""
+
+#: inc/customizer.php:319 inc/customizer.php:802
+msgid "Wide Layout"
+msgstr ""
+
+#: inc/customizer.php:389
+msgid "Default layout"
+msgstr ""
+
+#: inc/customizer.php:401
+msgid ""
+"Select default layout. This layout will be reflected in whole site "
+"archives, categories, search page etc. The layout for a single post and "
+"page can be controlled from below options"
+msgstr ""
+
+#: inc/customizer.php:415
+msgid "Default layout for pages only"
+msgstr ""
+
+#: inc/customizer.php:427
+msgid ""
+"Select default layout for pages. This layout will be reflected in all pages "
+"unless unique layout is set for specific page"
+msgstr ""
+
+#: inc/customizer.php:441
+msgid "Default layout for single posts only"
+msgstr ""
+
+#: inc/customizer.php:453
+msgid ""
+"Select default layout for single posts. This layout will be reflected in "
+"all single posts unless unique layout is set for specific post"
+msgstr ""
+
+#: inc/customizer.php:479
+msgid ""
+"This will reflect in links, buttons and many others. Choose a color to "
+"match your site"
+msgstr ""
+
+#: inc/customizer.php:503
+msgid "Custom CSS"
+msgstr ""
+
+#: inc/customizer.php:515
+msgid "Write your Custom CSS"
+msgstr ""
+
+#: inc/customizer.php:525
+msgid "Social Options"
+msgstr ""
+
+#: inc/customizer.php:526
+msgid "Change the Social Links settings from here as you want"
+msgstr ""
+
+#: inc/customizer.php:532
+msgid "Activate social links area"
+msgstr ""
+
+#: inc/customizer.php:544
+msgid "Check to activate social links area"
+msgstr ""
+
+#: inc/customizer.php:552 inc/header-functions.php:20
+msgid "Facebook"
+msgstr ""
+
+#: inc/customizer.php:557 inc/header-functions.php:21
+msgid "Twitter"
+msgstr ""
+
+#: inc/customizer.php:562 inc/header-functions.php:22
+msgid "Google-Plus"
+msgstr ""
+
+#: inc/customizer.php:567 inc/header-functions.php:23
+msgid "Instagram"
+msgstr ""
+
+#: inc/customizer.php:572 inc/header-functions.php:24
+msgid "Pinterest"
+msgstr ""
+
+#: inc/customizer.php:577 inc/header-functions.php:25
+msgid "YouTube"
+msgstr ""
+
+#: inc/customizer.php:607
+msgid "Check to open in new tab"
+msgstr ""
+
+#: inc/customizer.php:621
+msgid "Change the Additional Settings from here as you want"
+msgstr ""
+
+#: inc/customizer.php:623
+msgid "Additional Options"
+msgstr ""
+
+#: inc/customizer.php:630
+msgid "Activate favicon"
+msgstr ""
+
+#: inc/customizer.php:642
+msgid "Check to activate favicon. Upload favicon from below option"
+msgstr ""
+
+#: inc/customizer.php:654
+msgid "Upload favicon for your site"
+msgstr ""
+
+#: inc/customizer.php:675
+msgid "Check to activate the related posts"
+msgstr ""
+
+#: inc/customizer.php:688
+msgid "Related Posts Must Be Shown As:"
+msgstr ""
+
+#: inc/customizer.php:692 inc/customizer.php:762
+msgid "Related Posts By Categories"
+msgstr ""
+
+#: inc/customizer.php:693 inc/customizer.php:763
+msgid "Related Posts By Tags"
+msgstr ""
+
+#: inc/customizer.php:700
+msgid "Image Lightbox"
+msgstr ""
+
+#: inc/customizer.php:712
+msgid "Check to enable the lightbox for the featured images in single post"
+msgstr ""
+
+#: inc/customizer.php:723
+msgid "Change the color of each category items as you want."
+msgstr ""
+
+#: inc/customizer.php:728
+msgid "Category Color Settings"
+msgstr ""
+
+#: inc/customizer.php:750
+msgid "%s"
+msgstr ""
+
+#: inc/functions.php:250 inc/related-posts.php:33 inc/widgets/widgets.php:313
+#: inc/widgets/widgets.php:439 inc/widgets/widgets.php:590
+#: inc/widgets/widgets.php:748
+msgid ""
+"<span class=\"posted-on\"><a href=\"%1$s\" title=\"%2$s\" "
+"rel=\"bookmark\"><i class=\"fa fa-calendar-o\"></i> %3$s</a></span>"
+msgstr ""
+
+#: inc/functions.php:260
+msgid "<i class=\"fa fa-comment\"></i> 0 Comment"
+msgstr ""
+
+#: inc/functions.php:260
+msgid "<i class=\"fa fa-comment\"></i> 1 Comment"
+msgstr ""
+
+#: inc/functions.php:260
+msgid "<i class=\"fa fa-comments\"></i> % Comments"
+msgstr ""
+
+#: inc/functions.php:262
+msgid ", "
+msgstr ""
+
+#: inc/functions.php:265
+msgid "Edit"
+msgstr ""
+
+#: inc/functions.php:359
+msgid "Post navigation"
+msgstr ""
+
+#: inc/functions.php:369
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: inc/functions.php:373
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/functions.php:399
+msgid "Pingback:"
+msgstr ""
+
+#: inc/functions.php:399
+msgid "(Edit)"
+msgstr ""
+
+#: inc/functions.php:414
+msgid "Post author"
+msgstr ""
+
+#: inc/functions.php:417
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: inc/functions.php:425
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/functions.php:430
+msgid "Reply"
+msgstr ""
+
+#: inc/functions.php:450
+msgid "WordPress"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ThemeGrill"
+msgstr ""
+
+#: inc/functions.php:454
+msgid "Copyright &copy; %1$s %2$s. All rights reserved."
+msgstr ""
+
+#: inc/functions.php:454
+msgid "Theme: %1$s by %2$s."
+msgstr ""
+
+#: inc/functions.php:454
+msgid "Powered by %s."
+msgstr ""
+
+#: inc/functions.php:494
+msgid "Latest:"
+msgstr ""
+
+#: inc/functions.php:539
+msgid "View a random post"
+msgstr ""
+
+#: inc/related-posts.php:5
+msgid "You May Also Like"
+msgstr ""
+
+#: inc/widgets/widgets.php:23
+msgid "Shows widgets at Right side."
+msgstr ""
+
+#: inc/widgets/widgets.php:34
+msgid "Shows widgets at Left side."
+msgstr ""
+
+#: inc/widgets/widgets.php:43
+msgid "Header Sidebar"
+msgstr ""
+
+#: inc/widgets/widgets.php:45
+msgid "Shows widgets in header section just above the main navigation menu."
+msgstr ""
+
+#: inc/widgets/widgets.php:54
+msgid "Front Page: Slider Area"
+msgstr ""
+
+#: inc/widgets/widgets.php:56
+msgid "Show widget just below menu. Suitable for TG: Featured Category Slider."
+msgstr ""
+
+#: inc/widgets/widgets.php:65
+msgid "Front Page: Area beside slider"
+msgstr ""
+
+#: inc/widgets/widgets.php:67
+msgid "Show widget beside the slider. Suitable for TG: Highlighted Posts."
+msgstr ""
+
+#: inc/widgets/widgets.php:76
+msgid "Front Page: Content Top Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:78
+msgid "Content Top Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:87
+msgid "Front Page: Content Middle Left Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:89
+msgid "Content Middle Left Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:98
+msgid "Front Page: Content Middle Right Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:100
+msgid "Content Middle Right Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:109
+msgid "Front Page: Content Bottom Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:111
+msgid "Content Bottom Section"
+msgstr ""
+
+#: inc/widgets/widgets.php:120
+msgid "Contact Page Sidebar"
+msgstr ""
+
+#: inc/widgets/widgets.php:122
+msgid "Shows widgets on Contact Page Template."
+msgstr ""
+
+#: inc/widgets/widgets.php:131
+msgid "Error 404 Page Sidebar"
+msgstr ""
+
+#: inc/widgets/widgets.php:133
+msgid "Shows widgets on Error 404 page."
+msgstr ""
+
+#: inc/widgets/widgets.php:142
+msgid "Advertisement Above The Footer"
+msgstr ""
+
+#: inc/widgets/widgets.php:144
+msgid ""
+"Shows widgets just above the footer, suitable for TG: 728x90 Advertisement "
+"widget."
+msgstr ""
+
+#: inc/widgets/widgets.php:153
+msgid "Footer Sidebar One"
+msgstr ""
+
+#: inc/widgets/widgets.php:155
+msgid "Shows widgets at footer sidebar one."
+msgstr ""
+
+#: inc/widgets/widgets.php:164
+msgid "Footer Sidebar Two"
+msgstr ""
+
+#: inc/widgets/widgets.php:166
+msgid "Shows widgets at footer sidebar two."
+msgstr ""
+
+#: inc/widgets/widgets.php:175
+msgid "Footer Sidebar Three"
+msgstr ""
+
+#: inc/widgets/widgets.php:177
+msgid "Shows widgets at footer sidebar three."
+msgstr ""
+
+#: inc/widgets/widgets.php:186
+msgid "Footer Sidebar Four"
+msgstr ""
+
+#: inc/widgets/widgets.php:188
+msgid "Shows widgets at footer sidebar four."
+msgstr ""
+
+#: inc/widgets/widgets.php:212
+msgid ""
+"Display latest posts or posts of specific category, which will be used as "
+"the slider."
+msgstr ""
+
+#: inc/widgets/widgets.php:227 inc/widgets/widgets.php:357
+#: inc/widgets/widgets.php:495 inc/widgets/widgets.php:653
+msgid "Number of posts to display:"
+msgstr ""
+
+#: inc/widgets/widgets.php:231 inc/widgets/widgets.php:361
+#: inc/widgets/widgets.php:499 inc/widgets/widgets.php:657
+msgid "Show latest Posts"
+msgstr ""
+
+#: inc/widgets/widgets.php:232 inc/widgets/widgets.php:362
+#: inc/widgets/widgets.php:500 inc/widgets/widgets.php:658
+msgid "Show posts from a category"
+msgstr ""
+
+#: inc/widgets/widgets.php:235 inc/widgets/widgets.php:365
+#: inc/widgets/widgets.php:503 inc/widgets/widgets.php:661
+msgid "Select category"
+msgstr ""
+
+#: inc/widgets/widgets.php:342
+msgid ""
+"Display latest posts or posts of specific category. Suitable for the Area "
+"Beside Slider Sidebar."
+msgstr ""
+
+#: inc/widgets/widgets.php:468 inc/widgets/widgets.php:626
+msgid "Display latest posts or posts of specific category."
+msgstr ""
+
+#: inc/widgets/widgets.php:486 inc/widgets/widgets.php:644
+msgid "Layout will be as below:"
+msgstr ""
+
+#: inc/widgets/widgets.php:489 inc/widgets/widgets.php:647
+#: inc/widgets/widgets.php:804 inc/widgets/widgets.php:904
+#: inc/widgets/widgets.php:1005
+msgid "Title:"
+msgstr ""
+
+#: inc/widgets/widgets.php:492 inc/widgets/widgets.php:650
+msgid "Description"
+msgstr ""
+
+#: inc/widgets/widgets.php:786
+msgid "Add your 300x250 Advertisement here"
+msgstr ""
+
+#: inc/widgets/widgets.php:807
+msgid "Add your Advertisement 300x250 Images Here"
+msgstr ""
+
+#: inc/widgets/widgets.php:809 inc/widgets/widgets.php:909
+#: inc/widgets/widgets.php:1015
+msgid "Advertisement Image Link "
+msgstr ""
+
+#: inc/widgets/widgets.php:813 inc/widgets/widgets.php:913
+#: inc/widgets/widgets.php:1019
+msgid "Advertisement Image "
+msgstr ""
+
+#: inc/widgets/widgets.php:821 inc/widgets/widgets.php:921
+#: inc/widgets/widgets.php:1027
+msgid "Choose an image"
+msgstr ""
+
+#: inc/widgets/widgets.php:821 inc/widgets/widgets.php:921
+#: inc/widgets/widgets.php:1027
+msgid "Use image"
+msgstr ""
+
+#: inc/widgets/widgets.php:821 inc/widgets/widgets.php:921
+#: inc/widgets/widgets.php:1027
+msgid "Select an Image"
+msgstr ""
+
+#: inc/widgets/widgets.php:886
+msgid "Add your 728x90 Advertisement here"
+msgstr ""
+
+#: inc/widgets/widgets.php:907
+msgid "Add your Advertisement 728x90 Images Here"
+msgstr ""
+
+#: inc/widgets/widgets.php:987
+msgid "Add your 125x125 Advertisement here"
+msgstr ""
+
+#: inc/widgets/widgets.php:1008
+msgid "Add your Advertisement 125x125 Images Here"
+msgstr ""
+
+#: navigation.php:24 navigation.php:36
+msgid "&larr; Previous"
+msgstr ""
+
+#: navigation.php:25 navigation.php:37
+msgid "Next &rarr;"
+msgstr ""
+
+#: no-results.php:18
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: no-results.php:22
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: no-results.php:27
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: search.php:20
+msgid "Search Results for: %s"
+msgstr ""
+
+#: searchform.php:12
+msgid "Search"
+msgstr ""
+
+#: sidebar-left.php:26
+msgid "Left"
+msgstr ""
+
+#: sidebar-left.php:30 sidebar.php:30
+msgid "Example Widget"
+msgstr ""
+
+#: sidebar-left.php:31 sidebar.php:31
+msgid ""
+"This is an example widget to show how the %s Sidebar looks by default. You "
+"can add custom widgets from the %swidgets screen%s in the admin. If custom "
+"widgets are added then this will be replaced by those widgets."
+msgstr ""
+
+#: sidebar.php:26
+msgid "Right"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "http://themegrill.com/themes/colormag/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"ColorMag is a perfect responsive magazine style WordPress theme. Suitable "
+"for news, newspaper, magazine, publishing, business and any kind of sites. "
+"Get free support at http://themegrill.com/support-forum/ and check the demo "
+"at http://demo.themegrill.com/colormag/"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://themegrill.com"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Contact Page Template"
+msgstr ""
+
+#: comments.php:31
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions.php:363 navigation.php:44
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr ""
+
+#: inc/functions.php:364 navigation.php:45
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr ""
