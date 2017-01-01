@@ -28,12 +28,12 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	render(w, "index", context)
 }
 
-func About(w http.ResponseWriter, req *http.Request) {
+func AboutHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "About"}
 	render(w, "about", context)
 }
 
-func PostCreate(w http.ResponseWriter, req *http.Request) {
+func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "PostCreate"}
 	render(w, "PostCreate", context)
 }
@@ -47,23 +47,6 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 	var newPostString string = "{\"Type\": \"PostOperation\" , \"Operation\" : {\"Title\": \"" +  Title + "\", \"Body\": \"" + Body + "\", \"Author\": \"" + Author + "\"} }"
 	fmt.Printf("---------------------------------\n")
 	fmt.Printf("newPostString: %s\n", newPostString)
-
-	//client, err := tmspcli.NewGRPCClient(config.GlogchainConfigGlobal.TmspAddr, false)
-	//client.Start()
-	//defer client.Stop()
-	//
-	//if err == nil {
-	//	txBytes := stringOrHexToBytes(newPostString)
-	//	res := client.AppendTxSync(txBytes)
-	//
-	//	if ( !res.IsOK()) {
-	//		log.Print("PostCreateSave AppendTxSync error: ", res.Code)
-	//	}
-	//
-	//	client.CommitSync()
-	//} else {
-	//	log.Print("PostCreateSave error: ", err)
-	//}
 
 	newPostStringHex := make([]byte, len([]byte(newPostString)) * 2)
 	hex.Encode(newPostStringHex, []byte(newPostString))
@@ -109,28 +92,8 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 	}
 }
 
-//func StaticHandler(w http.ResponseWriter, req *http.Request) {
-//	static_file := req.URL.Path[len(STATIC_URL):]
-//	if len(static_file) != 0 {
-//		f, err := http.Dir(STATIC_ROOT).Open(static_file)
-//		if err == nil {
-//			content := io.ReadSeeker(f)
-//			http.ServeContent(w, req, static_file, time.Now(), content)
-//			return
-//		}
-//	}
-//	http.NotFound(w, req)
-//}
-
-
 func StartWebServer() error  {
 	gob.Register(&User{})
-
-	//http.HandleFunc(STATIC_URL, StaticHandler)
-	//err := http.ListenAndServe(config.GlogchainConfigGlobal.GlogchainWebAddr, nil)
-	//if err != nil {
-	//	log.Fatal("ListenAndServe: ", err)
-	//}
 
 	// use https://github.com/gorilla/mux
 	r := mux.NewRouter()
@@ -143,8 +106,8 @@ func StartWebServer() error  {
 	r.HandleFunc("/login", LoginHandler)
 	r.HandleFunc("/logout", LogoutHandler)
 
-	r.HandleFunc("/about/", AuthWrapper(About))
-	r.HandleFunc("/post/create", AuthWrapper(PostCreate))
+	r.HandleFunc("/about/", AuthWrapper(AboutHandler))
+	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))
 
 	// Subrouter
 	//s := r.PathPrefix("/secure").Subrouter()
@@ -164,26 +127,3 @@ func StartWebServer() error  {
 
 	return nil
 }
-
-//func init() {
-//	gob.Register(&User{})
-//}
-
-//func main() {
-//	StartWebServer()
-//}
-
-
-////////////
-//// NOTE: s is interpreted as a string unless prefixed with 0x
-//func stringOrHexToBytes(s string) []byte {
-//	if len(s) > 2 && s[:2] == "0x" {
-//		b, err := hex.DecodeString(s[2:])
-//		if err != nil {
-//			fmt.Println("Error decoding hex argument:", err.Error())
-//		}
-//		return b
-//	}
-//	return []byte(s)
-//}
-
