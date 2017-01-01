@@ -1,18 +1,19 @@
 package web
 
 // base on simple web server - ref https://reinbach.com/golang-webapps-1.html
+// use https://github.com/gorilla/mux
 
 import (
-	"fmt"
-	"html/template"
-	"log"
+	"github.com/gorilla/sessions"
 	"net/http"
+	"fmt"
+	"encoding/hex"
+	"log"
+	"html/template"
 	"time"
 	"github.com/baabeetaa/glogchain/config"
-	"encoding/hex"
 	"io/ioutil"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/sessions"
 	"encoding/gob"
 )
 
@@ -95,7 +96,6 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 func StartWebServer() error  {
 	gob.Register(&User{})
 
-	// use https://github.com/gorilla/mux
 	r := mux.NewRouter()
 
 	// This will serve files under http://localhost:8000/static/<filename>
@@ -122,8 +122,7 @@ func StartWebServer() error  {
 		ReadTimeout:  15 * time.Second,
 	}
 
-	// Bind to a port and pass our router in
-	log.Fatal(srv.ListenAndServe())
+	log.Fatal(srv.ListenAndServe()) // Bind to a port and pass our router in
 
 	return nil
 }

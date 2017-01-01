@@ -1,5 +1,7 @@
 package web
 
+// https://medium.com/@matryer/the-http-handlerfunc-wrapper-technique-in-golang-c60bf76e6124#.ipqttmx8e
+
 import (
 	"net/http"
 	"strings"
@@ -25,7 +27,6 @@ func GetSession(r *http.Request) (*sessions.Session) {
 	return session
 }
 
-// https://medium.com/@matryer/the-http-handlerfunc-wrapper-technique-in-golang-c60bf76e6124#.ipqttmx8e
 func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session := GetSession(r)
@@ -41,7 +42,6 @@ func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 		fn(w, r)
 	}
 }
-
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// If method is GET serve an html login page
@@ -65,12 +65,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	user.Secret = password;
 
 	session := GetSession(r)
-
-	// Set some session values.
-	session.Values["user"] = user
-
-	// Save it before we write to the response/return from the handler.
-	session.Save(r, w)
+	session.Values["user"] = user // Set some session values.
+	session.Save(r, w) // Save it before we write to the response/return from the handler.
 
 	// If the login succeeded
 	//res.Write([]byte("Hello " + databaseUsername))
