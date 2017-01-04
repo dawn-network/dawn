@@ -26,11 +26,28 @@ var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-	render(w, "index", context)
-}
+	//render(w, "index", context)
+	// http.ServeFile(w, r, "web/templates/home.html")
 
-func HomePageHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "web/templates/home.html")
+	context.Static = "/static/"
+
+	tmpl_list := []string {
+		"web/templates/index.html",
+		"web/templates/header.html",
+		"web/templates/footer.html",
+		"web/templates/featured_posts.html",
+		"web/templates/highlighted_posts.html",
+		"web/templates/primary.html",
+		"web/templates/secondary.html"}
+
+	t, err := template.ParseFiles(tmpl_list...)
+	if err != nil {
+		log.Print("template parsing error: ", err)
+	}
+	err = t.Execute(w, context)
+	if err != nil {
+		log.Print("template executing error: ", err)
+	}
 }
 
 func AboutHandler(w http.ResponseWriter, req *http.Request) {
@@ -86,7 +103,7 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 
 func render(w http.ResponseWriter, tmpl string, context Context) {
 	context.Static = "/static/"
-	tmpl_list := []string{"web/templates/base.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
+	tmpl_list := []string{"web/templates/base.html", "web/templates/header.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
 	t, err := template.ParseFiles(tmpl_list...)
 	if err != nil {
 		log.Print("template parsing error: ", err)
@@ -105,8 +122,8 @@ func StartWebServer() error  {
 	// This will serve files under http://localhost:8000/static/<filename>
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
-	r.HandleFunc("/", AuthWrapper(HomeHandler))
-	r.HandleFunc("/home", HomePageHandler)
+	r.HandleFunc("/", HomeHandler)
+	//r.HandleFunc("/home", HomePageHandler)
 
 
 	r.HandleFunc("/login", LoginHandler)

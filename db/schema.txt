@@ -184,3 +184,16 @@ CREATE TABLE wp_signups (
   activation_key varchar(50) NOT NULL default '',
   meta longtext
 )
+
+//////////
+// Data
+INSERT INTO wp_users (ID, user_login, user_pass, user_nicename, user_email, user_url, user_registered, user_activation_key, user_status, display_name, spam, deleted)
+VALUES (0, 'admin', '123456', 'admin', 'baabeetaa@gmail.com', 'admin', '2015-01-01 00:00:00', '', 0, 'admin', 0, 0);
+
+INSERT INTO wp_posts (ID, post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_status, comment_status, ping_status,
+                      post_password, post_name, to_ping, pinged, post_modified, post_modified_gmt, post_content_filtered, post_parent, guid, menu_order,
+                      post_type, post_mime_type, comment_count)
+VALUES (1, 0, '2015-01-01 00:00:00', '2015-01-01 00:00:00', "Nunc consectetur ipsum nisi, ut pellentesque felis tempus vitae. Integer eget lacinia nunc. Vestibulum consectetur convallis augue id egestas. Nullam rhoncus, arcu in tincidunt ultricies, velit diam imperdiet lacus, sed faucibus mi massa vel nunc. In ac viverra augue, a luctus nisl. Donec interdum enim tempus, aliquet metus maximus, euismod quam. Sed pretium finibus rhoncus. Phasellus libero diam, rutrum non ipsum ut, ultricies sodales sapien. Duis viverra purus lorem.",
+           "Destruction in Montania", '', 'publish', 'open', 'open', '', 'Destruction in Montania', '', '', '2015-01-01 00:00:00', '2015-01-01 00:00:00',
+        '', 0, '1', 0, 'post', '', 0);
+

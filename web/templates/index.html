@@ -1,6 +1,72 @@
-{{ define "content" }}
-<div class="page-header">
-    <h1>{{ .Title }}</h1>
-</div>
-<p>We have a HTML web page, woot!</p>
-{{ end }}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>COLORMAG &#8211; Magazine WordPress theme for 2016</title>
+    <link rel='stylesheet' id='colormag_google_fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C600&#038;ver=e032debb15a9c586d1f671f79d8c9abe' type='text/css' media='all' />
+    <link rel='stylesheet' id='colormag_style-css'  href='/static/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='colormag-fontawesome-css'  href='/static/fontawesome/css/font-awesome.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='colormag-featured-image-popup-css-css'  href='/static/js/magnific-popup/magnific-popup.css' type='text/css' media='all' />
+    <script type='text/javascript' src='http://demo.themegrill.com/colormag/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+    <script type='text/javascript' src='http://demo.themegrill.com/colormag/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+    <script type='text/javascript' src='/static/js/colormag-custom.js'></script>
+    <!--[if lte IE 8]>
+    <script type='text/javascript' src='/static/js/html5shiv.min.js'></script>
+    <![endif]-->
+</head>
+
+<body class="home blog wp-custom-logo ">
+<div id="page" class="hfeed site">
+    <header id="masthead" class="site-header clearfix">
+        {{ template "header" . }}
+    </header>
+    <div id="main" class="clearfix">
+        <div class="inner-wrap clearfix">
+
+            <div class="front-page-top-section clearfix">
+                <div class="widget_slider_area">
+                    <section id="colormag_featured_posts_slider_widget-4" class="widget widget_featured_slider widget_featured_meta clearfix">
+                        {{ template "featured_posts" . }}
+                    </section>
+                </div>
+
+                <div class="widget_beside_slider">
+                    <section id="colormag_highlighted_posts_widget-3" class="widget widget_highlighted_posts widget_featured_meta clearfix">
+                        {{ template "highlighted_posts" . }}
+                    </section>
+                </div>
+            </div>
+            <div class="main-content-section clearfix">
+                <div id="primary">
+                    {{ template "primary" . }}
+                </div>
+
+                <div id="secondary">
+                    {{ template "secondary" . }}
+                </div>
+            </div>
+
+        </div><!-- .inner-wrap -->
+    </div><!-- #main -->
+    <footer id="colophon" class="clearfix">
+        {{ template "footer" . }}
+    </footer>
+    <a href="#masthead" id="scroll-up"><i class="fa fa-chevron-up"></i></a>
+</div><!-- #page -->
+<!--<div style="display:none">-->
+<!--</div>-->
+
+<script type='text/javascript' src='/static/js/jquery.bxslider.min.js'></script>
+<script type='text/javascript' src='/static/js/colormag-slider-setting.js'></script>
+<script type='text/javascript' src='/static/js/navigation.js'></script>
+<script type='text/javascript' src='/static/js/news-ticker/jquery.newsTicker.min.js'></script>
+<script type='text/javascript' src='/static/js/news-ticker/ticker-setting.js'></script>
+<script type='text/javascript' src='/static/js/sticky/jquery.sticky.js'></script>
+<script type='text/javascript' src='/static/js/sticky/sticky-setting.js'></script>
+<script type='text/javascript' src='/static/js/magnific-popup/jquery.magnific-popup.min.js'></script>
+<script type='text/javascript' src='/static/js/magnific-popup/image-popup-setting.js'></script>
+<script type='text/javascript' src='/static/js/fitvids/jquery.fitvids.js'></script>
+<script type='text/javascript' src='/static/js/fitvids/fitvids-setting.js'></script>
+</body>
+</html>
