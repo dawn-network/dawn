@@ -5,7 +5,7 @@
             <div class="single-slide {{if $index}} displaynone {{else}} displayblock {{end}}">
                 {{with $thumbnail := GetPostThumbnail $elmt.ID}}
                     <figure class="slider-featured-image">
-                        <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{$elmt.PostTitle}}">
+                        <a href="###" title="{{$elmt.PostTitle}}">
                             <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
                         </a>
                     </figure>
@@ -15,26 +15,29 @@
                         <span class="cat-links">
                             {{with $categories := GetCategoryOfPost $elmt.ID}}
                                 {{range $categories}}
-                                    <a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                    <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
                                 {{end}}
                             {{end}}
                         </span>
                     </div>
                     <h3 class="entry-title">
-                        <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{.PostTitle}}">{{$elmt.PostTitle}}</a>
+                        <a href="###" title="{{.PostTitle}}">{{$elmt.PostTitle}}</a>
                     </h3>
                     <div class="below-entry-meta">
                         <span class="posted-on">
-                            <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{.PostDate}}" rel="bookmark">
+                            <a href="###" title="{{.PostDate}}" rel="bookmark">
                                 <i class="fa fa-calendar-o"></i>
                                 <time class="entry-date published" datetime="{{.PostDate}}">{{$elmt.PostDate}}</time>
-                            </a></span>
-                        <span class="byline">
-                            <span class="author vcard">
-                                <i class="fa fa-user"></i>
-                                <a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a>
-                            </span>
+                            </a>
                         </span>
+                        {{with $author := GetUser $elmt.PostAuthor}}
+                            <span class="byline">
+                                <span class="author vcard">
+                                    <i class="fa fa-user"></i>
+                                    <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
+                                </span>
+                            </span>
+                        {{end}}
                         <span class="comments">
                             <i class="fa fa-comment"></i>
                             <span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span>

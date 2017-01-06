@@ -1,15 +1,25 @@
 package db
 
 import (
-	//"time"
-	//"math/rand"
 	"log"
-	//. "github.com/jasonknight/gopress"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
 	"strconv"
 )
+
+type User struct {
+	ID			int64
+	UserLogin 		string
+	UserPass 		string
+	UserNicename 		string
+	UserEmail 		string
+	UserUrl 		string
+	UserRegistered 		string
+	UserActivation_key 	string
+	UserStatus 		int
+	DisplayName 		string
+}
 
 type Post struct {
 	ID                  int64
@@ -91,6 +101,45 @@ func Query (sql string) (*sql.Rows, error) {
 	}
 
 	return rows, nil
+}
+
+func GetUser(ID int64) (User, error)  {
+	var item User
+
+	sql := fmt.Sprintf("SELECT * FROM wp_users WHERE ID=%d", ID)
+
+	rows, err := Query (sql)
+	if err != nil {
+		panic(err.Error()) // proper error handling instead of panic in your app
+		return item, err
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		err := rows.Scan(
+			&item.ID,
+			&item.UserLogin,
+			&item.UserPass,
+			&item.UserNicename,
+			&item.UserEmail,
+			&item.UserUrl,
+			&item.UserRegistered,
+			&item.UserActivation_key,
+			&item.UserStatus,
+			&item.DisplayName)
+		if err != nil {
+			log.Fatal(err)
+			return item, err
+		}
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+		return item, err
+	}
+
+	return item, nil
 }
 
 func GetPost(postID int64) (Post, error)  {
