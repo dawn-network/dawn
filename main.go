@@ -30,3 +30,8 @@ func main() {
 		// Cleanup
 	})
 }
+
+
+func init() {
+	config.ReadConfig()
+}

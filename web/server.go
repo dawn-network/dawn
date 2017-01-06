@@ -12,6 +12,7 @@ import (
 	"html/template"
 	"time"
 	"github.com/baabeetaa/glogchain/config"
+	"github.com/baabeetaa/glogchain/db"
 	"io/ioutil"
 	"github.com/gorilla/mux"
 	"encoding/gob"
@@ -31,6 +32,10 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 
 	context.Static = "/static/"
 
+	t := template.New("index.html")
+	// add our function
+	t = t.Funcs(template.FuncMap{"GetFeaturedPosts": db.GetFeaturedPosts})
+
 	tmpl_list := []string {
 		"web/templates/index.html",
 		"web/templates/header.html",
@@ -40,7 +45,7 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 		"web/templates/primary.html",
 		"web/templates/secondary.html"}
 
-	t, err := template.ParseFiles(tmpl_list...)
+	t, err := t.ParseFiles(tmpl_list...)
 	if err != nil {
 		log.Print("template parsing error: ", err)
 	}

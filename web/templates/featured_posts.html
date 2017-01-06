@@ -1,59 +1,116 @@
 {{ define "featured_posts" }}
 <div class="widget_slider_area_rotate">
-    <div class="single-slide displayblock">
-        <figure class="slider-featured-image">
-            <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="Destruction in Montania">
-                <img width="800" height="445" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/fireman-100722_1280-800x445.jpg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Destruction in Montania" title="Destruction in Montania" />
-            </a>
-        </figure>
-        <div class="slide-content">
-            <div class="above-entry-meta"><span class="cat-links">
-                                        <a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">General</a>&nbsp;
-                                        <a href="https://demo.themegrill.com/colormag/category/latest/" style="background:#e5e220" rel="category tag">Latest</a>&nbsp;
-                                        <a href="https://demo.themegrill.com/colormag/category/news/" style="background:#bfd6af" rel="category tag">News</a>&nbsp;</span>
+    {{with $itemlist := GetFeaturedPosts}}
+        {{range $itemlist}}
+            <div class="single-slide displayblock">
+                <figure class="slider-featured-image">
+                    <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{.PostTitle}}">
+                        <img width="800" height="445" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/fireman-100722_1280-800x445.jpg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Destruction in Montania" title="Destruction in Montania" />
+                    </a>
+                </figure>
+                <div class="slide-content">
+                    <div class="above-entry-meta">
+                        <span class="cat-links">
+                            <a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">General</a>&nbsp;
+                            <a href="https://demo.themegrill.com/colormag/category/latest/" style="background:#e5e220" rel="category tag">Latest</a>&nbsp;
+                            <a href="https://demo.themegrill.com/colormag/category/news/" style="background:#bfd6af" rel="category tag">News</a>&nbsp;
+                        </span>
+                    </div>
+                    <h3 class="entry-title">
+                        <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{.PostTitle}}">{{.PostTitle}}</a>
+                    </h3>
+                    <div class="below-entry-meta">
+                        <span class="posted-on">
+                            <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="{{.PostDate}}" rel="bookmark">
+                                <i class="fa fa-calendar-o"></i>
+                                <time class="entry-date published" datetime="{{.PostDate}}">{{.PostDate}}</time>
+                            </a></span>
+                        <span class="byline">
+                            <span class="author vcard">
+                                <i class="fa fa-user"></i>
+                                <a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a>
+                            </span>
+                        </span>
+                        <span class="comments">
+                            <i class="fa fa-comment"></i>
+                            <span>Comments Off<span class="screen-reader-text"> on {{.PostTitle}}</span></span>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="Destruction in Montania">Destruction in Montania</a>
-            </h3>
-            <div class="below-entry-meta">
-                <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="7:57 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T07:57:31+00:00">March 24, 2015</time></a></span>                     <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-                <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Destruction in Montania</span></span></span>
-            </div>
-        </div>
-    </div>
-    <div class="single-slide displaynone">
-        <figure class="slider-featured-image">
-            <a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="Invention of Advance Technology">
-                <img width="800" height="445" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/vehicle-193213_1280-800x445.jpg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Invention of Advance Technology" title="Invention of Advance Technology" />
-            </a>
-        </figure>
-        <div class="slide-content">
-            <div class="above-entry-meta">
-                                        <span class="cat-links">
-                                            <a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">General</a>&nbsp;
-                                            <a href="https://demo.themegrill.com/colormag/category/latest/" style="background:#e5e220" rel="category tag">Latest</a>&nbsp;
-                                            <a href="https://demo.themegrill.com/colormag/category/technology/" style="background:#777fce" rel="category tag">Technology</a>&nbsp;
-                                        </span>
-            </div>
-            <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="Invention of Advance Technology">Invention of Advance Technology</a>
-            </h3>
-            <div class="below-entry-meta">
-                                        <span class="posted-on">
-                                            <a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="7:47 am" rel="bookmark">
-                                                <i class="fa fa-calendar-o"></i>
-                                                <time class="entry-date published" datetime="2015-03-24T07:47:05+00:00">March 24, 2015</time>
-                                            </a>
-                                        </span>
-                <span class="byline">
-                                            <span class="author vcard">
-                                                <i class="fa fa-user"></i>
-                                                <a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a>
-                                            </span>
-                                        </span>
-                <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Invention of Advance Technology</span></span></span>
-            </div>
-        </div>
-    </div>
+        {{end}}
+    {{end}}
+
+
+    <!--<div class="single-slide displayblock">-->
+        <!--<figure class="slider-featured-image">-->
+            <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="Destruction in Montania">-->
+                <!--<img width="800" height="445" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/fireman-100722_1280-800x445.jpg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Destruction in Montania" title="Destruction in Montania" />-->
+            <!--</a>-->
+        <!--</figure>-->
+        <!--<div class="slide-content">-->
+            <!--<div class="above-entry-meta">-->
+                <!--<span class="cat-links">-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">General</a>&nbsp;-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/latest/" style="background:#e5e220" rel="category tag">Latest</a>&nbsp;-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/news/" style="background:#bfd6af" rel="category tag">News</a>&nbsp;-->
+                <!--</span>-->
+            <!--</div>-->
+            <!--<h3 class="entry-title">-->
+                <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="Destruction in Montania">Destruction in Montania</a>-->
+            <!--</h3>-->
+            <!--<div class="below-entry-meta">-->
+                <!--<span class="posted-on">-->
+                    <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/destruction-in-montania/" title="7:57 am" rel="bookmark">-->
+                        <!--<i class="fa fa-calendar-o"></i>-->
+                        <!--<time class="entry-date published" datetime="2015-03-24T07:57:31+00:00">March 24, 2015</time>-->
+                    <!--</a></span>-->
+                <!--<span class="byline">-->
+                    <!--<span class="author vcard">-->
+                        <!--<i class="fa fa-user"></i>-->
+                        <!--<a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a>-->
+                    <!--</span>-->
+                <!--</span>-->
+                <!--<span class="comments">-->
+                    <!--<i class="fa fa-comment"></i>-->
+                    <!--<span>Comments Off<span class="screen-reader-text"> on Destruction in Montania</span></span>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="single-slide displaynone">-->
+        <!--<figure class="slider-featured-image">-->
+            <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="Invention of Advance Technology">-->
+                <!--<img width="800" height="445" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/vehicle-193213_1280-800x445.jpg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Invention of Advance Technology" title="Invention of Advance Technology" />-->
+            <!--</a>-->
+        <!--</figure>-->
+        <!--<div class="slide-content">-->
+            <!--<div class="above-entry-meta">-->
+                <!--<span class="cat-links">-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/general/" style="background:#a38a6d" rel="category tag">General</a>&nbsp;-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/latest/" style="background:#e5e220" rel="category tag">Latest</a>&nbsp;-->
+                    <!--<a href="https://demo.themegrill.com/colormag/category/technology/" style="background:#777fce" rel="category tag">Technology</a>&nbsp;-->
+                <!--</span>-->
+            <!--</div>-->
+            <!--<h3 class="entry-title">-->
+                <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="Invention of Advance Technology">Invention of Advance Technology</a>-->
+            <!--</h3>-->
+            <!--<div class="below-entry-meta">-->
+                <!--<span class="posted-on">-->
+                    <!--<a href="https://demo.themegrill.com/colormag/2015/03/24/invention-of-advance-technology/" title="7:47 am" rel="bookmark">-->
+                        <!--<i class="fa fa-calendar-o"></i>-->
+                        <!--<time class="entry-date published" datetime="2015-03-24T07:47:05+00:00">March 24, 2015</time>-->
+                    <!--</a>-->
+                <!--</span>-->
+                <!--<span class="byline">-->
+                    <!--<span class="author vcard">-->
+                        <!--<i class="fa fa-user"></i>-->
+                        <!--<a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a>-->
+                    <!--</span>-->
+                <!--</span>-->
+                <!--<span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Invention of Advance Technology</span></span></span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 {{ end }}

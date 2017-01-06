@@ -45,7 +45,3 @@ func ReadConfig() error  {
 
 	return nil
 }
-
-func init() {
-	ReadConfig()
-}
