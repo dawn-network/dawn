@@ -34,7 +34,10 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 
 	t := template.New("index.html")
 	// add our function
-	t = t.Funcs(template.FuncMap{"GetFeaturedPosts": db.GetFeaturedPosts})
+	t = t.Funcs(template.FuncMap{
+		"GetFeaturedPosts": db.GetFeaturedPosts,
+		"GetCategoryOfPost": db.GetCategoryOfPost,
+		"GetPostThumbnail": db.GetPostThumbnail})
 
 	tmpl_list := []string {
 		"web/templates/index.html",
