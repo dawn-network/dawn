@@ -1,72 +1,97 @@
 {{ define "primary" }}
 <div id="content" class="clearfix">
 
-    <section id="colormag_featured_posts_widget-3" class="widget widget_featured_posts widget_featured_meta clearfix">      <h3 class="widget-title" style="border-bottom-color:#81d742;"><span style="background-color:#81d742;">Health</span></h3>                                 <div class="first-post">               <div class="single-article clearfix">
-        <figure><a href="https://demo.themegrill.com/colormag/2015/03/24/coffee-is-health-food-myth-or-fact/" title="Coffee is health food: Myth or fact?"><img width="390" height="205" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/coffee-563797_1280-390x205.jpg" class="attachment-colormag-featured-post-medium size-colormag-featured-post-medium wp-post-image" alt="Coffee is health food: Myth or fact?" title="Coffee is health food: Myth or fact?" /></a></figure>                  <div class="article-content">
-        <div class="above-entry-meta"><span class="cat-links"><a href="https://demo.themegrill.com/colormag/category/drinks/" style="background:#dd8787" rel="category tag">Drinks</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/food/" style="background:#a3d886" rel="category tag">Food</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/health/" style="background:#81d742" rel="category tag">Health</a>&nbsp;</span></div>                     <h3 class="entry-title">
-        <a href="https://demo.themegrill.com/colormag/2015/03/24/coffee-is-health-food-myth-or-fact/" title="Coffee is health food: Myth or fact?">Coffee is health food: Myth or fact?</a>
-    </h3>
-        <div class="below-entry-meta">
-            <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/coffee-is-health-food-myth-or-fact/" title="10:00 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T10:00:06+00:00">March 24, 2015</time></a></span>                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-            <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Coffee is health food: Myth or fact?</span></span></span>
-        </div>
-        <div class="entry-content">
-            <p>Vivamus vestibulum ut magna vitae facilisis. Maecenas laoreet lobortis tristique. Aenean accumsan malesuada convallis. Suspendisse egestas luctus nisl, sit amet</p>
-        </div>
-    </div>
+    <section id="colormag_featured_posts_widget-3" class="widget widget_featured_posts widget_featured_meta clearfix">
+        <h3 class="widget-title" style="border-bottom-color:#81d742;"><span style="background-color:#81d742;">Health</span></h3>
 
-    </div>
-    </div>
-        <div class="following-post">
-            <div class="single-article clearfix">
-                <figure><a href="https://demo.themegrill.com/colormag/2015/03/24/mosquito-borne-diseases-has-threaten-world/" title="Mosquito-borne diseases has threaten World"><img width="130" height="90" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/mosquito-542156_1280-130x90.jpg" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="Mosquito-borne diseases has threaten World" title="Mosquito-borne diseases has threaten World" srcset="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/mosquito-542156_1280-130x90.jpg 130w, https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/mosquito-542156_1280-392x272.jpg 392w" sizes="(max-width: 130px) 100vw, 130px" /></a></figure>                  <div class="article-content">
-                <div class="above-entry-meta"><span class="cat-links"><a href="https://demo.themegrill.com/colormag/category/health/" style="background:#81d742" rel="category tag">Health</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/news/" style="background:#bfd6af" rel="category tag">News</a>&nbsp;</span></div>                     <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/mosquito-borne-diseases-has-threaten-world/" title="Mosquito-borne diseases has threaten World">Mosquito-borne diseases has threaten World</a>
-            </h3>
-                <div class="below-entry-meta">
-                    <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/mosquito-borne-diseases-has-threaten-world/" title="9:57 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T09:57:18+00:00">March 24, 2015</time></a></span>                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Mosquito-borne diseases has threaten World</span></span></span>
-                </div>
-            </div>
+        {{with $itemlist := GetFeaturedPosts 3 5}}
+            {{range $index, $elmt := $itemlist}}
+                {{if $index}}
+                    {{if eq $index 1}}
+                        <div class="following-post">
+                    {{end}}
 
-            </div>
-            <div class="single-article clearfix">
-                <figure><a href="https://demo.themegrill.com/colormag/2015/03/24/solar-eclipse-eye-health-warning/" title="Solar eclipse: Eye health warning"><img width="130" height="90" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/solar-eclipse-152834_1280-130x90.png" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="Solar eclipse: Eye health warning" title="Solar eclipse: Eye health warning" srcset="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/solar-eclipse-152834_1280-130x90.png 130w, https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/solar-eclipse-152834_1280-392x272.png 392w" sizes="(max-width: 130px) 100vw, 130px" /></a></figure>                  <div class="article-content">
-                <div class="above-entry-meta"><span class="cat-links"><a href="https://demo.themegrill.com/colormag/category/health/" style="background:#81d742" rel="category tag">Health</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/news/" style="background:#bfd6af" rel="category tag">News</a>&nbsp;</span></div>                     <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/solar-eclipse-eye-health-warning/" title="Solar eclipse: Eye health warning">Solar eclipse: Eye health warning</a>
-            </h3>
-                <div class="below-entry-meta">
-                    <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/solar-eclipse-eye-health-warning/" title="9:43 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T09:43:30+00:00">March 24, 2015</time></a></span>                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Solar eclipse: Eye health warning</span></span></span>
-                </div>
-            </div>
+                    <div class="single-article clearfix">
+                        {{with $thumbnail := GetPostThumbnail $elmt.ID}}
+                            <figure style="width: 130px; height: 90px;">
+                                <a href="###" title="{{$elmt.PostTitle}}">
+                                    <img style="" src="{{$thumbnail}}" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                                </a>
+                            </figure>
+                        {{end}}
+                        <div class="article-content">
+                            <div class="above-entry-meta">
+                                <span class="cat-links">
+                                    {{with $categories := GetCategoryOfPost $elmt.ID}}
+                                        {{range $categories}}
+                                            <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                        {{end}}
+                                    {{end}}
+                                </span>
+                            </div>
+                            <h3 class="entry-title">
+                                <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
+                            </h3>
+                            <div class="below-entry-meta">
+                                <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
+                                <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
+                                <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span></span>
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
-            <div class="single-article clearfix">
-                <figure><a href="https://demo.themegrill.com/colormag/2015/03/24/get-more-nutrition-in-every-bite/" title="Get more nutrition in every bite"><img width="130" height="90" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/yummy-333666_1280-130x90.jpg" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="Get more nutrition in every bite" title="Get more nutrition in every bite" srcset="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/yummy-333666_1280-130x90.jpg 130w, https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/yummy-333666_1280-392x272.jpg 392w" sizes="(max-width: 130px) 100vw, 130px" /></a></figure>                  <div class="article-content">
-                <div class="above-entry-meta"><span class="cat-links"><a href="https://demo.themegrill.com/colormag/category/food/" style="background:#a3d886" rel="category tag">Food</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/health/" style="background:#81d742" rel="category tag">Health</a>&nbsp;</span></div>                     <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/get-more-nutrition-in-every-bite/" title="Get more nutrition in every bite">Get more nutrition in every bite</a>
-            </h3>
-                <div class="below-entry-meta">
-                    <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/get-more-nutrition-in-every-bite/" title="9:39 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T09:39:31+00:00">March 24, 2015</time></a></span>                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Get more nutrition in every bite</span></span></span>
-                </div>
-            </div>
-            </div>
-            <div class="single-article clearfix">
-                <figure><a href="https://demo.themegrill.com/colormag/2015/03/24/womens-relay-competition/" title="Women&#8217;s Relay Competition"><img width="130" height="90" src="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/relay-race-655353_1280-130x90.jpg" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="Women&#8217;s Relay Competition" title="Women&#8217;s Relay Competition" srcset="https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/relay-race-655353_1280-130x90.jpg 130w, https://demo.themegrill.com/colormag/wp-content/uploads/sites/20/2015/03/relay-race-655353_1280-392x272.jpg 392w" sizes="(max-width: 130px) 100vw, 130px" /></a></figure>                  <div class="article-content">
-                <div class="above-entry-meta"><span class="cat-links"><a href="https://demo.themegrill.com/colormag/category/entertainment/" style="background:#e8357c" rel="category tag">Entertainment</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/female/" style="background:#d8a0c2" rel="category tag">Female</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/health/" style="background:#81d742" rel="category tag">Health</a>&nbsp;<a href="https://demo.themegrill.com/colormag/category/sports/" style="background:#dd5a5a" rel="category tag">Sports</a>&nbsp;</span></div>                     <h3 class="entry-title">
-                <a href="https://demo.themegrill.com/colormag/2015/03/24/womens-relay-competition/" title="Women&#8217;s Relay Competition">Women&#8217;s Relay Competition</a>
-            </h3>
-                <div class="below-entry-meta">
-                    <span class="posted-on"><a href="https://demo.themegrill.com/colormag/2015/03/24/womens-relay-competition/" title="7:48 am" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="2015-03-24T07:48:42+00:00">March 24, 2015</time></a></span>                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="https://demo.themegrill.com/colormag/author/demothemegrill/" title="TG-Demo Team">TG-Demo Team</a></span></span>
-                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on Women&#8217;s Relay Competition</span></span></span>
-                </div>
-            </div>
+                    {{if eq $index 4}}
+                        </div>
+                    {{end}}
+                {{else}}
+                    <div class="first-post">
+                        <div class="single-article clearfix">
+                            {{with $thumbnail := GetPostThumbnail $elmt.ID}}
+                            <figure>
+                                <a href="###" title="{{$elmt.PostTitle}}">
+                                    <img style="width: 390px; height: 205px" src="{{$thumbnail}}" class="attachment-colormag-featured-post-medium size-colormag-featured-post-medium wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                                </a>
+                            </figure>
+                            {{end}}
+                            <div class="article-content">
+                                <div class="above-entry-meta">
+                                            <span class="cat-links">
+                                                {{with $categories := GetCategoryOfPost $elmt.ID}}
+                                                    {{range $categories}}
+                                                        <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                                    {{end}}
+                                                {{end}}
+                                            </span>
+                                </div>
+                                <h3 class="entry-title">
+                                    <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
+                                </h3>
+                                <div class="below-entry-meta">
+                                    <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
+                                    {{with $author := GetUser $elmt.PostAuthor}}
+                                    <span class="byline">
+                                                <span class="author vcard">
+                                                    <i class="fa fa-user"></i>
+                                                    <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
+                                                </span>
+                                            </span>
+                                    {{end}}
+                                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span></span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Vivamus vestibulum ut magna vitae facilisis. Maecenas laoreet lobortis tristique. Aenean accumsan malesuada convallis. Suspendisse egestas luctus nisl, sit amet</p>
+                                </div>
+                            </div>
 
-            </div>
-        </div>      <!-- </div> -->
+                        </div>
+                    </div>
+                {{end}}
+
+            {{end}}
+        {{end}}
     </section>
+
+
     <div class="tg-one-half">
         <section id="colormag_featured_posts_vertical_widget-3" class="widget widget_featured_posts widget_featured_posts_vertical widget_featured_meta clearfix">
             <h3 class="widget-title" style="border-bottom-color:#bd4cce;"><span style="background-color:#bd4cce;">FASHION</span></h3>
