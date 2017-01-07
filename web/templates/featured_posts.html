@@ -1,6 +1,6 @@
 {{ define "featured_posts" }}
 <div class="widget_slider_area_rotate">
-    {{with $itemlist := GetFeaturedPosts}}
+    {{with $itemlist := GetFeaturedPosts 20 2}}
         {{range $index, $elmt := $itemlist}}
             <div class="single-slide {{if $index}} displaynone {{else}} displayblock {{end}}">
                 {{with $thumbnail := GetPostThumbnail $elmt.ID}}

@@ -194,8 +194,8 @@ func GetPost(postID int64) (Post, error)  {
 	return post, nil
 }
 
-func GetFeaturedPosts() ([]Post, error)  {
-	sql := "SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (20) ) AND wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 2"
+func GetFeaturedPosts(term_taxonomy_id int64, max_result int64) ([]Post, error)  {
+	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) AND wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, %d", term_taxonomy_id, max_result)
 	rows, err := Query (sql)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
