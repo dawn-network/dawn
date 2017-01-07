@@ -25,20 +25,20 @@ type Context struct {
 
 var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
+var funcMap template.FuncMap = template.FuncMap{
+	"GetFeaturedPosts": db.GetFeaturedPosts,
+	"GetCategoryOfPost": db.GetCategoryOfPost,
+	"GetPostThumbnail": db.GetPostThumbnail,
+	"GetUser": db.GetUser,
+	"Dict": Dict}
+
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-	//render(w, "index", context)
-	// http.ServeFile(w, r, "web/templates/home.html")
 
 	context.Static = "/static/"
 
 	t := template.New("index.html")
-	// add our function
-	t = t.Funcs(template.FuncMap{
-		"GetFeaturedPosts": db.GetFeaturedPosts,
-		"GetCategoryOfPost": db.GetCategoryOfPost,
-		"GetPostThumbnail": db.GetPostThumbnail,
-		"GetUser": db.GetUser})
+	t = t.Funcs(funcMap)
 
 	tmpl_list := []string {
 		"web/templates/index.html",
@@ -47,12 +47,16 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 		"web/templates/featured_posts.html",
 		"web/templates/highlighted_posts.html",
 		"web/templates/primary.html",
-		"web/templates/secondary.html"}
+		"web/templates/secondary.html",
+		"web/templates/widget_slider.html",
+		"web/templates/widget_featured_posts_vertical.html",
+		"web/templates/widget_featured_posts.html"}
 
 	t, err := t.ParseFiles(tmpl_list...)
 	if err != nil {
 		log.Print("template parsing error: ", err)
 	}
+
 	err = t.Execute(w, context)
 	if err != nil {
 		log.Print("template executing error: ", err)

@@ -19,38 +19,39 @@
 <body class="home blog wp-custom-logo ">
 <div id="page" class="hfeed site">
     <header id="masthead" class="site-header clearfix">
-        {{ template "header" . }}
+        {{ template "header" }}
     </header>
     <div id="main" class="clearfix">
         <div class="inner-wrap clearfix">
 
             <div class="front-page-top-section clearfix">
                 <div class="widget_slider_area">
-                    <section id="colormag_featured_posts_slider_widget-4" class="widget widget_featured_slider widget_featured_meta clearfix">
-                        {{ template "featured_posts" . }}
+                    <section class="widget widget_featured_slider widget_featured_meta clearfix">
+                        {{ template "featured_posts" }}
                     </section>
                 </div>
 
                 <div class="widget_beside_slider">
-                    <section id="colormag_highlighted_posts_widget-3" class="widget widget_highlighted_posts widget_featured_meta clearfix">
-                        {{ template "highlighted_posts" . }}
+                    <section class="widget widget_highlighted_posts widget_featured_meta clearfix">
+                        {{ template "highlighted_posts" }}
                     </section>
                 </div>
             </div>
+
             <div class="main-content-section clearfix">
                 <div id="primary">
-                    {{ template "primary" . }}
+                    {{ template "primary"}}
                 </div>
 
                 <div id="secondary">
-                    {{ template "secondary" . }}
+                    {{ template "secondary"}}
                 </div>
             </div>
 
         </div><!-- .inner-wrap -->
     </div><!-- #main -->
     <footer id="colophon" class="clearfix">
-        {{ template "footer" . }}
+        {{ template "footer" }}
     </footer>
     <a href="#masthead" id="scroll-up"><i class="fa fa-chevron-up"></i></a>
 </div><!-- #page -->

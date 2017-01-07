@@ -1,0 +1,96 @@
+{{ define "widget_featured_posts_vertical" }}
+<section class="widget widget_featured_posts widget_featured_posts_vertical widget_featured_meta clearfix">
+    <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.Category}}</span></h3>
+
+    {{with $itemlist := GetFeaturedPosts .CategoryId 4}}
+    {{range $index, $elmt := $itemlist}}
+    {{if $index}}
+    {{if eq $index 1}}
+    <div class="following-post">
+        {{end}}
+
+        <div class="single-article clearfix">
+            {{with $thumbnail := GetPostThumbnail $elmt.ID}}
+            <figure>
+                <a href="###" title="{{$elmt.PostTitle}}">
+                    <img style="width: 130px; height: 90px;" src="{{$thumbnail}}" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                </a>
+            </figure>
+            {{end}}
+            <div class="article-content">
+                <div class="above-entry-meta">
+                                    <span class="cat-links">
+                                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                                            {{range $categories}}
+                                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                            {{end}}
+                                        {{end}}
+                                    </span>
+                </div>
+                <h3 class="entry-title">
+                    <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
+                </h3>
+                <div class="below-entry-meta">
+                    <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
+                    {{with $author := GetUser $elmt.PostAuthor}}
+                    <span class="byline">
+                                            <span class="author vcard">
+                                                <i class="fa fa-user"></i>
+                                                <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
+                                            </span>
+                                        </span>
+                    {{end}}
+                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span></span>
+                </div>
+            </div>
+        </div>
+
+        {{if eq $index 3}}
+    </div>
+    {{end}}
+    {{else}}
+    <div class="first-post">
+        <div class="single-article clearfix">
+            {{with $thumbnail := GetPostThumbnail $elmt.ID}}
+            <figure>
+                <a href="###" title="{{$elmt.PostTitle}}">
+                    <img width="390" height="205" src="{{$thumbnail}}" class="attachment-colormag-featured-post-medium size-colormag-featured-post-medium wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                </a>
+            </figure>
+            {{end}}
+            <div class="article-content">
+                <div class="above-entry-meta">
+                    <span class="cat-links">
+                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                            {{range $categories}}
+                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                            {{end}}
+                        {{end}}
+                    </span>
+                </div>
+                <h3 class="entry-title">
+                    <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
+                </h3>
+                <div class="below-entry-meta">
+                    <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
+                    {{with $author := GetUser $elmt.PostAuthor}}
+                    <span class="byline">
+                        <span class="author vcard">
+                            <i class="fa fa-user"></i>
+                            <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
+                        </span>
+                    </span>
+                    {{end}}
+                    <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span></span>
+                </div>
+                <div class="entry-content">
+                    <p>For Joesendra, this is only her second fashion week showing, following her presentation at a Fashion World on this January.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{end}}
+    {{end}}
+    {{end}}
+</section>
+{{ end }}

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"log"
+	"errors"
 )
 
 var templates map[string]*template.Template
@@ -47,3 +48,27 @@ func renderTemplate(w http.ResponseWriter, name string, data map[string]interfac
 	return tmpl.ExecuteTemplate(w, "base", data)
 }
 
+// http://stackoverflow.com/questions/18276173/calling-a-template-with-several-pipeline-parameters
+func Dict(values ...interface{}) (map[string]interface{}, error) {
+	if len(values)%2 != 0 {
+		return nil, errors.New("invalid dict call")
+	}
+
+	dict := make(map[string]interface{}, len(values)/2)
+
+	for i := 0; i < len(values); i+=2 {
+		key, ok := values[i].(string)
+		if !ok {
+			return nil, errors.New("dict keys must be strings")
+		}
+		dict[key] = values[i+1]
+
+		// fix wrong type for value; expected int64; got int
+		switch dict[key].(type) {
+		case int:
+			dict[key] = int64(dict[key].(int))
+		}
+	}
+
+	return dict, nil
+}
