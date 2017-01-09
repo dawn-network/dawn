@@ -32,6 +32,24 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	render(w, "home", context)
 }
 
+func CategoryHandler(w http.ResponseWriter, req *http.Request) {
+	//context := Context{Title: "Welcome!"}
+	//context.Static = "/static/"
+
+	cat := req.FormValue("cat") // category id
+	categoryId, err := strconv.ParseInt(cat, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+
+	posts, err := db.GetPostsByCategory(categoryId, 0, 20)
+	if err != nil {
+		panic(err)
+	}
+
+	render(w, "category", posts)
+}
+
 func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	//context := Context{Title: "Welcome!"}
 	//context.Static = "/static/"
@@ -116,6 +134,7 @@ func StartWebServer() error  {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
 	r.HandleFunc("/", HomeHandler)
+	r.HandleFunc("/category", CategoryHandler)
 	r.HandleFunc("/post", ViewSinglePostHandler)
 
 

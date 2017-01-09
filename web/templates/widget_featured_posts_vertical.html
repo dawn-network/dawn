@@ -22,7 +22,7 @@
                     <span class="cat-links">
                         {{with $categories := GetCategoryOfPost $elmt.ID}}
                             {{range $categories}}
-                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                <a href="/category?cat={{.TermId}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
                             {{end}}
                         {{end}}
                     </span>
@@ -63,7 +63,7 @@
                     <span class="cat-links">
                         {{with $categories := GetCategoryOfPost $elmt.ID}}
                             {{range $categories}}
-                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                <a href="/category?cat={{.TermId}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
                             {{end}}
                         {{end}}
                     </span>
