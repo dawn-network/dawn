@@ -5,7 +5,7 @@
             <div class="single-slide {{if $index}} displaynone {{else}} displayblock {{end}}">
                 {{with $thumbnail := GetPostThumbnail $elmt.ID}}
                     <figure class="slider-featured-image">
-                        <a href="###" title="{{$elmt.PostTitle}}">
+                        <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
                             <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
                         </a>
                     </figure>
@@ -21,7 +21,7 @@
                         </span>
                     </div>
                     <h3 class="entry-title">
-                        <a href="###" title="{{.PostTitle}}">{{$elmt.PostTitle}}</a>
+                        <a href="/post?p={{$elmt.ID}}" title="{{.PostTitle}}">{{$elmt.PostTitle}}</a>
                     </h3>
                     <div class="below-entry-meta">
                         <span class="posted-on">

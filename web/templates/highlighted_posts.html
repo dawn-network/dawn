@@ -5,7 +5,7 @@
             <div class="single-article">
                 {{with $thumbnail := GetPostThumbnail $elmt.ID}}
                     <figure class="highlights-featured-image" style="height: 170px;">
-                        <a href="###" title="{{$elmt.PostTitle}}">
+                        <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
                             <img style="" src="{{$thumbnail}}" class="attachment-colormag-highlighted-post size-colormag-highlighted-post wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
                         </a>
                     </figure>
@@ -21,7 +21,7 @@
                         </span>
                     </div>
                     <h3 class="entry-title">
-                        <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
+                        <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
                     </h3>
                     <div class="below-entry-meta">
                         <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
