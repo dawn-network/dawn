@@ -9,60 +9,49 @@ import (
 	"fmt"
 	"encoding/hex"
 	"log"
-	"html/template"
 	"time"
 	"github.com/baabeetaa/glogchain/config"
-	"github.com/baabeetaa/glogchain/db"
 	"io/ioutil"
 	"github.com/gorilla/mux"
 	"encoding/gob"
+	"strconv"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 type Context struct {
 	Title  string
 	Static string
+	Data 	interface{}
 }
 
 var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
-var funcMap template.FuncMap = template.FuncMap{
-	"GetFeaturedPosts": db.GetFeaturedPosts,
-	"GetCategoryOfPost": db.GetCategoryOfPost,
-	"GetPostThumbnail": db.GetPostThumbnail,
-	"GetUser": db.GetUser,
-	"Dict": Dict,
-	"StringCut": StringCut}
-
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-
 	context.Static = "/static/"
+	render(w, "home", context)
+}
 
-	t := template.New("index.html")
-	t = t.Funcs(funcMap)
+func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
+	//context := Context{Title: "Welcome!"}
+	//context.Static = "/static/"
 
-	tmpl_list := []string {
-		"web/templates/index.html",
-		"web/templates/header.html",
-		"web/templates/footer.html",
-		"web/templates/featured_posts.html",
-		"web/templates/highlighted_posts.html",
-		"web/templates/primary.html",
-		"web/templates/secondary.html",
-		"web/templates/widget_slider.html",
-		"web/templates/widget_featured_posts_vertical.html",
-		"web/templates/widget_featured_posts.html",
-		"web/templates/widget_728x90_advertisement.html"}
+	p := req.FormValue("p")
 
-	t, err := t.ParseFiles(tmpl_list...)
+	postId, err := strconv.ParseInt(p, 10, 64)
 	if err != nil {
-		log.Print("template parsing error: ", err)
+		panic(err)
 	}
 
-	err = t.Execute(w, context)
+	post, err := db.GetPost(postId)
 	if err != nil {
-		log.Print("template executing error: ", err)
+		panic(err)
 	}
+
+	//context.Data = postId
+	//log.Println("ViewSinglePostHandler: " + (context.Data.(db.Post)).PostTitle )
+
+	render(w, "single_post", post)
 }
 
 func AboutHandler(w http.ResponseWriter, req *http.Request) {
@@ -116,18 +105,7 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, config.GlogchainConfigGlobal.HugoBaseUrl + "/post/" + Title  + "/", http.StatusFound)
 }
 
-func render(w http.ResponseWriter, tmpl string, context Context) {
-	context.Static = "/static/"
-	tmpl_list := []string{"web/templates/base.html", "web/templates/header.html", fmt.Sprintf("web/templates/%s.html", tmpl)}
-	t, err := template.ParseFiles(tmpl_list...)
-	if err != nil {
-		log.Print("template parsing error: ", err)
-	}
-	err = t.Execute(w, context)
-	if err != nil {
-		log.Print("template executing error: ", err)
-	}
-}
+
 
 func StartWebServer() error  {
 	gob.Register(&User{})
@@ -138,7 +116,8 @@ func StartWebServer() error  {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
 	r.HandleFunc("/", HomeHandler)
-	//r.HandleFunc("/home", HomePageHandler)
+	r.HandleFunc("/post", ViewSinglePostHandler)
+
 
 
 	r.HandleFunc("/login", LoginHandler)

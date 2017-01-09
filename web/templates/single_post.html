@@ -1,0 +1,67 @@
+{{ define "content" }}
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <div id="content" class="clearfix">
+            {{ with $post := . }}
+            <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
+                {{with $thumbnail := GetPostThumbnail $post.ID}}
+                <div class="featured-image">
+                    <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
+                </div>
+                {{end}}
+                <div class="article-content clearfix">
+
+                    <div class="above-entry-meta">
+                        <span class="cat-links">
+                        {{with $categories := GetCategoryOfPost $post.ID}}
+                            {{range $categories}}
+                                <a href="###" rel="category tag">{{.Name}}</a>&nbsp;
+                            {{end}}
+                        {{end}}
+                        </span>
+                    </div>
+
+                    <header class="entry-header"><h1 class="entry-title">{{ $post.PostTitle }}</h1></header>
+
+                    <div class="below-entry-meta">
+                        <span class="posted-on"><a href="?p=8" title="{{$post.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$post.PostDate}}">{{$post.PostDate}}</time></a></span>
+                        {{with $author := GetUser $post.PostAuthor}}
+                            <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="?author={{$author.DisplayName}}" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a></span></span>
+                        {{end}}
+                        <span class="comments"><a href="http://localhost/wordpress/?p=8#respond"><i class="fa fa-comment"></i> 0 Comment</a></span>
+                        <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="?action=edit">Edit</a></span></div>
+                    <div class="entry-content clearfix">
+                        {{ $post.PostContent }}
+                    </div>
+
+                </div>
+            </article>
+            {{ end }}
+        </div>
+
+
+        <!--<ul class="default-wp-page clearfix">-->
+            <!--<li class="previous"><a href="http://localhost/wordpress/?p=170" rel="prev"><span class="meta-nav">←</span> De Spain preparations</a></li>-->
+            <!--<li class="next"><a href="http://localhost/wordpress/?p=158" rel="next">One of the most awesome Tourist destination <span class="meta-nav">→</span></a></li>-->
+        <!--</ul>-->
+
+
+        <!--<div id="comments" class="comments-area">-->
+            <!--<div id="respond" class="comment-respond">-->
+                <!--<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress/?p=8#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://localhost/wordpress/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">-->
+                <!--<p class="logged-in-as"><a href="http://localhost/wordpress/wp-admin/profile.php" aria-label="Logged in as admin. Edit your profile.">Logged in as admin</a>. <a href="http://localhost/wordpress/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Flocalhost%2Fwordpress%2F%3Fp%3D8&amp;_wpnonce=9311f4a43e">Log out?</a></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="8" id="comment_post_ID">-->
+                <!--<input type="hidden" name="comment_parent" id="comment_parent" value="0">-->
+            <!--</p><input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment" value="def9cafa12"><script>(function(){if(window===window.parent){document.getElementById('_wp_unfiltered_html_comment_disabled').name='_wp_unfiltered_html_comment';}})();</script>-->
+            <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
+</div>
+{{ end }}
