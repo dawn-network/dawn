@@ -30,7 +30,8 @@ var funcMap template.FuncMap = template.FuncMap{
 	"GetCategoryOfPost": db.GetCategoryOfPost,
 	"GetPostThumbnail": db.GetPostThumbnail,
 	"GetUser": db.GetUser,
-	"Dict": Dict}
+	"Dict": Dict,
+	"StringCut": StringCut}
 
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
@@ -50,7 +51,8 @@ func HomeHandler(w http.ResponseWriter, req *http.Request) {
 		"web/templates/secondary.html",
 		"web/templates/widget_slider.html",
 		"web/templates/widget_featured_posts_vertical.html",
-		"web/templates/widget_featured_posts.html"}
+		"web/templates/widget_featured_posts.html",
+		"web/templates/widget_728x90_advertisement.html"}
 
 	t, err := t.ParseFiles(tmpl_list...)
 	if err != nil {

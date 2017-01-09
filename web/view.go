@@ -72,3 +72,8 @@ func Dict(values ...interface{}) (map[string]interface{}, error) {
 
 	return dict, nil
 }
+
+func StringCut(str string, n int) string {
+	firstnChars := str[:n]
+	return firstnChars
+}

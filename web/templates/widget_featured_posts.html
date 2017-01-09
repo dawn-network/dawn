@@ -19,13 +19,13 @@
             {{end}}
             <div class="article-content">
                 <div class="above-entry-meta">
-                                <span class="cat-links">
-                                    {{with $categories := GetCategoryOfPost $elmt.ID}}
-                                        {{range $categories}}
-                                            <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
-                                        {{end}}
-                                    {{end}}
-                                </span>
+                    <span class="cat-links">
+                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                            {{range $categories}}
+                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                            {{end}}
+                        {{end}}
+                    </span>
                 </div>
                 <h3 class="entry-title">
                     <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
@@ -53,13 +53,13 @@
             {{end}}
             <div class="article-content">
                 <div class="above-entry-meta">
-                                            <span class="cat-links">
-                                                {{with $categories := GetCategoryOfPost $elmt.ID}}
-                                                    {{range $categories}}
-                                                        <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
-                                                    {{end}}
-                                                {{end}}
-                                            </span>
+                    <span class="cat-links">
+                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                            {{range $categories}}
+                                <a href="###" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                            {{end}}
+                        {{end}}
+                    </span>
                 </div>
                 <h3 class="entry-title">
                     <a href="###" title="{{$elmt.PostTitle}}">{{$elmt.PostTitle}}</a>
@@ -68,16 +68,16 @@
                     <span class="posted-on"><a href="###" title="{{$elmt.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$elmt.PostDate}}">{{$elmt.PostDate}}</time></a></span>
                     {{with $author := GetUser $elmt.PostAuthor}}
                     <span class="byline">
-                                            <span class="author vcard">
-                                                <i class="fa fa-user"></i>
-                                                <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
-                                            </span>
-                                        </span>
+                        <span class="author vcard">
+                            <i class="fa fa-user"></i>
+                            <a class="url fn n" href="###" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a>
+                        </span>
+                    </span>
                     {{end}}
                     <span class="comments"><i class="fa fa-comment"></i><span>Comments Off<span class="screen-reader-text"> on {{$elmt.PostTitle}}</span></span></span>
                 </div>
                 <div class="entry-content">
-                    <p>Vivamus vestibulum ut magna vitae facilisis. Maecenas laoreet lobortis tristique. Aenean accumsan malesuada convallis. Suspendisse egestas luctus nisl, sit amet</p>
+                    <p>{{StringCut .PostContent 160 }}</p>
                 </div>
             </div>
 
