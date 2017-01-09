@@ -1,6 +1,6 @@
 {{ define "highlighted_posts" }}
 <div class="widget_highlighted_post_area">
-    {{with $itemlist := GetFeaturedPosts 22 4}}
+    {{with $itemlist := GetPostsByCategory 22 0 4}}
         {{range $index, $elmt := $itemlist}}
             <div class="single-article">
                 {{with $thumbnail := GetPostThumbnail $elmt.ID}}

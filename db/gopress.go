@@ -194,82 +194,82 @@ func GetPost(postID int64) (Post, error)  {
 	return post, nil
 }
 
-func GetFeaturedPosts(term_taxonomy_id int64, max_result int64) ([]Post, error)  {
-	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) AND wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, %d", term_taxonomy_id, max_result)
-	rows, err := Query (sql)
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
-		return nil, err
-	}
-	defer rows.Close()
-
-	items := []Post{}
-	for rows.Next() {
-		var post Post
-
-		err := rows.Scan(
-			&post.ID,
-			&post.PostAuthor,
-			&post.PostDate,
-			&post.PostDateGmt,
-			&post.PostContent,
-			&post.PostTitle,
-			&post.PostExcerpt,
-			&post.PostStatus,
-			&post.CommentStatus,
-			&post.PingStatus,
-			&post.PostPassword,
-			&post.PostName,
-			&post.ToPing,
-			&post.Pinged,
-			&post.PostModified,
-			&post.PostModifiedGmt,
-			&post.PostContentFiltered,
-			&post.PostParent,
-			&post.Guid,
-			&post.MenuOrder,
-			&post.PostType,
-			&post.PostMimeType,
-			&post.CommentCount )
-		if err != nil {
-			log.Fatal(err)
-			return nil, err
-		}
-		//log.Println("record: ", post.ID,
-		//	post.PostAuthor,
-		//	post.PostDate,
-		//	post.PostDateGmt,
-		//	post.PostContent,
-		//	post.PostTitle,
-		//	post.PostExcerpt,
-		//	post.PostStatus,
-		//	post.CommentStatus,
-		//	post.PingStatus,
-		//	post.PostPassword,
-		//	post.PostName,
-		//	post.ToPing,
-		//	post.Pinged,
-		//	post.PostModified,
-		//	post.PostModifiedGmt,
-		//	post.PostContentFiltered,
-		//	post.PostParent,
-		//	post.Guid,
-		//	post.MenuOrder,
-		//	post.PostType,
-		//	post.PostMimeType,
-		//	post.CommentCount)
-		items = append(items, post)
-	}
-
-
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return items, nil
-}
+//func GetFeaturedPosts(term_taxonomy_id int64, max_result int64) ([]Post, error)  {
+//	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) AND wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, %d", term_taxonomy_id, max_result)
+//	rows, err := Query (sql)
+//	if err != nil {
+//		panic(err.Error()) // proper error handling instead of panic in your app
+//		return nil, err
+//	}
+//	defer rows.Close()
+//
+//	items := []Post{}
+//	for rows.Next() {
+//		var post Post
+//
+//		err := rows.Scan(
+//			&post.ID,
+//			&post.PostAuthor,
+//			&post.PostDate,
+//			&post.PostDateGmt,
+//			&post.PostContent,
+//			&post.PostTitle,
+//			&post.PostExcerpt,
+//			&post.PostStatus,
+//			&post.CommentStatus,
+//			&post.PingStatus,
+//			&post.PostPassword,
+//			&post.PostName,
+//			&post.ToPing,
+//			&post.Pinged,
+//			&post.PostModified,
+//			&post.PostModifiedGmt,
+//			&post.PostContentFiltered,
+//			&post.PostParent,
+//			&post.Guid,
+//			&post.MenuOrder,
+//			&post.PostType,
+//			&post.PostMimeType,
+//			&post.CommentCount )
+//		if err != nil {
+//			log.Fatal(err)
+//			return nil, err
+//		}
+//		//log.Println("record: ", post.ID,
+//		//	post.PostAuthor,
+//		//	post.PostDate,
+//		//	post.PostDateGmt,
+//		//	post.PostContent,
+//		//	post.PostTitle,
+//		//	post.PostExcerpt,
+//		//	post.PostStatus,
+//		//	post.CommentStatus,
+//		//	post.PingStatus,
+//		//	post.PostPassword,
+//		//	post.PostName,
+//		//	post.ToPing,
+//		//	post.Pinged,
+//		//	post.PostModified,
+//		//	post.PostModifiedGmt,
+//		//	post.PostContentFiltered,
+//		//	post.PostParent,
+//		//	post.Guid,
+//		//	post.MenuOrder,
+//		//	post.PostType,
+//		//	post.PostMimeType,
+//		//	post.CommentCount)
+//		items = append(items, post)
+//	}
+//
+//
+//	err = rows.Err()
+//	if err != nil {
+//		log.Fatal(err)
+//		return nil, err
+//	}
+//
+//	return items, nil
+//}
 
 // term_taxonomy_id is category
 func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page int64) ([]Post, error)  {

@@ -2,7 +2,7 @@
 <section class="widget widget_featured_posts widget_featured_meta clearfix">
     <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.Category}}</span></h3>
 
-    {{with $itemlist := GetFeaturedPosts .CategoryId 5}}
+    {{with $itemlist := GetPostsByCategory .CategoryId 0 5}}
     {{range $index, $elmt := $itemlist}}
     {{if $index}}
     {{if eq $index 1}}

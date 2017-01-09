@@ -10,7 +10,7 @@ import (
 )
 
 var funcMap template.FuncMap = template.FuncMap{
-	"GetFeaturedPosts": 	db.GetFeaturedPosts,
+	//"GetFeaturedPosts": 	db.GetFeaturedPosts,
 	"GetPost": 		db.GetPost,
 	"GetCategoryOfPost": 	db.GetCategoryOfPost,
 	"GetPostThumbnail": 	db.GetPostThumbnail,
@@ -84,8 +84,11 @@ func Dict(values ...interface{}) (map[string]interface{}, error) {
 }
 
 func StringCut(str string, n int) string {
-	firstnChars := str[:n]
-	return firstnChars
+	if (n < len(str)) {
+		return str[:n]
+	}
+
+	return str
 }
 
 func render(w http.ResponseWriter, tmpl string, data interface{}) {
