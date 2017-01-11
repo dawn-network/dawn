@@ -2,14 +2,16 @@
 <div class="main-content-section clearfix">
     <div id="primary">
 
+        {{ $DataType := GetType . }}
+
         <h3>Account Create</h3>
-
-        {{ if eq .Status "success" }}
-            <div class="alert alert-success" role="alert">Account created successful!</div>
-        {{ else }}
-            <div class="alert alert-danger" role="alert">{{ .Message }}</div>
+        {{ if eq $DataType "web.ActionResult" }}
+            {{ if eq .Status "success" }}
+                <div class="alert alert-success" role="alert">Account created successful!</div>
+            {{ else }}
+                <div class="alert alert-danger" role="alert">{{ .Message }}</div>
+            {{ end }}
         {{ end }}
-
         <form action="/account/create_handler" method="POST">
             <p>
                 <label for="username">Username (a-z and 0-9) <span class="required">*</span></label>

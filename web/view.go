@@ -7,6 +7,7 @@ import (
 	"log"
 	"errors"
 	"github.com/baabeetaa/glogchain/db"
+	"reflect"
 )
 
 var funcMap template.FuncMap = template.FuncMap{
@@ -16,6 +17,7 @@ var funcMap template.FuncMap = template.FuncMap{
 	"GetPostThumbnail": 	db.GetPostThumbnail,
 	"GetUser": 		db.GetUser,
 	"GetPostsByCategory": 	db.GetPostsByCategory,
+	"GetType": 		GetType,
 	"Dict": 		Dict,
 	"StringCut": 		StringCut}
 
@@ -57,6 +59,11 @@ var funcMap template.FuncMap = template.FuncMap{
 //	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 //	return tmpl.ExecuteTemplate(w, "base", data)
 //}
+
+// http://stackoverflow.com/questions/20170275/how-to-find-a-type-of-a-object-in-golang
+func GetType(v interface{}) string {
+	return reflect.TypeOf(v).String()
+}
 
 // http://stackoverflow.com/questions/18276173/calling-a-template-with-several-pipeline-parameters
 func Dict(values ...interface{}) (map[string]interface{}, error) {

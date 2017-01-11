@@ -9,23 +9,17 @@ import (
 )
 
 type User struct {
-	ID			int64
-	UserLogin 		string
-	UserPass 		string	// store user's public key
-	UserNicename 		string
-	UserEmail 		string
-	UserUrl 		string
+	ID			string
+	Username 		string
+	Pubkey  		string
 	UserRegistered 		string
-	UserActivation_key 	string
-	UserStatus 		int
 	DisplayName 		string
 }
 
 type Post struct {
 	ID                  int64
-	PostAuthor          int64
+	PostAuthor          string
 	PostDate            string
-	PostDateGmt         string
 	PostContent         string
 	PostTitle           string
 	PostExcerpt         string
@@ -37,7 +31,6 @@ type Post struct {
 	ToPing              string
 	Pinged              string
 	PostModified        string
-	PostModifiedGmt     string
 	PostContentFiltered string
 	PostParent          int64
 	Guid                string
@@ -76,8 +69,10 @@ type TermRelationship struct {
 	TermOrder      int
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+
 func GetDB() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:123456@/wordpress")
+	db, err := sql.Open("mysql", "root:123456@/glogchain")
 	if err != nil {
 		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 		return nil, err
@@ -103,10 +98,12 @@ func Query (sql string) (*sql.Rows, error) {
 	return rows, nil
 }
 
-func GetUser(ID int64) (User, error)  {
+// ---------------------------------------------------------------------------------------------------------------------
+
+func GetUser(ID string) (User, error)  {
 	var item User
 
-	sql := fmt.Sprintf("SELECT * FROM wp_users WHERE ID=%d", ID)
+	sql := fmt.Sprintf("SELECT * FROM wp_users WHERE ID=\"%s\"", ID)
 
 	rows, err := Query (sql)
 	if err != nil {
@@ -118,14 +115,9 @@ func GetUser(ID int64) (User, error)  {
 	if rows.Next() {
 		err := rows.Scan(
 			&item.ID,
-			&item.UserLogin,
-			&item.UserPass,
-			&item.UserNicename,
-			&item.UserEmail,
-			&item.UserUrl,
+			&item.Username,
+			&item.Pubkey,
 			&item.UserRegistered,
-			&item.UserActivation_key,
-			&item.UserStatus,
 			&item.DisplayName)
 		if err != nil {
 			log.Fatal(err)
@@ -141,6 +133,31 @@ func GetUser(ID int64) (User, error)  {
 
 	return item, nil
 }
+
+func CreateUser(user User) error {
+	db, err := GetDB()
+	if err != nil {
+		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
+		return err
+	}
+	defer db.Close()
+
+
+	_, err = db.Exec("INSERT INTO wp_users(ID, user_username, user_pubkey, user_registered, display_name) " +
+		"VALUES(?, ?, ?, ?, ?)",
+		user.ID, user.Username, user.Pubkey, user.UserRegistered, user.DisplayName)
+
+
+
+
+	//if err != nil {
+	//	return err
+	//}
+
+	return err
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 
 func GetPost(postID int64) (Post, error)  {
 	var post Post
@@ -159,7 +176,6 @@ func GetPost(postID int64) (Post, error)  {
 			&post.ID,
 			&post.PostAuthor,
 			&post.PostDate,
-			&post.PostDateGmt,
 			&post.PostContent,
 			&post.PostTitle,
 			&post.PostExcerpt,
@@ -171,7 +187,6 @@ func GetPost(postID int64) (Post, error)  {
 			&post.ToPing,
 			&post.Pinged,
 			&post.PostModified,
-			&post.PostModifiedGmt,
 			&post.PostContentFiltered,
 			&post.PostParent,
 			&post.Guid,
@@ -215,7 +230,6 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 			&post.ID,
 			&post.PostAuthor,
 			&post.PostDate,
-			&post.PostDateGmt,
 			&post.PostContent,
 			&post.PostTitle,
 			&post.PostExcerpt,
@@ -227,7 +241,6 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 			&post.ToPing,
 			&post.Pinged,
 			&post.PostModified,
-			&post.PostModifiedGmt,
 			&post.PostContentFiltered,
 			&post.PostParent,
 			&post.Guid,
@@ -342,3 +355,6 @@ func GetPostThumbnail(postID int64) string  {
 
 	return "/static/img/slider-featured-image.png" // default
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+

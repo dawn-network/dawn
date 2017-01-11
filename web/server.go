@@ -16,6 +16,10 @@ import (
 	"encoding/gob"
 	"strconv"
 	"github.com/baabeetaa/glogchain/db"
+	"strings"
+	"github.com/tendermint/go-crypto"
+	"encoding/binary"
+	"bytes"
 )
 
 type Context struct {
@@ -25,7 +29,7 @@ type Context struct {
 }
 
 type ActionResult struct {
-	Status 		string // success or error
+	Status 		string 		// success or error
 	Message 	string
 	Data 		interface{}
 }
@@ -81,6 +85,7 @@ func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 func AccountCreateView(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
 	context.Static = "/static/"
+	context.Data = map[string]interface{}{ "username": "", "pubkey": ""}
 	render(w, "account_create", context)
 }
 
@@ -100,6 +105,51 @@ func AccountCreateHandler(w http.ResponseWriter, req *http.Request) {
 		render(w, "account_create", ActionResult{Status: "error", Message: "PubKey must be 32 bytes in Hex String ( 64 characters)", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
 		return
 	}
+
+
+	pubkey = strings.ToUpper(pubkey)
+
+
+	byte_arr, err := hex.DecodeString(pubkey)
+	if (err != nil) {
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+
+	//key, err := byte_arr.(crypto.PubKeyEd25519)
+
+	buf := &bytes.Buffer{}
+	err = binary.Write(buf, binary.BigEndian, byte_arr)
+	if err != nil {
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+
+	var key crypto.PubKeyEd25519
+	binary.Read(buf, binary.BigEndian, &key);
+
+	log.Println("AccountCreateHandler", "key", key.KeyString())
+
+	var address string = strings.ToUpper(hex.EncodeToString(key.Address()))
+
+	log.Println("AccountCreateHandler Address=\t\t" + address)
+
+
+// user.ID, user.Username, user.Pubkey, user.UserRegistered, user.DisplayName
+	// save to db
+	var user db.User
+	user.ID = address
+	user.Username = username
+	user.Pubkey = pubkey
+	user.UserRegistered = "2017-01-06 09:00:28"
+	user.DisplayName = username
+
+	err = db.CreateUser(user)
+	if err != nil {
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+
 
 	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
 }
