@@ -6,25 +6,37 @@ import (
 	"fmt"
 )
 
+
 // In prototype, we'll use json because we don't need high performance and protocols will need to be change however.
 // use dynamic json, more at http://eagain.net/articles/go-dynamic-json/
 // should look at steem operations for references
 // https://github.com/steemit/steem/blob/73a2b522e609925d444acfeb40264c5a0e682705/libraries/protocol/include/steemit/protocol/operations.hpp
 
 type OperationEnvelope struct {
-	Type string
-	Operation interface{}
+	Type 		string
+	Operation 	interface{}
+}
+
+type AccountCreateOperation struct {
+	Fee		float64
+	PubKey 		string
+}
+
+type AccountUpdateOperation struct {
+	// need to define here
 }
 
 type PostOperation struct {
-	Title string
-	Body string
-	Author string
+	Fee		float64
+	Title 		string
+	Body 		string
+	Author 		string
 }
 
 type VoteOperation struct {
-	PostId string
-	Voter string
+	Fee		float64
+	PostId 		string
+	Voter 		string
 }
 
 
@@ -42,6 +54,13 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 	}
 
 	switch env.Type {
+	case "AccountCreateOperation":
+		var accountCreateOperation AccountCreateOperation
+		if err := json.Unmarshal(operation, &accountCreateOperation); err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+		returnObj = accountCreateOperation
 	case "PostOperation":
 		var postOperation PostOperation
 		if err := json.Unmarshal(operation, &postOperation); err != nil {

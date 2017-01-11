@@ -19,9 +19,15 @@ import (
 )
 
 type Context struct {
-	Title  string
-	Static string
-	Data 	interface{}
+	Title  		string
+	Static 		string
+	Data 		interface{}
+}
+
+type ActionResult struct {
+	Status 		string // success or error
+	Message 	string
+	Data 		interface{}
 }
 
 var store = sessions.NewCookieStore([]byte("something-very-secret"))
@@ -70,6 +76,32 @@ func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	//log.Println("ViewSinglePostHandler: " + (context.Data.(db.Post)).PostTitle )
 
 	render(w, "single_post", post)
+}
+
+func AccountCreateView(w http.ResponseWriter, req *http.Request) {
+	context := Context{Title: "Welcome!"}
+	context.Static = "/static/"
+	render(w, "account_create", context)
+}
+
+func AccountCreateHandler(w http.ResponseWriter, req *http.Request) {
+	username := req.FormValue("username")
+	pubkey := req.FormValue("pubkey")
+
+	log.Println("AccountCreateHandler", "username", username)
+	log.Println("AccountCreateHandler", "pubkey", pubkey)
+
+	if (len(username) < 6) {
+		render(w, "account_create", ActionResult{Status: "error", Message: "username must be at least 6 characters", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+
+	if (len(pubkey) != 64) {
+		render(w, "account_create", ActionResult{Status: "error", Message: "PubKey must be 32 bytes in Hex String ( 64 characters)", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+
+	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
 }
 
 func AboutHandler(w http.ResponseWriter, req *http.Request) {
@@ -134,13 +166,17 @@ func StartWebServer() error  {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 
 	r.HandleFunc("/", HomeHandler)
+	r.HandleFunc("/login", LoginHandler)
+	r.HandleFunc("/logout", LogoutHandler)
+	r.HandleFunc("/account/create", AccountCreateView)
+	r.HandleFunc("/account/create_handler", AccountCreateHandler)
+
 	r.HandleFunc("/category", CategoryHandler)
 	r.HandleFunc("/post", ViewSinglePostHandler)
 
 
 
-	r.HandleFunc("/login", LoginHandler)
-	r.HandleFunc("/logout", LogoutHandler)
+
 
 	r.HandleFunc("/about/", AuthWrapper(AboutHandler))
 	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))

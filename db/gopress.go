@@ -11,7 +11,7 @@ import (
 type User struct {
 	ID			int64
 	UserLogin 		string
-	UserPass 		string
+	UserPass 		string	// store user's public key
 	UserNicename 		string
 	UserEmail 		string
 	UserUrl 		string
