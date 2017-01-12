@@ -22,13 +22,7 @@ type Post struct {
 	PostDate            string
 	PostContent         string
 	PostTitle           string
-	PostName            string
 	PostModified        string
-	PostParent          int64
-	Guid                string
-	PostType            string
-	PostMimeType        string
-	CommentCount        int64
 	Thumb 		    string
 }
 
@@ -170,13 +164,7 @@ func GetPost(postID int64) (Post, error)  {
 			&post.PostDate,
 			&post.PostContent,
 			&post.PostTitle,
-			&post.PostName,
 			&post.PostModified,
-			&post.PostParent,
-			&post.Guid,
-			&post.PostType,
-			&post.PostMimeType,
-			&post.CommentCount,
 			&post.Thumb)
 		if err != nil {
 			log.Fatal(err)
@@ -197,7 +185,7 @@ func GetPost(postID int64) (Post, error)  {
 func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page int64) ([]Post, error)  {
 	var record_offset int64 = records_per_page * page_no
 
-	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) AND wp_posts.post_type = 'post' GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT %d, %d", term_taxonomy_id, record_offset, records_per_page)
+	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT %d, %d", term_taxonomy_id, record_offset, records_per_page)
 	//log.Println("GetPostsByCategory: sql=", sql)
 	rows, err := Query (sql)
 	if err != nil {
@@ -216,13 +204,7 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 			&post.PostDate,
 			&post.PostContent,
 			&post.PostTitle,
-			&post.PostName,
 			&post.PostModified,
-			&post.PostParent,
-			&post.Guid,
-			&post.PostType,
-			&post.PostMimeType,
-			&post.CommentCount,
 			&post.Thumb)
 		if err != nil {
 			log.Fatal(err)
