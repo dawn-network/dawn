@@ -1,8 +1,8 @@
 {{ define "widget_featured_posts" }}
 <section class="widget widget_featured_posts widget_featured_meta clearfix">
-    <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.Category}}</span></h3>
+    <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.}}</span></h3>
 
-    {{with $itemlist := GetPostsByCategory .CategoryId 0 5}}
+    {{with $itemlist := GetPostsByCategory . 0 5}}
     {{range $index, $elmt := $itemlist}}
     {{if $index}}
     {{if eq $index 1}}
@@ -18,9 +18,9 @@
             <div class="article-content">
                 <div class="above-entry-meta">
                     <span class="cat-links">
-                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                        {{with $categories := GetCategoryOfPost $elmt.Cat}}
                             {{range $categories}}
-                                <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.ID}}</a>&nbsp;
                             {{end}}
                         {{end}}
                     </span>
@@ -50,9 +50,9 @@
             <div class="article-content">
                 <div class="above-entry-meta">
                     <span class="cat-links">
-                        {{with $categories := GetCategoryOfPost $elmt.ID}}
+                        {{with $categories := GetCategoryOfPost $elmt.Cat}}
                             {{range $categories}}
-                                <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.ID}}</a>&nbsp;
                             {{end}}
                         {{end}}
                     </span>

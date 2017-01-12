@@ -47,12 +47,12 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 	//context.Static = "/static/"
 
 	cat := req.FormValue("cat") // category id
-	categoryId, err := strconv.ParseInt(cat, 10, 64)
-	if err != nil {
-		panic(err)
-	}
+	//categoryId, err := strconv.ParseInt(cat, 10, 64)
+	//if err != nil {
+	//	panic(err)
+	//}
 
-	posts, err := db.GetPostsByCategory(categoryId, 0, 20)
+	posts, err := db.GetPostsByCategory(cat, 0, 20)
 	if err != nil {
 		log.Println("CategoryHandler", err)
 		panic(err)

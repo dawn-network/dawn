@@ -1,15 +1,15 @@
 {{ define "primary" }}
 <div id="content" class="clearfix">
 
-    {{ template "widget_featured_posts" Dict "Category" "Health" "CategoryId" 3 }}
+    {{ template "widget_featured_posts" "health" }}
 
 
     <div class="tg-one-half">
-        {{ template "widget_featured_posts_vertical" Dict "Category" "Fashion" "CategoryId" 7 }}
+        {{ template "widget_featured_posts_vertical" "fashion" }}
     </div>
 
     <div class="tg-one-half tg-one-half-last">
-        {{ template "widget_featured_posts_vertical" Dict "Category" "Sports" "CategoryId" 18 }}
+        {{ template "widget_featured_posts_vertical" "sports" }}
     </div>
 
     <div class="clearfix"></div>

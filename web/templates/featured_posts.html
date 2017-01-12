@@ -1,6 +1,6 @@
 {{ define "featured_posts" }}
 <div class="widget_slider_area_rotate">
-    {{with $itemlist := GetPostsByCategory 20 0 2}}
+    {{with $itemlist := GetPostsByCategory "travel" 0 2}}
         {{range $index, $elmt := $itemlist}}
             <div class="single-slide {{if $index}} displaynone {{else}} displayblock {{end}}">
                 <figure class="slider-featured-image">
@@ -11,9 +11,9 @@
                 <div class="slide-content">
                     <div class="above-entry-meta">
                         <span class="cat-links">
-                            {{with $categories := GetCategoryOfPost $elmt.ID}}
+                            {{with $categories := GetCategoryOfPost $elmt.Cat}}
                                 {{range $categories}}
-                                    <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                    <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.ID}}</a>&nbsp;
                                 {{end}}
                             {{end}}
                         </span>

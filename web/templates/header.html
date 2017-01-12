@@ -59,7 +59,7 @@
                 <ul id="menu-primary" class="menu">
                     {{with $itemlist := GetTopCategories 5}}
                         {{range $index, $elmt := $itemlist}}
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="/category?cat={{$elmt.ID}}">{{$elmt.Name}}</a></li>
+                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="/category?cat={{$elmt.ID}}">{{$elmt.ID}}</a></li>
                         {{end}}
                     {{end}}
                 </ul>

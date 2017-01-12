@@ -12,9 +12,9 @@
 
                     <div class="above-entry-meta">
                         <span class="cat-links">
-                        {{with $categories := GetCategoryOfPost $post.ID}}
+                        {{with $categories := GetCategoryOfPost $post.Cat}}
                             {{range $categories}}
-                                <a href="/category?cat={{.ID}}" rel="category tag">{{.Name}}</a>&nbsp;
+                                <a href="/category?cat={{.ID}}" rel="category tag">{{.ID}}</a>&nbsp;
                             {{end}}
                         {{end}}
                         </span>

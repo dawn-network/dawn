@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
+	"encoding/json"
 )
 
 type User struct {
@@ -23,11 +24,11 @@ type Post struct {
 	PostTitle           	string
 	PostModified        	string
 	Thumb 		    	string
+	Cat 			string // category
 }
 
 type Category struct {
-	ID    			int64
-	Name     		string
+	ID    			string
 	Count 			int64
 }
 
@@ -144,7 +145,8 @@ func GetPost(postID int64) (Post, error)  {
 			&post.PostContent,
 			&post.PostTitle,
 			&post.PostModified,
-			&post.Thumb)
+			&post.Thumb,
+			&post.Cat)
 		if err != nil {
 			log.Println("GetPost", err)
 			return post, err
@@ -161,14 +163,12 @@ func GetPost(postID int64) (Post, error)  {
 }
 
 // term_taxonomy_id is category
-func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page int64) ([]Post, error)  {
+func GetPostsByCategory(category string, page_no int64, records_per_page int64) ([]Post, error)  {
 	var record_offset int64 = records_per_page * page_no
 
-	sql := fmt.Sprintf(`SELECT wp_posts.* FROM wp_posts
-		LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)
-		WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) )
-		GROUP BY wp_posts.ID ORDER BY wp_posts.post_date
-		DESC LIMIT %d, %d`, term_taxonomy_id, record_offset, records_per_page)
+	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE JSON_CONTAINS(wp_posts.cat, '"%s"')
+		ORDER BY post_date
+		DESC LIMIT %d, %d`, category, record_offset, records_per_page)
 	//log.Println("GetPostsByCategory: sql=", sql)
 	rows, err := Query (sql)
 	if err != nil {
@@ -188,7 +188,8 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 			&post.PostContent,
 			&post.PostTitle,
 			&post.PostModified,
-			&post.Thumb)
+			&post.Thumb,
+			&post.Cat)
 		if err != nil {
 			log.Println("GetPostsByCategory", err)
 			return nil, err
@@ -207,36 +208,48 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 	return items, nil
 }
 
-func GetCategoryOfPost(postID int64) ([]Category, error)  {
-	sql := fmt.Sprintf(`SELECT * FROM tbl_cat WHERE ID IN
-		(SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat
-		WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )`, postID)
+//func GetCategoryOfPost(postID int64) ([]Category, error)  {
+	//sql := fmt.Sprintf(`SELECT * FROM tbl_cat WHERE ID IN
+	//	(SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat
+	//	WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )`, postID)
+	//
+	//rows, err := Query (sql)
+	//if err != nil {
+	//	panic(err.Error()) // proper error handling instead of panic in your app
+	//	return nil, err
+	//}
+	//defer rows.Close()
+	//
+	//items := []Category{}
+	//for rows.Next() {
+	//	var item Category
+	//	err := rows.Scan(
+	//		&item.ID,
+	//		&item.Count)
+	//	if err != nil {
+	//		log.Println("GetCategoryOfPost", err)
+	//		return nil, err
+	//	}
+	//	items = append(items, item)
+	//}
+	//
+	//err = rows.Err()
+	//if err != nil {
+	//	log.Fatal(err)
+	//	return nil, err
+	//}
+	//
+	//return items, nil
+//}
 
-	rows, err := Query (sql)
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
-		return nil, err
-	}
-	defer rows.Close()
+func GetCategoryOfPost(json_arr_str string) ([]Category, error)  {
+	cats_string := []string{}
+	json.Unmarshal([]byte(json_arr_str), &cats_string)
 
 	items := []Category{}
-	for rows.Next() {
-		var item Category
-		err := rows.Scan(
-			&item.ID,
-			&item.Name,
-			&item.Count)
-		if err != nil {
-			log.Println("GetCategoryOfPost", err)
-			return nil, err
-		}
-		items = append(items, item)
-	}
-
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
+	for _, item := range cats_string {
+		cat := Category{ item, 0 }
+		items = append(items, cat)
 	}
 
 	return items, nil
@@ -259,7 +272,6 @@ func GetTopCategories(max_records int64) ([]Category, error)  {
 		var item Category
 		err := rows.Scan(
 			&item.ID,
-			&item.Name,
 			&item.Count)
 		if err != nil {
 			log.Println("GetTopCategories", err)

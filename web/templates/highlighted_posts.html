@@ -1,6 +1,6 @@
 {{ define "highlighted_posts" }}
 <div class="widget_highlighted_post_area">
-    {{with $itemlist := GetPostsByCategory 22 0 4}}
+    {{with $itemlist := GetPostsByCategory "research" 0 4}}
         {{range $index, $elmt := $itemlist}}
             <div class="single-article">
                 <figure class="highlights-featured-image" style="height: 170px;">
@@ -11,9 +11,9 @@
                 <div class="article-content">
                     <div class="above-entry-meta">
                         <span class="cat-links">
-                            {{with $categories := GetCategoryOfPost $elmt.ID}}
+                            {{with $categories := GetCategoryOfPost $elmt.Cat}}
                                 {{range $categories}}
-                                    <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.Name}}</a>&nbsp;
+                                    <a href="/category?cat={{.ID}}" style="background:#a38a6d" rel="category tag">{{.ID}}</a>&nbsp;
                                 {{end}}
                             {{end}}
                         </span>
