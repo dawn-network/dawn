@@ -209,7 +209,7 @@ func PostCreateSave(w http.ResponseWriter, req *http.Request) {
 
 
 func StartWebServer() error  {
-	gob.Register(&User{})
+	gob.Register(&db.User{})
 
 	r := mux.NewRouter()
 

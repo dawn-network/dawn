@@ -7,13 +7,19 @@ import (
 	"strings"
 	"time"
 	"github.com/gorilla/sessions"
+	"github.com/baabeetaa/glogchain/db"
+	"encoding/hex"
+	"bytes"
+	"encoding/binary"
+	"github.com/tendermint/go-crypto"
+	"log"
 )
 
-type User struct {
-	Username string
-	Id string
-	Secret string
-}
+//type User struct {
+//	Username string
+//	Id string
+//	Secret string
+//}
 
 func GetSession(r *http.Request) (*sessions.Session) {
 	// Get a session. We're ignoring the error resulted from decoding an
@@ -21,6 +27,7 @@ func GetSession(r *http.Request) (*sessions.Session) {
 	session, err := store.Get(r, "session-name")
 	if err != nil {
 		//http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println("GetSession", err)
 		panic("Unexpected error!")
 	}
 
@@ -31,7 +38,7 @@ func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session := GetSession(r)
 
-		user, ok := session.Values["user"].(*User)
+		user, ok := session.Values["user"].(*db.User)
 		if !ok {
 			LoginHandler(w, r)
 			return
@@ -46,23 +53,51 @@ func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// If method is GET serve an html login page
 	if r.Method != "POST" {
-		http.ServeFile(w, r, "web/templates/login.html")
+		//http.ServeFile(w, r, "web/templates/login.html")
+		render(w, "login", nil)
 		return
 	}
 
 	// Grab the username/password from the submitted post form
-	username := r.FormValue("username")
-	password := r.FormValue("password")
+	str_PriKey := r.FormValue("PriKey")
 
-	// If wrong password redirect to the login
-	if !((strings.Compare(username, "admin") == 0) && (strings.Compare(password, "123456") == 0)) {
-		http.Redirect(w, r, "/login", 301)
+	if (len(str_PriKey) != 128) {
+		render(w, "login", ActionResult{Status: "error", Message: "PriKey must be 64 bytes in Hex String ( 128 characters)", Data: map[string]interface{}{ "PriKey": str_PriKey}})
 		return
 	}
 
-	var user User
-	user.Username = username
-	user.Secret = password;
+	str_PriKey = strings.ToUpper(str_PriKey)
+
+	byte_arr, err := hex.DecodeString(str_PriKey)
+	if (err != nil) {
+		render(w, "login", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "PriKey": str_PriKey}})
+		return
+	}
+
+	buf := &bytes.Buffer{}
+	err = binary.Write(buf, binary.BigEndian, byte_arr)
+	if err != nil {
+		render(w, "login", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "PriKey": str_PriKey}})
+		return
+	}
+
+	var pri_key crypto.PrivKeyEd25519
+	binary.Read(buf, binary.BigEndian, &pri_key);
+
+	log.Println("LoginHandler", "pri_key", strings.ToUpper(hex.EncodeToString(pri_key.Bytes())))
+	log.Println("LoginHandler PubKey KeyString=\t" + pri_key.PubKey().KeyString())
+
+	var address string = strings.ToUpper(hex.EncodeToString(pri_key.PubKey().Address()))
+	log.Println("LoginHandler Address=\t\t" + address)
+
+	// find User in db
+	user, err := db.GetUser(address)
+
+	// If failed, redirect to the login
+	if (err != nil) {
+		render(w, "login", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "PriKey": str_PriKey}})
+		return
+	}
 
 	session := GetSession(r)
 	session.Values["user"] = user // Set some session values.

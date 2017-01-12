@@ -1,24 +1,27 @@
 {{ define "content" }}
-<div class="page-header">
-    <h1>{{ .Title }}</h1>
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <h3>Create a new Post</h3>
+        <p>Test creating new post</p>
+
+        <form action="/post/create/save" method="POST">
+            <div>
+                <label for="Title">Title:</label>
+                <input type="text" id="Title" name="Title" />
+            </div>
+            <div>
+                <label for="Body">Body:</label>
+                <div><textarea id="Body" name="Body" rows="20"></textarea></div>
+            </div>
+
+            <div><input type="submit" value="Save"></div>
+        </form>
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
 </div>
-<p>Test creating new post</p>
-
-<form action="/post/create/save" method="POST">
-    <div>
-        <label for="Title">Title:</label>
-        <input type="text" id="Title" name="Title" />
-    </div>
-    <div>
-        <label for="Author">Author:</label>
-        <input type="text" id="Author" name="Author" />
-    </div>
-    <div>
-        <label for="Body">Body:</label>
-        <div><textarea id="Body" name="Body" rows="20" cols="80"></textarea></div>
-    </div>
-
-    <div><input type="submit" value="Save"></div>
-</form>
-
 {{ end }}
