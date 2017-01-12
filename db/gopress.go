@@ -26,27 +26,33 @@ type Post struct {
 	Thumb 		    string
 }
 
-type PostMeta struct {
-	MetaId    int64
-	PostId    int64
-	MetaKey   string
-	MetaValue string
-}
+//type PostMeta struct {
+//	MetaId    int64
+//	PostId    int64
+//	MetaKey   string
+//	MetaValue string
+//}
 
-type Term struct {
-	TermId    int64
-	Name      string
-	Slug      string
-	TermGroup int64
-}
+//type Term struct {
+//	TermId    int64
+//	Name      string
+//	Slug      string
+//	TermGroup int64
+//}
+//
+//type TermTaxonomy struct {
+//	TermTaxonomyId int64
+//	TermId         int64
+//	Taxonomy       string
+//	Description    string
+//	Parent         int64
+//	Count          int64
+//}
 
-type TermTaxonomy struct {
-	TermTaxonomyId int64
-	TermId         int64
-	Taxonomy       string
-	Description    string
-	Parent         int64
-	Count          int64
+type Category struct {
+	ID    		int64
+	Name     	string
+	Count 		int64
 }
 
 type TermRelationship struct {
@@ -224,8 +230,8 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 	return items, nil
 }
 
-func GetCategoryOfPost(postID int64) ([]Term, error)  {
-	sql := fmt.Sprintf("SELECT * FROM wp_terms WHERE term_id IN (SELECT wp_term_taxonomy.term_id FROM wp_term_relationships, wp_term_taxonomy WHERE wp_term_relationships.term_taxonomy_id=wp_term_taxonomy.term_taxonomy_id AND wp_term_taxonomy.taxonomy='category' AND object_id=%d )", postID)
+func GetCategoryOfPost(postID int64) ([]Category, error)  {
+	sql := fmt.Sprintf("SELECT * FROM tbl_cat WHERE ID IN (SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )", postID)
 	rows, err := Query (sql)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
@@ -233,14 +239,13 @@ func GetCategoryOfPost(postID int64) ([]Term, error)  {
 	}
 	defer rows.Close()
 
-	items := []Term{}
+	items := []Category{}
 	for rows.Next() {
-		var item Term
+		var item Category
 		err := rows.Scan(
-			&item.TermId,
+			&item.ID,
 			&item.Name,
-			&item.Slug,
-			&item.TermGroup)
+			&item.Count)
 		if err != nil {
 			log.Fatal(err)
 			return nil, err
