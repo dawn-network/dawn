@@ -3,7 +3,8 @@ package db
 import (
 	"log"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
+	_ "github.com/mattn/go-sqlite3"
 	"fmt"
 	"encoding/json"
 )
@@ -40,14 +41,63 @@ type TermRelationship struct {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var __db *sql.DB = nil
+
 func GetDB() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:123456@/glogchain")
-	if err != nil {
-		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
-		return nil, err
+	if (__db == nil) {
+		db, err := sql.Open("sqlite3", "db.db")
+
+		if err != nil {
+			panic(err)
+		}
+
+		if db == nil {
+			panic("db nil")
+		}
+
+		////////////
+		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS tbl_cat
+		(
+		    ID VARCHAR(200) NOT NULL PRIMARY KEY,
+		    count INTEGER NOT NULL DEFAULT '0'
+		);`)
+		if err != nil {
+			panic(err)
+		}
+
+		//////
+		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wp_users
+		(
+		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
+		    user_username VARCHAR(60) NOT NULL DEFAULT '',
+		    user_pubkey VARCHAR(255) NOT NULL DEFAULT '',
+		    user_registered DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
+		    display_name VARCHAR(250) NOT NULL DEFAULT ''
+		);`)
+		if err != nil {
+			panic(err)
+		}
+
+		//////
+		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wp_posts
+		(
+		    ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+		    post_author VARCHAR(40) NOT NULL DEFAULT '0',
+		    post_date DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
+		    post_content LONGTEXT NOT NULL,
+		    post_title TEXT NOT NULL,
+		    post_modified DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
+		    thumb VARCHAR(255) NOT NULL DEFAULT '',
+		    cat VARCHAR(255) NOT NULL DEFAULT ''
+		);`)
+		if err != nil {
+			panic(err)
+		}
+
+		__db = db
 	}
 
-	return db, nil
+	return __db, nil
 }
 
 func Query (sql string) (*sql.Rows, error) {
@@ -56,7 +106,7 @@ func Query (sql string) (*sql.Rows, error) {
 		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 		return nil, err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	rows, err := db.Query(sql)
 	if err != nil {
@@ -109,7 +159,7 @@ func CreateUser(user User) error {
 		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 		return err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 
 	_, err = db.Exec("INSERT INTO wp_users(ID, user_username, user_pubkey, user_registered, display_name) " +
@@ -166,9 +216,11 @@ func GetPost(postID int64) (Post, error)  {
 func GetPostsByCategory(category string, page_no int64, records_per_page int64) ([]Post, error)  {
 	var record_offset int64 = records_per_page * page_no
 
-	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE JSON_CONTAINS(wp_posts.cat, '"%s"')
+	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE wp_posts.cat LIKE '%%"%s"%%'
 		ORDER BY post_date
 		DESC LIMIT %d, %d`, category, record_offset, records_per_page)
+
+
 	//log.Println("GetPostsByCategory: sql=", sql)
 	rows, err := Query (sql)
 	if err != nil {
@@ -207,40 +259,6 @@ func GetPostsByCategory(category string, page_no int64, records_per_page int64) 
 
 	return items, nil
 }
-
-//func GetCategoryOfPost(postID int64) ([]Category, error)  {
-	//sql := fmt.Sprintf(`SELECT * FROM tbl_cat WHERE ID IN
-	//	(SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat
-	//	WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )`, postID)
-	//
-	//rows, err := Query (sql)
-	//if err != nil {
-	//	panic(err.Error()) // proper error handling instead of panic in your app
-	//	return nil, err
-	//}
-	//defer rows.Close()
-	//
-	//items := []Category{}
-	//for rows.Next() {
-	//	var item Category
-	//	err := rows.Scan(
-	//		&item.ID,
-	//		&item.Count)
-	//	if err != nil {
-	//		log.Println("GetCategoryOfPost", err)
-	//		return nil, err
-	//	}
-	//	items = append(items, item)
-	//}
-	//
-	//err = rows.Err()
-	//if err != nil {
-	//	log.Fatal(err)
-	//	return nil, err
-	//}
-	//
-	//return items, nil
-//}
 
 func GetCategoryOfPost(json_arr_str string) ([]Category, error)  {
 	cats_string := []string{}

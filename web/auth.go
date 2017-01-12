@@ -101,6 +101,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	session := GetSession(r)
 	session.Values["user"] = user // Set some session values.
+	session.Values["private_key"] = pri_key
 	session.Save(r, w) // Save it before we write to the response/return from the handler.
 
 	// If the login succeeded

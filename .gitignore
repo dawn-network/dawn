@@ -1,5 +1,7 @@
 # db
+db.db
 db/db.db
+*.db
 
 #vim files#
 *.swp
