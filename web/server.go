@@ -54,6 +54,7 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 
 	posts, err := db.GetPostsByCategory(categoryId, 0, 20)
 	if err != nil {
+		log.Println("CategoryHandler", err)
 		panic(err)
 	}
 

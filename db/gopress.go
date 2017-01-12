@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
-	//"strconv"
 )
 
 type User struct {
@@ -25,29 +24,6 @@ type Post struct {
 	PostModified        string
 	Thumb 		    string
 }
-
-//type PostMeta struct {
-//	MetaId    int64
-//	PostId    int64
-//	MetaKey   string
-//	MetaValue string
-//}
-
-//type Term struct {
-//	TermId    int64
-//	Name      string
-//	Slug      string
-//	TermGroup int64
-//}
-//
-//type TermTaxonomy struct {
-//	TermTaxonomyId int64
-//	TermId         int64
-//	Taxonomy       string
-//	Description    string
-//	Parent         int64
-//	Count          int64
-//}
 
 type Category struct {
 	ID    		int64
@@ -112,7 +88,7 @@ func GetUser(ID string) (User, error)  {
 			&item.UserRegistered,
 			&item.DisplayName)
 		if err != nil {
-			log.Fatal(err)
+			log.Println("GetUser", err)
 			return item, err
 		}
 	}
@@ -138,9 +114,6 @@ func CreateUser(user User) error {
 	_, err = db.Exec("INSERT INTO wp_users(ID, user_username, user_pubkey, user_registered, display_name) " +
 		"VALUES(?, ?, ?, ?, ?)",
 		user.ID, user.Username, user.Pubkey, user.UserRegistered, user.DisplayName)
-
-
-
 
 	//if err != nil {
 	//	return err
@@ -173,7 +146,7 @@ func GetPost(postID int64) (Post, error)  {
 			&post.PostModified,
 			&post.Thumb)
 		if err != nil {
-			log.Fatal(err)
+			log.Println("GetPost", err)
 			return post, err
 		}
 	}
@@ -191,7 +164,11 @@ func GetPost(postID int64) (Post, error)  {
 func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page int64) ([]Post, error)  {
 	var record_offset int64 = records_per_page * page_no
 
-	sql := fmt.Sprintf("SELECT wp_posts.* FROM wp_posts LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT %d, %d", term_taxonomy_id, record_offset, records_per_page)
+	sql := fmt.Sprintf(`SELECT wp_posts.* FROM wp_posts
+		LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)
+		WHERE 1=1 AND ( wp_term_relationships.term_taxonomy_id IN (%d) )
+		GROUP BY wp_posts.ID ORDER BY wp_posts.post_date
+		DESC LIMIT %d, %d`, term_taxonomy_id, record_offset, records_per_page)
 	//log.Println("GetPostsByCategory: sql=", sql)
 	rows, err := Query (sql)
 	if err != nil {
@@ -213,7 +190,7 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 			&post.PostModified,
 			&post.Thumb)
 		if err != nil {
-			log.Fatal(err)
+			log.Println("GetPostsByCategory", err)
 			return nil, err
 		}
 
@@ -231,7 +208,10 @@ func GetPostsByCategory(term_taxonomy_id int64, page_no int64, records_per_page 
 }
 
 func GetCategoryOfPost(postID int64) ([]Category, error)  {
-	sql := fmt.Sprintf("SELECT * FROM tbl_cat WHERE ID IN (SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )", postID)
+	sql := fmt.Sprintf(`SELECT * FROM tbl_cat WHERE ID IN
+		(SELECT tbl_cat.ID FROM wp_term_relationships, tbl_cat
+		WHERE wp_term_relationships.term_taxonomy_id=tbl_cat.ID AND object_id=%d )`, postID)
+
 	rows, err := Query (sql)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
@@ -247,7 +227,7 @@ func GetCategoryOfPost(postID int64) ([]Category, error)  {
 			&item.Name,
 			&item.Count)
 		if err != nil {
-			log.Fatal(err)
+			log.Println("GetCategoryOfPost", err)
 			return nil, err
 		}
 		items = append(items, item)
@@ -261,63 +241,3 @@ func GetCategoryOfPost(postID int64) ([]Category, error)  {
 
 	return items, nil
 }
-
-//func GetPostMetas(postID int64) ([]PostMeta, error)  {
-//	sql := fmt.Sprintf("SELECT * FROM wp_postmeta WHERE post_id=%d", postID)
-//	rows, err := Query (sql)
-//	if err != nil {
-//		panic(err.Error()) // proper error handling instead of panic in your app
-//		return nil, err
-//	}
-//	defer rows.Close()
-//
-//	items := []PostMeta{}
-//	for rows.Next() {
-//		var item PostMeta
-//		err := rows.Scan(
-//			&item.MetaId,
-//			&item.PostId,
-//			&item.MetaKey,
-//			&item.MetaValue)
-//		if err != nil {
-//			log.Fatal(err)
-//			return nil, err
-//		}
-//		items = append(items, item)
-//	}
-//
-//	err = rows.Err()
-//	if err != nil {
-//		log.Fatal(err)
-//		return nil, err
-//	}
-//
-//	return items, nil
-//}
-
-//func GetPostThumbnail(postID int64) string  {
-//	postmetas, err := GetPostMetas(postID)
-//	if err != nil {
-//		return ""
-//	}
-//
-//	for _, v := range postmetas {
-//		if (v.MetaKey == "_thumbnail_id") {
-//			thumbnail_id, err := strconv.ParseInt(v.MetaValue, 10, 64)
-//			if (err == nil) {
-//				thumbnail, err := GetPost(thumbnail_id)
-//				if (err == nil) {
-//					//log.Println("GetPostThumbnail", thumbnail.Guid)
-//					return thumbnail.Guid
-//				}
-//			}
-//
-//			break
-//		}
-//	}
-//
-//	return "/static/img/slider-featured-image.png" // default
-//}
-
-// ---------------------------------------------------------------------------------------------------------------------
-
