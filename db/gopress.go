@@ -16,25 +16,25 @@ type User struct {
 }
 
 type Post struct {
-	ID                  int64
-	PostAuthor          string
-	PostDate            string
-	PostContent         string
-	PostTitle           string
-	PostModified        string
-	Thumb 		    string
+	ID                  	int64
+	PostAuthor          	string
+	PostDate            	string
+	PostContent         	string
+	PostTitle           	string
+	PostModified        	string
+	Thumb 		    	string
 }
 
 type Category struct {
-	ID    		int64
-	Name     	string
-	Count 		int64
+	ID    			int64
+	Name     		string
+	Count 			int64
 }
 
 type TermRelationship struct {
-	ObjectId       int64
-	TermTaxonomyId int64
-	TermOrder      int
+	ObjectId       		int64
+	TermTaxonomyId 		int64
+	TermOrder      		int
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -228,6 +228,41 @@ func GetCategoryOfPost(postID int64) ([]Category, error)  {
 			&item.Count)
 		if err != nil {
 			log.Println("GetCategoryOfPost", err)
+			return nil, err
+		}
+		items = append(items, item)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	return items, nil
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+func GetTopCategories(max_records int64) ([]Category, error)  {
+	sql := fmt.Sprintf(`SELECT * FROM tbl_cat ORDER BY count DESC LIMIT 0, %d`, max_records)
+
+	rows, err := Query (sql)
+	if err != nil {
+		panic(err.Error()) // proper error handling instead of panic in your app
+		return nil, err
+	}
+	defer rows.Close()
+
+	items := []Category{}
+	for rows.Next() {
+		var item Category
+		err := rows.Scan(
+			&item.ID,
+			&item.Name,
+			&item.Count)
+		if err != nil {
+			log.Println("GetTopCategories", err)
 			return nil, err
 		}
 		items = append(items, item)

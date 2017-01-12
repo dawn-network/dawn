@@ -34,21 +34,19 @@
             <div id="header-left-section">
                 <div id="header-logo-image">
                     <a href="/" class="custom-logo-link" rel="home" itemprop="url"><img width="265" height="90" src="/static/img/logo.png" class="custom-logo" alt="" itemprop="logo" /></a>
-                </div><!-- #header-logo-image -->
+                </div>
                 <div id="header-text" class="screen-reader-text">
                     <h1 id="site-title">
                         <a href="/" title="COLORMAG" rel="home">COLORMAG</a>
                     </h1>
                     <p id="site-description">Glogchain</p>
-                </div><!-- #header-text -->
-            </div><!-- #header-left-section -->
-            <div id="header-right-section">
-                <div id="header-right-sidebar" class="clearfix">
-                    {{ template "widget_728x90_advertisement" }}
                 </div>
-            </div><!-- #header-right-section -->
-        </div><!-- #header-text-nav-wrap -->
-    </div><!-- .inner-wrap -->
+            </div>
+            <div id="header-right-section">
+                <div id="header-right-sidebar" class="clearfix">{{ template "widget_728x90_advertisement" }}</div>
+            </div>
+        </div>
+    </div>
 
 
     <nav id="site-navigation" class="main-navigation clearfix" role="navigation">
@@ -59,21 +57,11 @@
             <h4 class="menu-toggle"></h4>
             <div class="menu-primary-container">
                 <ul id="menu-primary" class="menu">
-                    <li id="menu-item-175" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-175"><a href="https://demo.themegrill.com/colormag/category/sports/">Sports</a></li>
-                    <li id="menu-item-32" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32"><a href="https://demo.themegrill.com/colormag/category/politics/">Politics</a></li>
-                    <li id="menu-item-176" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-176"><a href="https://demo.themegrill.com/colormag/category/technology/">Technology</a></li>
-                    <li id="menu-item-177" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-177"><a href="https://demo.themegrill.com/colormag/category/fashion/">Fashion</a></li>
-                    <li id="menu-item-178" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-178"><a href="https://demo.themegrill.com/colormag/category/health/">Health</a></li>
-                    <!--<li id="menu-item-192" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-192"><a href="#">Layout</a>-->
-                        <!--<ul class="sub-menu">-->
-                            <!--<li id="menu-item-196" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-196"><a href="https://demo.themegrill.com/colormag/left-sidebar/">Left Sidebar</a></li>-->
-                            <!--<li id="menu-item-195" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-195"><a href="https://demo.themegrill.com/colormag/right-sidebar/">Right Sidebar</a></li>-->
-                            <!--<li id="menu-item-194" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-194"><a href="https://demo.themegrill.com/colormag/no-sidebar-full-width/">No Sidebar Full Width</a></li>-->
-                            <!--<li id="menu-item-193" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-193"><a href="https://demo.themegrill.com/colormag/no-sidebar-content-centered/">No Sidebar Content Centered</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li id="menu-item-200" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-200"><a href="http://themegrill.com/themes/colormag-pro/">View Pro</a></li>-->
-                    <!--<li id="menu-item-221" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-221"><a title="Download This Theme" href="###">Download</a></li>-->
+                    {{with $itemlist := GetTopCategories 5}}
+                        {{range $index, $elmt := $itemlist}}
+                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="/category?cat={{$elmt.ID}}">{{$elmt.Name}}</a></li>
+                        {{end}}
+                    {{end}}
                 </ul>
             </div>
 
@@ -103,6 +91,6 @@
         </div>
     </nav>
 
-</div><!-- #header-text-nav-container -->
+</div>
 
 {{ end }}

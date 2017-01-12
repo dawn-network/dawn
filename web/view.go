@@ -17,6 +17,7 @@ var funcMap template.FuncMap = template.FuncMap{
 	//"GetPostThumbnail": 	db.GetPostThumbnail,
 	"GetUser": 		db.GetUser,
 	"GetPostsByCategory": 	db.GetPostsByCategory,
+	"GetTopCategories":	db.GetTopCategories,
 	"GetType": 		GetType,
 	"Dict": 		Dict,
 	"StringCut": 		StringCut}
