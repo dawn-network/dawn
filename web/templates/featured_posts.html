@@ -3,13 +3,11 @@
     {{with $itemlist := GetPostsByCategory 20 0 2}}
         {{range $index, $elmt := $itemlist}}
             <div class="single-slide {{if $index}} displaynone {{else}} displayblock {{end}}">
-                {{with $thumbnail := GetPostThumbnail $elmt.ID}}
-                    <figure class="slider-featured-image">
-                        <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
-                            <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
-                        </a>
-                    </figure>
-                {{end}}
+                <figure class="slider-featured-image">
+                    <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
+                        <img width="800" height="445" src="{{$elmt.Thumb}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                    </a>
+                </figure>
                 <div class="slide-content">
                     <div class="above-entry-meta">
                         <span class="cat-links">

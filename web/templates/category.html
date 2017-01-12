@@ -10,13 +10,11 @@
                 {{ with $itemlist := . }}
                 {{range $index, $elmt := $itemlist}}
                 <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
-                    {{with $thumbnail := GetPostThumbnail $elmt.ID}}
                     <div class="featured-image">
                         <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
-                            <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
+                            <img width="800" height="445" src="{{$elmt.Thumb}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
                         </a>
                     </div>
-                    {{end}}
                     <div class="article-content clearfix">
                         <div class="above-entry-meta">
                             <span class="cat-links">

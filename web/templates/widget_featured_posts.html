@@ -10,13 +10,11 @@
         {{end}}
 
         <div class="single-article clearfix">
-            {{with $thumbnail := GetPostThumbnail $elmt.ID}}
             <figure style="width: 130px; height: 90px;">
                 <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
-                    <img style="" src="{{$thumbnail}}" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                    <img style="" src="{{$elmt.Thumb}}" class="attachment-colormag-featured-post-small size-colormag-featured-post-small wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
                 </a>
             </figure>
-            {{end}}
             <div class="article-content">
                 <div class="above-entry-meta">
                     <span class="cat-links">
@@ -44,13 +42,11 @@
     {{else}}
     <div class="first-post">
         <div class="single-article clearfix">
-            {{with $thumbnail := GetPostThumbnail $elmt.ID}}
             <figure>
                 <a href="/post?p={{$elmt.ID}}" title="{{$elmt.PostTitle}}">
-                    <img style="width: 390px; height: 205px" src="{{$thumbnail}}" class="attachment-colormag-featured-post-medium size-colormag-featured-post-medium wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
+                    <img style="width: 390px; height: 205px" src="{{$elmt.Thumb}}" class="attachment-colormag-featured-post-medium size-colormag-featured-post-medium wp-post-image" alt="{{$elmt.PostTitle}}" title="{{$elmt.PostTitle}}" />
                 </a>
             </figure>
-            {{end}}
             <div class="article-content">
                 <div class="above-entry-meta">
                     <span class="cat-links">

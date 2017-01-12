@@ -5,11 +5,9 @@
         <div id="content" class="clearfix">
             {{ with $post := . }}
             <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
-                {{with $thumbnail := GetPostThumbnail $post.ID}}
                 <div class="featured-image">
-                    <img width="800" height="445" src="{{$thumbnail}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
+                    <img width="800" height="445" src="{{$post.Thumb}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
                 </div>
-                {{end}}
                 <div class="article-content clearfix">
 
                     <div class="above-entry-meta">
