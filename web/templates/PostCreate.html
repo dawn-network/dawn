@@ -4,18 +4,34 @@
 
         <h3>Create a new Post</h3>
         <p>Test creating new post</p>
-
-        <form action="/post/create/save" method="POST">
-            <div>
-                <label for="Title">Title:</label>
-                <input type="text" id="Title" name="Title" />
-            </div>
-            <div>
-                <label for="Body">Body:</label>
-                <div><textarea id="Body" name="Body" rows="20"></textarea></div>
-            </div>
-
-            <div><input type="submit" value="Save"></div>
+        {{ $DataType := GetType . }}
+        {{ if eq $DataType "web.ActionResult" }}
+            {{ if eq .Status "success" }}
+                <div class="alert alert-success" role="alert">Account created successful!</div>
+            {{ else }}
+                <div class="alert alert-danger" role="alert">{{ .Message }}</div>
+            {{ end }}
+        {{ end }}
+        <form action="/post/create" method="POST">
+            <p>
+                <label for="Title">Title <span class="required">*</span></label>
+                <input id="Title" name="Title" type="text" value='{{ .Data.PostTitle }}' aria-required="true" required="required">
+            </p>
+            <p>
+                <label for="PostContent">Content <span class="required">*</span></label>
+                <textarea id="PostContent" name="PostContent" rows="8" aria-required="true" required="required">{{ .Data.PostContent }}</textarea>
+            </p>
+            <p>
+                <label for="Thumb">Feature Image <span class="required">*</span></label>
+                <input id="Thumb" name="Thumb" type="text" value='{{ .Data.Thumb }}' aria-required="true" required="required">
+            </p>
+            <p>
+                <label for="Categories">Categories ( in json array format ) eg: ["cat", "dog"]</label>
+                <input id="Categories" name="Categories" type="text" value='{{ .Data.Cat }}' aria-required="true" required="required">
+            </p>
+            <p class="form-submit">
+                <input id="submit" name="submit" type="submit" class="submit" value="Submit">
+            </p>
         </form>
 
     </div>

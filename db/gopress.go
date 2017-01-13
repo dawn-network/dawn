@@ -18,7 +18,7 @@ type User struct {
 }
 
 type Post struct {
-	ID                  	int64
+	ID                  	string
 	PostAuthor          	string
 	PostDate            	string
 	PostContent         	string
@@ -81,7 +81,7 @@ func GetDB() (*sql.DB, error) {
 		//////
 		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wp_posts
 		(
-		    ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
 		    post_author VARCHAR(40) NOT NULL DEFAULT '0',
 		    post_date DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
 		    post_content LONGTEXT NOT NULL,
@@ -175,10 +175,26 @@ func CreateUser(user User) error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-func GetPost(postID int64) (Post, error)  {
+func CreatePost(post Post) error {
+	db, err := GetDB()
+	if err != nil {
+		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
+		return err
+	}
+	//defer db.Close()
+
+
+	_, err = db.Exec("INSERT INTO wp_posts(ID, post_author, post_date, post_content, post_title, post_modified, thumb, cat) " +
+		"VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+		post.ID, post.PostAuthor, post.PostDate, post.PostContent, post.PostTitle, post.PostModified, post.Thumb, post.Cat)
+
+	return err
+}
+
+func GetPost(postID string) (Post, error)  {
 	var post Post
 
-	sql := fmt.Sprintf("SELECT * FROM wp_posts WHERE ID=%d", postID)
+	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE ID="%s"`, postID)
 
 	rows, err := Query (sql)
 	if err != nil {
@@ -212,13 +228,23 @@ func GetPost(postID int64) (Post, error)  {
 	return post, nil
 }
 
-// term_taxonomy_id is category
+/**
+ * if category is empty string then no filtering
+ */
 func GetPostsByCategory(category string, page_no int64, records_per_page int64) ([]Post, error)  {
 	var record_offset int64 = records_per_page * page_no
 
-	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE wp_posts.cat LIKE '%%"%s"%%'
-		ORDER BY post_date
-		DESC LIMIT %d, %d`, category, record_offset, records_per_page)
+	var sql string
+
+	if (category != "") {
+		sql = fmt.Sprintf(`SELECT * FROM wp_posts WHERE wp_posts.cat LIKE '%%"%s"%%'
+			ORDER BY post_date
+			DESC LIMIT %d, %d`, category, record_offset, records_per_page)
+	} else {
+		sql = fmt.Sprintf(`SELECT * FROM wp_posts
+			ORDER BY post_date
+			DESC LIMIT %d, %d`, record_offset, records_per_page)
+	}
 
 
 	//log.Println("GetPostsByCategory: sql=", sql)

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"fmt"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 
@@ -19,18 +20,16 @@ type OperationEnvelope struct {
 
 type AccountCreateOperation struct {
 	Fee		float64
-	PubKey 		string
+	User 		db.User
 }
 
-type AccountUpdateOperation struct {
-	// need to define here
-}
+//type AccountUpdateOperation struct {
+//	// need to define here
+//}
 
-type PostOperation struct {
+type PostCreateOperation struct {
 	Fee		float64
-	Title 		string
-	Body 		string
-	Author 		string
+	Post 		db.Post
 }
 
 type VoteOperation struct {
@@ -61,14 +60,12 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 			return nil, err
 		}
 		returnObj = accountCreateOperation
-	case "PostOperation":
-		var postOperation PostOperation
+	case "PostCreateOperation":
+		var postOperation PostCreateOperation
 		if err := json.Unmarshal(operation, &postOperation); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
-		//var desc string = s.Description
-		//fmt.Println(desc)
 
 		returnObj = postOperation
 	case "VoteOperation":
@@ -83,30 +80,30 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 	return returnObj, nil
 }
 
-func Marshal() {
-	s := OperationEnvelope{
-		Type: "PostOperation",
-		Operation: PostOperation{
-			Title: "the Title",
-			Body: "the Body",
-			Author: "the Author",
-		},
-	}
-	buf, err := json.Marshal(s)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%s\n", buf)
-
-	//c := OperationEnvelope{
-	//	Type: "cowbell",
-	//	Msg: Cowbell{
-	//		More: true,
-	//	},
-	//}
-	//buf, err = json.Marshal(c)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//fmt.Printf("%s\n", buf)
-}
+//func Marshal() {
+//	s := OperationEnvelope{
+//		Type: "PostOperation",
+//		Operation: PostOperation{
+//			Title: "the Title",
+//			Body: "the Body",
+//			Author: "the Author",
+//		},
+//	}
+//	buf, err := json.Marshal(s)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	fmt.Printf("%s\n", buf)
+//
+//	//c := OperationEnvelope{
+//	//	Type: "cowbell",
+//	//	Msg: Cowbell{
+//	//		More: true,
+//	//	},
+//	//}
+//	//buf, err = json.Marshal(c)
+//	//if err != nil {
+//	//	log.Fatal(err)
+//	//}
+//	//fmt.Printf("%s\n", buf)
+//}

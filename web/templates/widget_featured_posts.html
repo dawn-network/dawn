@@ -1,6 +1,10 @@
 {{ define "widget_featured_posts" }}
 <section class="widget widget_featured_posts widget_featured_meta clearfix">
-    <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.}}</span></h3>
+    {{if ne . ""}}
+        <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">{{.}}</span></h3>
+    {{else}}
+        <h3 class="widget-title" style="border-bottom-color:#a38a6d;"><span style="background-color:#a38a6d;">LASTEST</span></h3>
+    {{end}}
 
     {{with $itemlist := GetPostsByCategory . 0 5}}
     {{range $index, $elmt := $itemlist}}

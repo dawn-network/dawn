@@ -53,7 +53,6 @@ func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// If method is GET serve an html login page
 	if r.Method != "POST" {
-		//http.ServeFile(w, r, "web/templates/login.html")
 		render(w, "login", nil)
 		return
 	}
@@ -117,7 +116,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 
 	session := GetSession(r)
 	session.Values["user"] = nil
-
+	session.Values["private_key"] = nil
 	session.Save(r, w)
 
 	http.Redirect(w, r, "/", 302)

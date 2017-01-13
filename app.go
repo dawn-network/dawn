@@ -5,6 +5,9 @@ import (
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/tmsp/types"
 	"encoding/hex"
+	"github.com/baabeetaa/glogchain/protocol"
+	"log"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 type GlogChainApp struct {
@@ -25,25 +28,37 @@ func (app *GlogChainApp) SetOption(key string, value string) (log string) {
 }
 
 func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
-	//// tx is json string, need to convert to text and then parse into json object
-	//jsonstring := string(tx[:])
-	//
-	//obj , err := protocol.UnMarshal(jsonstring)
-	//
-	//if err != nil {
-	//	log.Fatal(err)
-	//	return types.ErrEncodingError
-	//}
-	//
-	//switch v:=obj.(type) {
-	//case protocol.PostOperation:
-	//	//var objPostOperation protocol.PostOperation
-	//	//
-	//	//objPostOperation = v
-	//	//blog.CreatePost(&objPostOperation)
-	//
-	//default:
-	//}
+	// tx is json string, need to convert to text and then parse into json object
+	jsonstring := string(tx[:])
+
+	obj , err := protocol.UnMarshal(jsonstring)
+
+	if err != nil {
+		log.Fatal(err)
+		return types.ErrEncodingError
+	}
+
+	switch v:=obj.(type) {
+	case protocol.PostCreateOperation:
+		var tx protocol.PostCreateOperation
+		tx = v
+
+		err = db.CreatePost(tx.Post)
+		if err != nil {
+			log.Println("AppendTx CreatePost", err)
+			return types.ErrInternalError
+		}
+	case protocol.AccountCreateOperation:
+		var tx protocol.AccountCreateOperation
+		tx = v
+
+		err = db.CreateUser(tx.User)
+		if err != nil {
+			log.Println("AppendTx CreateUser", err)
+			return types.ErrInternalError
+		}
+	default:
+	}
 
 	//return types.OK
 	return types.NewResult(types.CodeType_OK, tx, "AppendTx OK")

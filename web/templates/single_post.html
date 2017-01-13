@@ -23,11 +23,11 @@
                     <header class="entry-header"><h1 class="entry-title">{{ $post.PostTitle }}</h1></header>
 
                     <div class="below-entry-meta">
-                        <span class="posted-on"><a href="?p=8" title="{{$post.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$post.PostDate}}">{{$post.PostDate}}</time></a></span>
+                        <span class="posted-on"><a href="###" title="{{$post.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$post.PostDate}}">{{$post.PostDate}}</time></a></span>
                         {{with $author := GetUser $post.PostAuthor}}
                             <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="?author={{$author.DisplayName}}" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a></span></span>
                         {{end}}
-                        <span class="comments"><a href="http://localhost/wordpress/?p=8#respond"><i class="fa fa-comment"></i> 0 Comment</a></span>
+                        <span class="comments"><a href="###respond"><i class="fa fa-comment"></i> 0 Comment</a></span>
                         <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="?action=edit">Edit</a></span></div>
                     <div class="entry-content clearfix">
                         {{ $post.PostContent }}
