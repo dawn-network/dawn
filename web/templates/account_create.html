@@ -12,7 +12,7 @@
                 <div class="alert alert-danger" role="alert">{{ .Message }}</div>
             {{ end }}
         {{ end }}
-        <form action="/account/create_handler" method="POST">
+        <form action="/account/create" method="POST">
             <p>
                 <label for="username">Username (a-z and 0-9) <span class="required">*</span></label>
                 <input id="username" name="username" type="text" value='{{index .Data "username"}}' size="30" maxlength="32" aria-required="true" required="required">

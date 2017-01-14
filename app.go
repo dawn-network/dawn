@@ -48,6 +48,15 @@ func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
 			log.Println("AppendTx CreatePost", err)
 			return types.ErrInternalError
 		}
+	case protocol.PostEditOperation:
+		var tx protocol.PostEditOperation
+		tx = v
+
+		err = db.EditPost(tx.Post)
+		if err != nil {
+			log.Println("AppendTx EditPost", err)
+			return types.ErrInternalError
+		}
 	case protocol.AccountCreateOperation:
 		var tx protocol.AccountCreateOperation
 		tx = v

@@ -191,6 +191,21 @@ func CreatePost(post Post) error {
 	return err
 }
 
+func EditPost(post Post) error {
+	db, err := GetDB()
+	if err != nil {
+		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
+		return err
+	}
+	//defer db.Close()
+
+
+	_, err = db.Exec("UPDATE wp_posts SET post_content=?, post_title=?, post_modified=?, thumb=?, cat=? WHERE ID=?",
+		post.PostContent, post.PostTitle, post.PostModified, post.Thumb, post.Cat, post.ID)
+
+	return err
+}
+
 func GetPost(postID string) (Post, error)  {
 	var post Post
 

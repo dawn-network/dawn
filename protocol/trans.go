@@ -32,6 +32,11 @@ type PostCreateOperation struct {
 	Post 		db.Post
 }
 
+type PostEditOperation struct {
+	Fee		float64
+	Post 		db.Post
+}
+
 type VoteOperation struct {
 	Fee		float64
 	PostId 		string
@@ -62,6 +67,14 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 		returnObj = accountCreateOperation
 	case "PostCreateOperation":
 		var postOperation PostCreateOperation
+		if err := json.Unmarshal(operation, &postOperation); err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+
+		returnObj = postOperation
+	case "PostEditOperation":
+		var postOperation PostEditOperation
 		if err := json.Unmarshal(operation, &postOperation); err != nil {
 			log.Fatal(err)
 			return nil, err

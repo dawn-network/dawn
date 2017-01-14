@@ -2,6 +2,10 @@ package service
 
 import (
 	"math/rand"
+	"log"
+	"net/http"
+	"io/ioutil"
+	"github.com/baabeetaa/glogchain/config"
 )
 
 //func categories_normalize(jsonstr string) (string, error) {
@@ -36,4 +40,25 @@ func RandSeq(n int) string {
 		b[i] = letters[rand.Intn(len(letters))]
 	}
 	return string(b)
+}
+
+
+/////////////////
+
+func TM_broadcast_tx_commit(data string) {
+	var url_request string = config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
+	log.Println("TM_broadcast_tx_commit url_request: %#v\n", url_request)
+	resp, err := http.Get(url_request)
+	if err != nil {
+		log.Println("TM_broadcast_tx_commit http.Get error: %#v\n", err)
+		return;
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("TM_broadcast_tx_commit ioutil.ReadAll error: %#v\n", err)
+		return;
+	}
+	json_response_string := string(body[:])
+	log.Println("TM_broadcast_tx_commit json_response_string: %#v\n", json_response_string)
 }

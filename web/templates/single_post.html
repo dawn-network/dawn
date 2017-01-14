@@ -1,9 +1,8 @@
 {{ define "content" }}
 <div class="main-content-section clearfix">
     <div id="primary">
-
         <div id="content" class="clearfix">
-            {{ with $post := . }}
+            {{ $post := .Data }}
             <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
                 <div class="featured-image">
                     <img width="800" height="445" src="{{$post.Thumb}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
@@ -12,10 +11,9 @@
 
                     <div class="above-entry-meta">
                         <span class="cat-links">
-                        {{with $categories := GetCategoryOfPost $post.Cat}}
-                            {{range $categories}}
-                                <a href="/category?cat={{.ID}}" rel="category tag">{{.ID}}</a>&nbsp;
-                            {{end}}
+                        {{ $categories := GetCategoryOfPost $post.Cat}}
+                        {{range $categories}}
+                            <a href="/category?cat={{.ID}}" rel="category tag">{{.ID}}</a>&nbsp;
                         {{end}}
                         </span>
                     </div>
@@ -24,18 +22,21 @@
 
                     <div class="below-entry-meta">
                         <span class="posted-on"><a href="###" title="{{$post.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$post.PostDate}}">{{$post.PostDate}}</time></a></span>
-                        {{with $author := GetUser $post.PostAuthor}}
-                            <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="?author={{$author.DisplayName}}" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a></span></span>
-                        {{end}}
+                        {{ $author := GetUser $post.PostAuthor}}
+                        <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="?author={{$author.ID}}" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a></span></span>
                         <span class="comments"><a href="###respond"><i class="fa fa-comment"></i> 0 Comment</a></span>
-                        <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="?action=edit">Edit</a></span></div>
+                        {{ $currentUser := index .SessionValues "user"}}
+                        {{if $currentUser.ID}}
+                            {{if eq $author.ID $currentUser.ID}}
+                                <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="/post/edit?p={{$post.ID}}">Edit</a></span></div>
+                            {{end}}
+                        {{end}}
                     <div class="entry-content clearfix">
                         {{ $post.PostContent }}
                     </div>
 
                 </div>
             </article>
-            {{ end }}
         </div>
 
 

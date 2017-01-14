@@ -11,7 +11,6 @@ import (
 	"log"
 	"time"
 	"github.com/baabeetaa/glogchain/config"
-	"io/ioutil"
 	"github.com/gorilla/mux"
 	"encoding/gob"
 	"github.com/baabeetaa/glogchain/db"
@@ -28,6 +27,8 @@ import (
 type Context struct {
 	Title  		string
 	Static 		string
+	//Request 	*http.Request
+	SessionValues 	map[interface{}]interface{}
 	Data 		interface{}
 }
 
@@ -39,11 +40,11 @@ type ActionResult struct {
 
 var store = sessions.NewCookieStore([]byte("something-very-secret"))
 
-func HomeHandler(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "Welcome!"}
-	context.Static = "/static/"
-	render(w, "home", context)
-}
+//func HomeHandler(w http.ResponseWriter, req *http.Request) {
+//	context := Context{Title: "Welcome!"}
+//	context.Static = "/static/"
+//	render(w, "home", context)
+//}
 
 func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 	//context := Context{Title: "Welcome!"}
@@ -65,35 +66,31 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
-	//context := Context{Title: "Welcome!"}
-	//context.Static = "/static/"
+	context := Context{Title: "Welcome!"}
+	context.Static = "/static/"
+	//context.Request = req
+	context.SessionValues = GetSession(req).Values
 
 	p := req.FormValue("p")
-
-	//postId, err := strconv.ParseInt(p, 10, 64)
-	//if err != nil {
-	//	panic(err)
-	//}
-
 	post, err := db.GetPost(p)
 	if err != nil {
 		panic(err)
 	}
 
-	//context.Data = postId
-	//log.Println("ViewSinglePostHandler: " + (context.Data.(db.Post)).PostTitle )
-
-	render(w, "single_post", post)
+	context.Data = post
+	render(w, "single_post", context)
 }
 
-func AccountCreateView(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "Welcome!"}
-	context.Static = "/static/"
-	context.Data = map[string]interface{}{ "username": "", "pubkey": ""}
-	render(w, "account_create", context)
-}
+func AccountCreate(w http.ResponseWriter, req *http.Request) {
+	// If method is GET serve an html
+	if req.Method != "POST" {
+		context := Context{Title: "Welcome!"}
+		context.Static = "/static/"
+		context.Data = map[string]interface{}{ "username": "", "pubkey": ""}
+		render(w, "account_create", context)
+		return
+	}
 
-func AccountCreateHandler(w http.ResponseWriter, req *http.Request) {
 	username := req.FormValue("username")
 	pubkey := req.FormValue("pubkey")
 
@@ -154,30 +151,8 @@ func AccountCreateHandler(w http.ResponseWriter, req *http.Request) {
 	hex.Encode(tx_json_hex, []byte(tx_json))
 	log.Println("AccountCreateHandler tx_json_hex", string(tx_json_hex[:]))
 
-
-	var url_request string = config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + string(tx_json_hex[:]) + "%22"
-	log.Println("AccountCreateHandler url_request: %#v\n", url_request)
-	resp, err := http.Get(url_request)
-	if err != nil {
-		log.Println("AccountCreateHandler http.Get error: %#v\n", err)
-		return;
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Println("AccountCreateHandler ioutil.ReadAll error: %#v\n", err)
-		return;
-	}
-	json_response_string := string(body[:])
-	log.Println("AccountCreateHandler json_response_string: %#v\n", json_response_string)
-
-
+	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
 	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
-}
-
-func AboutHandler(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "About"}
-	render(w, "about", context)
 }
 
 func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
@@ -275,22 +250,105 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	hex.Encode(tx_json_hex, []byte(tx_json))
 	log.Println("PostCreateHandler tx_json_hex", string(tx_json_hex[:]))
 
+	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
 
-	var url_request string = config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + string(tx_json_hex[:]) + "%22"
-	log.Println("PostCreateHandler url_request: %#v\n", url_request)
-	resp, err := http.Get(url_request)
-	if err != nil {
-		log.Println("PostCreateHandler http.Get error: %#v\n", err)
-		return;
+	// delay sometime then Redirect to the new post
+	time.Sleep(1000 * time.Millisecond) // 1s
+	http.Redirect(w, req, "/post?p=" + post.ID  , http.StatusFound)
+}
+
+func PostEditHandler(w http.ResponseWriter, req *http.Request) {
+	log.Println("---PostEditHandler---------------------------------------------------------------------")
+
+	p := req.FormValue("p")
+	post, err := db.GetPost(p)
+
+	// If method is GET serve an html login page
+	if req.Method != "POST" {
+		log.Println("PostEditHandler GET")
+
+		context := Context{Title: "PostEdit", Data: post}
+		render(w, "post_edit", context)
+		return
 	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Println("PostCreateHandler ioutil.ReadAll error: %#v\n", err)
-		return;
+
+	log.Println("PostEditHandler POST")
+
+	session := GetSession(req)
+	user, ok := session.Values["user"].(*db.User)
+	if !ok {
+		panic("PostCreateHandler: wtf?? session user is nil")
+		return
 	}
-	json_response_string := string(body[:])
-	log.Println("PostCreateHandler json_response_string: %#v\n", json_response_string)
+
+	timeNow := time.Now()
+
+	/////////
+	post.ID = p
+	post.PostAuthor = user.ID 				// take from session
+	//post.PostDate = timeNow.String() 			// take from current datetime
+	post.PostContent = req.FormValue("PostContent")
+	post.PostTitle = req.FormValue("Title")
+	post.PostModified = timeNow.String() 		// take from current datetime
+	post.Thumb = req.FormValue("Thumb")
+	post.Cat = req.FormValue("Categories") 	// Categories in json string array
+
+	// very basic from validating
+	if ((len(post.PostTitle) < 6) || (len(post.PostContent) < 6) || (len(post.Thumb) < 6)) {
+		render(w, "post_edit",
+			ActionResult{
+				Status: "error",
+				Message: "field must be at least 6 characters",
+				Data: post,
+			})
+		return
+	}
+
+	// validating Categories
+	post.Cat = strings.ToLower(post.Cat)
+	if (len(post.Cat) < 6) {
+		post.Cat = `[]`
+	}
+
+	cats_string := []string{}
+	err = json.Unmarshal([]byte(post.Cat), &cats_string)
+	if (err != nil) {
+		render(w, "post_edit",
+			ActionResult{
+				Status: "error",
+				Message: "Categories json array string is invalid",
+				Data: post,
+			})
+		return
+	}
+
+
+	log.Println("PostEditHandler", "id=", post.ID, "PostAuthor=", post.PostAuthor, "PostDate=",
+		post.PostDate, "Title=", post.PostTitle, "PostModified=", post.PostModified, "Thumb=",
+		post.Thumb, "Categories=", post.Cat, "PostContent=", post.PostContent)
+
+
+	tx := protocol.OperationEnvelope {
+		Type: "PostEditOperation",
+		Operation: protocol.PostEditOperation {
+			Fee: 0,
+			Post: post },
+	}
+
+	byte_arr, err := json.Marshal(tx)
+	if err != nil {
+		log.Fatal("PostEditHandler Cannot encode to JSON ", err)
+		return
+	}
+
+	tx_json := string(byte_arr[:])
+	log.Println("PostEditHandler tx_json=", tx_json)
+
+	tx_json_hex := make([]byte, len(tx_json) * 2)
+	hex.Encode(tx_json_hex, []byte(tx_json))
+	log.Println("PostEditHandler tx_json_hex", string(tx_json_hex[:]))
+
+	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
 
 	// delay sometime then Redirect to the new post
 	time.Sleep(1000 * time.Millisecond) // 1s
@@ -311,12 +369,11 @@ func StartWebServer() error  {
 	r.HandleFunc("/", CategoryHandler)
 	r.HandleFunc("/login", LoginHandler)
 	r.HandleFunc("/logout", LogoutHandler)
-	r.HandleFunc("/account/create", AccountCreateView)
-	r.HandleFunc("/account/create_handler", AccountCreateHandler)
+	r.HandleFunc("/account/create", AccountCreate)
 	//r.HandleFunc("/category", CategoryHandler)
 	r.HandleFunc("/post", ViewSinglePostHandler)
-	r.HandleFunc("/about/", AuthWrapper(AboutHandler))
 	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))
+	r.HandleFunc("/post/edit", AuthWrapper(PostEditHandler))
 
 	// Subrouter
 	//s := r.PathPrefix("/secure").Subrouter()
