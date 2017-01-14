@@ -14,8 +14,6 @@ type GlogCfg struct {
 	GlogchainWebAddr string	`json:"glogchainWebAddr"`
 	TmspAddr string		`json:"tmspAddr"`
 	TmRpcLaddr string	`json:"tmRpcLaddr"`
-	HugoPostPath string	`json:"hugoPostPath"`
-	HugoBaseUrl string	`json:"hugoBaseUrl"`
 }
 
 var GlogchainConfigGlobal = GlogCfg{}
