@@ -32,7 +32,7 @@
                             {{end}}
                         {{end}}
                     <div class="entry-content clearfix">
-                        {{ $post.PostContent }}
+                        <textarea id="PostContent" name="PostContent">{{ $post.PostContent }}</textarea>
                     </div>
 
                 </div>
@@ -63,4 +63,28 @@
         {{ template "secondary"}}
     </div>
 </div>
+
+
+<script type='text/javascript'>
+    jQuery(document).ready(function(){
+//        var PostContent = new SimpleMDE(
+//            {
+//                element: jQuery("#PostContent")[0],
+//                status: false,
+//                toolbar: false
+//            }
+//        );
+//
+//        PostContent.togglePreview();
+
+
+        var md_str = jQuery("#PostContent").text();
+        var html_str = SimpleMDE.prototype.markdown(md_str);
+        jQuery("#PostContent").parent().html(html_str);
+    });
+
+
+</script>
+
+
 {{ end }}

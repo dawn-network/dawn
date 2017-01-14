@@ -2598,3 +2598,10 @@ Responsive Structure
 .search h1.page-title {
    display: none;
 }
+
+/*---------------------------------------------------------------------------------*/
+/* fix ul ol when rendering markdown */
+.editor-preview ul {
+	list-style: disc;
+	padding-left: 40px;
+}
