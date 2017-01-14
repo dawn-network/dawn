@@ -13,7 +13,7 @@
                         <span class="cat-links">
                         {{ $categories := GetCategoryOfPost $post.Cat}}
                         {{range $categories}}
-                            <a href="/category?cat={{.ID}}" rel="category tag">{{.ID}}</a>&nbsp;
+                            <a href="/?cat={{.ID}}" rel="category tag">{{.ID}}</a>&nbsp;
                         {{end}}
                         </span>
                     </div>

@@ -8,6 +8,7 @@ import (
 	"errors"
 	"github.com/baabeetaa/glogchain/db"
 	"reflect"
+	"github.com/baabeetaa/glogchain/config"
 )
 
 var funcMap template.FuncMap = template.FuncMap{
@@ -70,18 +71,18 @@ func render(w http.ResponseWriter, tmpl string, data interface{}) {
 	t = t.Funcs(funcMap)
 
 	var tmpl_list = []string {
-		"web/templates/index.html",
-		"web/templates/header.html",
-		"web/templates/footer.html",
-		"web/templates/featured_posts.html",
-		"web/templates/highlighted_posts.html",
-		"web/templates/primary.html",
-		"web/templates/secondary.html",
-		"web/templates/widget_slider.html",
-		"web/templates/widget_featured_posts_vertical.html",
-		"web/templates/widget_featured_posts.html",
-		"web/templates/widget_728x90_advertisement.html",
-		fmt.Sprintf("web/templates/%s.html", tmpl)}
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/index.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/header.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/footer.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/featured_posts.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/highlighted_posts.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/primary.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/secondary.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_slider.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts_vertical.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts.html",
+		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_728x90_advertisement.html",
+		fmt.Sprintf(config.GlogchainConfigGlobal.WebRootDir + "/web/templates/%s.html", tmpl)}
 
 	t, err := t.ParseFiles(tmpl_list...)
 	if err != nil {

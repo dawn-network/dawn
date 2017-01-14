@@ -11,9 +11,10 @@ import (
 
 
 type GlogCfg struct {
-	GlogchainWebAddr string	`json:"glogchainWebAddr"`
-	TmspAddr string		`json:"tmspAddr"`
-	TmRpcLaddr string	`json:"tmRpcLaddr"`
+	WebRootDir 		string
+	GlogchainWebAddr 	string
+	TmspAddr 		string
+	TmRpcLaddr 		string
 }
 
 var GlogchainConfigGlobal = GlogCfg{}

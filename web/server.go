@@ -67,7 +67,7 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 
 func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-	context.Static = "/static/"
+	context.Static = config.GlogchainConfigGlobal.WebRootDir + "/static/"
 	//context.Request = req
 	context.SessionValues = GetSession(req).Values
 
@@ -85,7 +85,7 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	// If method is GET serve an html
 	if req.Method != "POST" {
 		context := Context{Title: "Welcome!"}
-		context.Static = "/static/"
+		context.Static = config.GlogchainConfigGlobal.WebRootDir + "/static/"
 		context.Data = map[string]interface{}{ "username": "", "pubkey": ""}
 		render(w, "account_create", context)
 		return
@@ -363,7 +363,7 @@ func StartWebServer() error  {
 	r := mux.NewRouter()
 
 	// This will serve files under http://localhost:8000/static/<filename>
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(config.GlogchainConfigGlobal.WebRootDir + "/web/static/"))))
 
 	//r.HandleFunc("/", HomeHandler)
 	r.HandleFunc("/", CategoryHandler)
