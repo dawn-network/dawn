@@ -8,10 +8,6 @@ import:
   version: v1.2.0
 - package: github.com/tendermint/go-common
 - package: github.com/tendermint/go-crypto
-- package: github.com/tendermint/tmsp
-  subpackages:
-  - server
-  - types
 - package: golang.org/x/crypto
   subpackages:
   - ripemd160

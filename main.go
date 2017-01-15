@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	. "github.com/tendermint/go-common"
-	"github.com/tendermint/tmsp/server"
+	"github.com/tendermint/abci/server"
 	"github.com/baabeetaa/glogchain/web"
 	"github.com/baabeetaa/glogchain/config"
 )

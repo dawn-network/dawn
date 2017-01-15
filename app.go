@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	. "github.com/tendermint/go-common"
-	//"github.com/tendermint/tmsp/types"
 	"encoding/hex"
 	"github.com/baabeetaa/glogchain/protocol"
 	"log"
