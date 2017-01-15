@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	. "github.com/tendermint/go-common"
-	"github.com/tendermint/tmsp/types"
+	//"github.com/tendermint/tmsp/types"
 	"encoding/hex"
 	"github.com/baabeetaa/glogchain/protocol"
 	"log"
 	"github.com/baabeetaa/glogchain/db"
+	"github.com/tendermint/abci/types"
 )
 
 type GlogChainApp struct {
@@ -19,15 +20,15 @@ func NewGlogChainApp() *GlogChainApp {
 	return &GlogChainApp{}
 }
 
-func (app *GlogChainApp) Info() string {
-	return Fmt("hashes:%v, txs:%v", app.hashCount, app.txCount)
+func (app *GlogChainApp) Info() types.ResponseInfo {
+	return types.ResponseInfo{Data: Fmt("{\"hashes\":%v,\"txs\":%v}", app.hashCount, app.txCount)}
 }
 
 func (app *GlogChainApp) SetOption(key string, value string) (log string) {
 	return ""
 }
 
-func (app *GlogChainApp) AppendTx(tx []byte) types.Result {
+func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	// tx is json string, need to convert to text and then parse into json object
 	jsonstring := string(tx[:])
 

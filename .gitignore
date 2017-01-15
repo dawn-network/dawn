@@ -1,8 +1,3 @@
-# db
-db.db
-db/db.db
-*.db
-
 #vim files#
 *.swp
 
@@ -14,6 +9,7 @@ db/db.db
 *.exe
 *.o
 *.so
+vendor/
 
 # Packages #
 ############
@@ -33,6 +29,9 @@ db/db.db
 *.log
 *.sql
 *.sqlite
+db.db
+db/db.db
+*.db
 
 # OS generated files #
 ######################

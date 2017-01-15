@@ -1,7 +1,18 @@
 package: github.com/baabeetaa/glogchain
 import:
+- package: github.com/gorilla/mux
+  version: v1.1
+- package: github.com/gorilla/sessions
+  version: v1.1
+- package: github.com/mattn/go-sqlite3
+  version: v1.2.0
 - package: github.com/tendermint/go-common
+- package: github.com/tendermint/go-crypto
 - package: github.com/tendermint/tmsp
   subpackages:
   - server
   - types
+- package: golang.org/x/crypto
+  subpackages:
+  - ripemd160
+- package: github.com/tendermint/abci
