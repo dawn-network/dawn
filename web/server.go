@@ -155,6 +155,48 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
 }
 
+func GenerateKeyPair(w http.ResponseWriter, req *http.Request) {
+	secret := req.FormValue("secret")
+
+	// If method is GET serve an html login page
+	if req.Method != "POST" {
+		log.Println("PostCreateHandler GET")
+		context := Context{Title: "account_genkeypair", Data: map[string]interface{}{ "secret": secret}}
+		render(w, "account_genkeypair", context)
+		return
+	}
+
+	//////////////////////////////////
+	privKey := crypto.GenPrivKeyEd25519FromSecret([]byte(secret))
+
+	log.Println("------------------------------------------------------------")
+	log.Println("secret=\t\t\t" + secret)
+
+	prikeystr := strings.ToUpper(hex.EncodeToString(privKey.Bytes()))
+	prikeystr = prikeystr[2:len(prikeystr)]
+
+	log.Println("_priKeyHex=\t\t\t" + prikeystr)
+
+	//pubkeystr := strings.ToUpper(hex.EncodeToString(privKey.PubKey().Bytes()))
+	//pubkeystr = pubkeystr[2:len(pubkeystr)]
+	//log.Println("PubKey Hex=\t\t\t" + pubkeystr)
+
+	log.Println("PubKey KeyString=\t" + privKey.PubKey().KeyString())
+	log.Println("PubKey Address=\t\t" + strings.ToUpper(hex.EncodeToString(privKey.PubKey().Address())))
+
+	render(w, "account_genkeypair",
+		ActionResult{
+			Status: "success",
+			Message: "ok",
+			Data: map[string]interface{}{
+				"secret": secret,
+				"PriKey": prikeystr,
+				"PubKey": privKey.PubKey().KeyString(),
+				"Address": strings.ToUpper(hex.EncodeToString(privKey.PubKey().Address())),
+			},
+		})
+}
+
 func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	log.Println("---PostCreateHandler---------------------------------------------------------------------")
 
@@ -370,6 +412,7 @@ func StartWebServer() error  {
 	r.HandleFunc("/login", LoginHandler)
 	r.HandleFunc("/logout", LogoutHandler)
 	r.HandleFunc("/account/create", AccountCreate)
+	r.HandleFunc("/account/generate_keypair", GenerateKeyPair)
 	//r.HandleFunc("/category", CategoryHandler)
 	r.HandleFunc("/post", ViewSinglePostHandler)
 	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))

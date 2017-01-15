@@ -5,6 +5,7 @@
         {{ $DataType := GetType . }}
 
         <h3>Account Create</h3>
+        <p>You can you <a href="/account/generate_keypair"><b>Key Pairs Generation Tool</b></a> to create a keypair for you!</p>
         {{ if eq $DataType "web.ActionResult" }}
             {{ if eq .Status "success" }}
                 <div class="alert alert-success" role="alert">Account created successful!</div>
