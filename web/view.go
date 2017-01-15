@@ -5,10 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"log"
-	"errors"
-	"github.com/baabeetaa/glogchain/db"
-	"reflect"
 	"github.com/baabeetaa/glogchain/config"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 var funcMap template.FuncMap = template.FuncMap{
@@ -24,44 +22,41 @@ var funcMap template.FuncMap = template.FuncMap{
 	"StringCut": 		StringCut}
 
 
+func CategoryHandler(w http.ResponseWriter, req *http.Request) {
+	//context := Context{Title: "Welcome!"}
+	//context.Static = "/static/"
 
-// http://stackoverflow.com/questions/20170275/how-to-find-a-type-of-a-object-in-golang
-func GetType(v interface{}) string {
-	return reflect.TypeOf(v).String()
-}
+	cat := req.FormValue("cat") // category id
+	//categoryId, err := strconv.ParseInt(cat, 10, 64)
+	//if err != nil {
+	//	panic(err)
+	//}
 
-// http://stackoverflow.com/questions/18276173/calling-a-template-with-several-pipeline-parameters
-func Dict(values ...interface{}) (map[string]interface{}, error) {
-	if len(values)%2 != 0 {
-		return nil, errors.New("invalid dict call")
+	posts, err := db.GetPostsByCategory(cat, 0, 20)
+	if err != nil {
+		log.Println("CategoryHandler", err)
+		panic(err)
 	}
 
-	dict := make(map[string]interface{}, len(values)/2)
-
-	for i := 0; i < len(values); i+=2 {
-		key, ok := values[i].(string)
-		if !ok {
-			return nil, errors.New("dict keys must be strings")
-		}
-		dict[key] = values[i+1]
-
-		// fix wrong type for value; expected int64; got int
-		switch dict[key].(type) {
-		case int:
-			dict[key] = int64(dict[key].(int))
-		}
-	}
-
-	return dict, nil
+	render(w, "category", posts)
 }
 
-func StringCut(str string, n int) string {
-	if (n < len(str)) {
-		return str[:n]
+func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
+	context := Context{Title: "Welcome!"}
+	context.Static = config.GlogchainConfigGlobal.WebRootDir + "/static/"
+	//context.Request = req
+	context.SessionValues = GetSession(req).Values
+
+	p := req.FormValue("p")
+	post, err := db.GetPost(p)
+	if err != nil {
+		panic(err)
 	}
 
-	return str
+	context.Data = post
+	render(w, "single_post", context)
 }
+
 
 func render(w http.ResponseWriter, tmpl string, data interface{}) {
 	//context := Context{Title: "Welcome!"}
