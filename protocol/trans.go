@@ -17,7 +17,7 @@ import (
 type OperationEnvelope struct {
 	Type 		string
 	Operation 	string 		// json hex string of PostCreateOperation, PostEditOperation ...
-	Signature 	string 		// crypto.SignatureEd25519 to the Operation, which is in json
+	Signature 	string 		// crypto.SignatureEd25519 to the Operation, which is in json string
 	Pubkey 		string 		// to verify and indentify who makes the transaction
 	Fee		float64
 }

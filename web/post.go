@@ -12,6 +12,7 @@ import (
 	"time"
 	"net/http"
 	"github.com/baabeetaa/glogchain/db"
+	"github.com/tendermint/go-crypto"
 )
 
 func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
@@ -100,11 +101,19 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	}
 	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
 
+	// sign the transaction
+	var private_key crypto.PrivKeyEd25519
+	private_key = session.Values["private_key"]
+	sign := private_key.Sign([]byte(opt_str))
+	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
+	sign_str = sign_str[2:len(sign_str)]
 
 	tx := protocol.OperationEnvelope {
 		Type: "PostCreateOperation",
-		Fee: 0,
 		Operation: opt_str,
+		Signature: sign_str,
+		Pubkey: private_key.PubKey().KeyString(),
+		Fee: 0,
 	}
 
 	byte_arr, err := json.Marshal(tx)
@@ -210,11 +219,19 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	}
 	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
 
+	// sign the transaction
+	var private_key crypto.PrivKeyEd25519
+	private_key = session.Values["private_key"]
+	sign := private_key.Sign([]byte(opt_str))
+	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
+	sign_str = sign_str[2:len(sign_str)]
 
 	tx := protocol.OperationEnvelope {
 		Type: "PostEditOperation",
-		Fee: 0,
 		Operation: opt_str,
+		Signature: sign_str,
+		Pubkey: private_key.PubKey().KeyString(),
+		Fee: 0,
 	}
 
 	byte_arr, err := json.Marshal(tx)
