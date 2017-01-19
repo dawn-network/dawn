@@ -1,10 +1,11 @@
 package protocol
 
 import (
+	"github.com/baabeetaa/glogchain/db"
 	"encoding/json"
 	"log"
 	"fmt"
-	"github.com/baabeetaa/glogchain/db"
+	"encoding/hex"
 )
 
 
@@ -15,41 +16,34 @@ import (
 
 type OperationEnvelope struct {
 	Type 		string
-	Operation 	interface{}
+	Operation 	string 		// json hex string of PostCreateOperation, PostEditOperation ...
+	Signature 	string 		// crypto.SignatureEd25519 to the Operation, which is in json
+	Pubkey 		string 		// to verify and indentify who makes the transaction
+	Fee		float64
 }
 
-type AccountCreateOperation struct {
-	Fee		float64
-	User 		db.User
-}
+type AccountCreateOperation db.User
 
 //type AccountUpdateOperation struct {
 //	// need to define here
 //}
 
-type PostCreateOperation struct {
-	Fee		float64
-	Post 		db.Post
-}
+type PostCreateOperation db.Post
 
-type PostEditOperation struct {
-	Fee		float64
-	Post 		db.Post
-}
+type PostEditOperation db.Post
 
-type VoteOperation struct {
-	Fee		float64
-	PostId 		string
-	Voter 		string
-}
+//type VoteOperation struct {
+//	PostId 		string
+//	Voter 		string
+//}
 
 
 func UnMarshal(jsonstring string) (interface{}, error) {
 	var returnObj interface{}
 
-	var operation json.RawMessage
+	//var operation json.RawMessage
 	env := OperationEnvelope{
-		Operation: &operation,
+		//Operation: &operation,
 	}
 
 	if err := json.Unmarshal([]byte(jsonstring), &env); err != nil {
@@ -57,17 +51,26 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 		return nil, err
 	}
 
+
+	opt_arr, err := hex.DecodeString(env.Operation)
+	if (err != nil) {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	//opt_str := string(opt_arr)
+
 	switch env.Type {
 	case "AccountCreateOperation":
 		var accountCreateOperation AccountCreateOperation
-		if err := json.Unmarshal(operation, &accountCreateOperation); err != nil {
+		if err := json.Unmarshal(opt_arr, &accountCreateOperation); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
 		returnObj = accountCreateOperation
 	case "PostCreateOperation":
 		var postOperation PostCreateOperation
-		if err := json.Unmarshal(operation, &postOperation); err != nil {
+		if err := json.Unmarshal(opt_arr, &postOperation); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
@@ -75,7 +78,7 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 		returnObj = postOperation
 	case "PostEditOperation":
 		var postOperation PostEditOperation
-		if err := json.Unmarshal(operation, &postOperation); err != nil {
+		if err := json.Unmarshal(opt_arr, &postOperation); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}

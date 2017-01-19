@@ -8,6 +8,8 @@ import (
 	"log"
 	"github.com/baabeetaa/glogchain/db"
 	"github.com/tendermint/abci/types"
+	"bytes"
+	"encoding/gob"
 )
 
 type GlogChainApp struct {
@@ -32,36 +34,66 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	jsonstring := string(tx[:])
 
 	obj , err := protocol.UnMarshal(jsonstring)
-
 	if err != nil {
 		log.Fatal(err)
 		return types.ErrEncodingError
 	}
 
-	switch v:=obj.(type) {
-	case protocol.PostCreateOperation:
-		var tx protocol.PostCreateOperation
-		tx = v
+	var buf bytes.Buffer        // Stand-in for a network connection
+	enc := gob.NewEncoder(&buf) // Will write to network.
+	dec := gob.NewDecoder(&buf) // Will read from network.
 
-		err = db.CreatePost(tx.Post)
+	err = enc.Encode(obj)
+	if err != nil {
+		log.Fatal("encode error:", err)
+		return types.ErrInternalError
+	}
+
+	switch obj.(type) {  //v:=obj.(type) {
+	case protocol.PostCreateOperation:
+		//var tx protocol.PostCreateOperation
+		//tx = v
+
+		var post db.Post
+		err = dec.Decode(&post)
+		if err != nil {
+			log.Fatal("decode error:", err)
+			return types.ErrInternalError
+		}
+
+		err = db.CreatePost(post)
 		if err != nil {
 			log.Println("AppendTx CreatePost", err)
 			return types.ErrInternalError
 		}
 	case protocol.PostEditOperation:
-		var tx protocol.PostEditOperation
-		tx = v
+		//var tx protocol.PostEditOperation
+		//tx = v
 
-		err = db.EditPost(tx.Post)
+		var post db.Post
+		err = dec.Decode(&post)
+		if err != nil {
+			log.Fatal("decode error:", err)
+			return types.ErrInternalError
+		}
+
+		err = db.EditPost(post)
 		if err != nil {
 			log.Println("AppendTx EditPost", err)
 			return types.ErrInternalError
 		}
 	case protocol.AccountCreateOperation:
-		var tx protocol.AccountCreateOperation
-		tx = v
+		//var tx protocol.AccountCreateOperation
+		//tx = v
 
-		err = db.CreateUser(tx.User)
+		var user db.User
+		err = dec.Decode(&user)
+		if err != nil {
+			log.Fatal("decode error:", err)
+			return types.ErrInternalError
+		}
+
+		err = db.CreateUser(user)
 		if err != nil {
 			log.Println("AppendTx CreateUser", err)
 			return types.ErrInternalError

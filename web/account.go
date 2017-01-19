@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"github.com/baabeetaa/glogchain/config"
 	"github.com/tendermint/go-crypto"
-	"github.com/baabeetaa/glogchain/db"
 )
 
 func AccountCreate(w http.ResponseWriter, req *http.Request) {
@@ -65,14 +64,22 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 
 
 	//////////////////////////////////////
-	var user db.User
-	user.ID = address
-	user.Username = username
-	user.Pubkey = pubkey
-	user.UserRegistered = "2017-01-06 09:00:28"
-	user.DisplayName = username
+	var opt protocol.AccountCreateOperation
+	opt.ID = address
+	opt.Username = username
+	opt.Pubkey = pubkey
+	opt.UserRegistered = "2017-01-06 09:00:28"
+	opt.DisplayName = username
 
-	tx := protocol.OperationEnvelope{ Type: "AccountCreateOperation", Operation: protocol.AccountCreateOperation{ Fee: 0, User: user }}
+	opt_arr, err := json.Marshal(opt)
+	if (err != nil) {
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "pubkey": pubkey}})
+		return
+	}
+	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
+
+
+	tx := protocol.OperationEnvelope{ Type: "AccountCreateOperation", Fee: 0, Operation: opt_str}
 	byte_arr, err = json.Marshal(tx)
 	if err != nil {
 		log.Fatal("AccountCreateHandler Cannot encode to JSON ", err)
