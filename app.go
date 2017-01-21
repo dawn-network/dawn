@@ -27,10 +27,12 @@ type GlogChainApp struct {
 func NewGlogChainApp() *GlogChainApp {
 	log.Println("NewGlogChainApp")
 
-	db := dbm.NewDB("state", "leveldb", ".")
+	//db := dbm.NewDB("state", "leveldb", ".")
+	db := dbm.NewDB("state", dbm.GoLevelDBBackendStr, ".")
+
 	lastBlock := LoadLastBlock(db)
 
-	state := merkle.NewIAVLTree(0, nil)
+	state := merkle.NewIAVLTree(0, db)
 	state.Load(lastBlock.AppHash)
 
 	log.Println("Loaded state", "block", lastBlock.Height, "root", state.Hash())
@@ -168,8 +170,7 @@ func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 func (app *GlogChainApp) Commit() types.Result {
 	log.Println("GlogChainApp.Commit")
 
-	tree_copy := app.state.Copy()
-	appHash := tree_copy.Save()
+	appHash := app.state.Save()
 
 	log.Println("Saved state", "root", appHash)
 
