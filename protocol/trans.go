@@ -6,6 +6,7 @@ import (
 	"log"
 	"fmt"
 	"encoding/hex"
+	"golang.org/x/crypto/ripemd160"
 )
 
 
@@ -39,18 +40,17 @@ type PostEditOperation db.Post
 
 
 func UnMarshal(jsonstring string) (interface{}, error) {
+	log.Println("UnMarshal", jsonstring)
+
 	var returnObj interface{}
 
-	//var operation json.RawMessage
-	env := OperationEnvelope{
-		//Operation: &operation,
-	}
+	env := OperationEnvelope{}
 
-	if err := json.Unmarshal([]byte(jsonstring), &env); err != nil {
-		log.Fatal(err)
+	err := json.Unmarshal([]byte(jsonstring), &env)
+	if (err != nil) {
+		log.Println(err.Error())
 		return nil, err
 	}
-
 
 	opt_arr, err := hex.DecodeString(env.Operation)
 	if (err != nil) {
@@ -123,3 +123,10 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 //	//}
 //	//fmt.Printf("%s\n", buf)
 //}
+
+func Hash(data []byte) []byte {
+	hasher := ripemd160.New()
+	hasher.Write(data)
+	hash := hasher.Sum(nil)
+	return hash
+}

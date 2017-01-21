@@ -12,3 +12,5 @@ import:
   subpackages:
   - ripemd160
 - package: github.com/tendermint/abci
+- package: github.com/tendermint/go-db
+- package: github.com/tendermint/go-merkle

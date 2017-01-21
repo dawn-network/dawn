@@ -103,7 +103,11 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	// sign the transaction
 	var private_key crypto.PrivKeyEd25519
-	private_key = session.Values["private_key"]
+	private_key, ok = session.Values["private_key"].(crypto.PrivKeyEd25519)
+	if (!ok) {
+		log.Fatal(err.Error())
+		return
+	}
 	sign := private_key.Sign([]byte(opt_str))
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]
@@ -221,7 +225,11 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 
 	// sign the transaction
 	var private_key crypto.PrivKeyEd25519
-	private_key = session.Values["private_key"]
+	private_key, ok = session.Values["private_key"].(crypto.PrivKeyEd25519)
+	if (!ok) {
+		log.Fatal(err.Error())
+		return
+	}
 	sign := private_key.Sign([]byte(opt_str))
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]

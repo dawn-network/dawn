@@ -7,12 +7,15 @@ import (
 	"github.com/tendermint/abci/server"
 	"github.com/baabeetaa/glogchain/web"
 	"github.com/baabeetaa/glogchain/config"
+	"log"
 )
 
 func main() {
 	addrPtr := flag.String("addr", config.GlogchainConfigGlobal.TmspAddr, "Listen address")
 
 	flag.Parse()
+
+
 	app := NewGlogChainApp()
 
 	// Start the listener
@@ -33,5 +36,9 @@ func main() {
 
 
 func init() {
+	// to change the flags on the default logger
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+
 	config.ReadConfig()
 }

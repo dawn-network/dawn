@@ -50,15 +50,15 @@ func TM_broadcast_tx_commit(data string) {
 	log.Println("TM_broadcast_tx_commit url_request: %#v\n", url_request)
 	resp, err := http.Get(url_request)
 	if err != nil {
-		log.Println("TM_broadcast_tx_commit http.Get error: %#v\n", err)
+		log.Println("TM_broadcast_tx_commit http.Get error", err.Error())
 		return;
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Println("TM_broadcast_tx_commit ioutil.ReadAll error: %#v\n", err)
+		log.Println("TM_broadcast_tx_commit ioutil.ReadAll error", err.Error())
 		return;
 	}
 	json_response_string := string(body[:])
-	log.Println("TM_broadcast_tx_commit json_response_string: %#v\n", json_response_string)
+	log.Println("TM_broadcast_tx_commit json_response_string:", json_response_string)
 }

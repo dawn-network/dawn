@@ -32,6 +32,8 @@ vendor/
 db.db
 db/db.db
 *.db
+state.db
+state.db/
 
 # OS generated files #
 ######################

@@ -97,11 +97,11 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 		log.Fatal("AccountCreateHandler Cannot encode to JSON ", err)
 	}
 
-	tx_json := string(byte_arr[:])
-	log.Println("AccountCreateHandler tx_json=", tx_json)
+	//tx_json := string(byte_arr[:])
+	log.Println("AccountCreateHandler tx_json=", string(byte_arr[:]))
 
-	tx_json_hex := make([]byte, len(tx_json) * 2)
-	hex.Encode(tx_json_hex, []byte(tx_json))
+	tx_json_hex := make([]byte, len(byte_arr) * 2)
+	hex.Encode(tx_json_hex, byte_arr)
 	log.Println("AccountCreateHandler tx_json_hex", string(tx_json_hex[:]))
 
 	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))

@@ -19,8 +19,8 @@
                 <input id="username" name="username" type="text" value='{{index .Data "username"}}' size="30" maxlength="32" aria-required="true" required="required">
             </p>
             <p>
-                <label for="prikey">PrivateKey (64 bytes ) <span class="required">*</span></label>
-                <input id="prikey" name="prikey" type="text" value='{{index .Data "pubkey"}}' size="30" maxlength="64"  aria-required="true" required="required">
+                <label for="prikey">PrivateKey (64 bytes in hex string = 128 chars ) <span class="required">*</span></label>
+                <input id="prikey" name="prikey" type="text" value='{{index .Data "pubkey"}}' size="30" maxlength="128"  aria-required="true" required="required">
             </p>
             <p class="form-submit">
                 <input id="submit" name="submit" type="submit" class="submit" value="Submit">
