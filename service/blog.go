@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"io/ioutil"
-	"github.com/baabeetaa/glogchain/config"
+	"github.com/baabeetaa/glogchain/app"
 )
 
 //func categories_normalize(jsonstr string) (string, error) {
@@ -46,7 +46,7 @@ func RandSeq(n int) string {
 /////////////////
 
 func TM_broadcast_tx_commit(data string) {
-	var url_request string = config.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
+	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
 	log.Println("TM_broadcast_tx_commit url_request: %#v\n", url_request)
 	resp, err := http.Get(url_request)
 	if err != nil {

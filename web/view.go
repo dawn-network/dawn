@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"log"
-	"github.com/baabeetaa/glogchain/config"
+	"github.com/baabeetaa/glogchain/app"
 	"github.com/baabeetaa/glogchain/db"
 )
 
@@ -43,7 +43,7 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 
 func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-	context.Static = config.GlogchainConfigGlobal.WebRootDir + "/static/"
+	context.Static = app.GlogchainConfigGlobal.WebRootDir + "/static/"
 	//context.Request = req
 	context.SessionValues = GetSession(req).Values
 
@@ -66,18 +66,18 @@ func render(w http.ResponseWriter, tmpl string, data interface{}) {
 	t = t.Funcs(funcMap)
 
 	var tmpl_list = []string {
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/index.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/header.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/footer.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/featured_posts.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/highlighted_posts.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/primary.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/secondary.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_slider.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts_vertical.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts.html",
-		config.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_728x90_advertisement.html",
-		fmt.Sprintf(config.GlogchainConfigGlobal.WebRootDir + "/web/templates/%s.html", tmpl)}
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/index.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/header.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/footer.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/featured_posts.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/highlighted_posts.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/primary.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/secondary.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_slider.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts_vertical.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_featured_posts.html",
+		app.GlogchainConfigGlobal.WebRootDir + "/web/templates/widget_728x90_advertisement.html",
+		fmt.Sprintf(app.GlogchainConfigGlobal.WebRootDir + "/web/templates/%s.html", tmpl)}
 
 	t, err := t.ParseFiles(tmpl_list...)
 	if err != nil {

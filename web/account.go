@@ -6,19 +6,18 @@ import (
 	"bytes"
 	"encoding/binary"
 	"log"
-	"github.com/baabeetaa/glogchain/protocol"
 	"encoding/json"
 	"github.com/baabeetaa/glogchain/service"
 	"net/http"
-	"github.com/baabeetaa/glogchain/config"
 	"github.com/tendermint/go-crypto"
+	"github.com/baabeetaa/glogchain/app"
 )
 
 func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	// If method is GET serve an html
 	if req.Method != "POST" {
 		context := Context{Title: "Welcome!"}
-		context.Static = config.GlogchainConfigGlobal.WebRootDir + "/static/"
+		context.Static = app.GlogchainConfigGlobal.WebRootDir + "/static/"
 		context.Data = map[string]interface{}{ "username": "", "prikey": ""}
 		render(w, "account_create", context)
 		return
@@ -30,8 +29,8 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	log.Println("AccountCreateHandler", "username", username)
 	log.Println("AccountCreateHandler", "prikey", prikey)
 
-	if (len(username) < 6) {
-		render(w, "account_create", ActionResult{Status: "error", Message: "username must be at least 6 characters", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+	if (len(username) < 3) {
+		render(w, "account_create", ActionResult{Status: "error", Message: "username must be at least 3 characters", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
 		return
 	}
 
@@ -65,7 +64,7 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 
 	//////////////////////////////////////
 	// build the transaction
-	var opt protocol.AccountCreateOperation
+	var opt app.AccountCreateOperation
 	opt.ID = address
 	opt.Username = username
 	opt.Pubkey = key.PubKey().KeyString()
@@ -84,7 +83,7 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]
 
-	tx := protocol.OperationEnvelope{
+	tx := app.OperationEnvelope{
 		Type: "AccountCreateOperation",
 		Operation: opt_str,
 		Signature: sign_str,

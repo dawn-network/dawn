@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"log"
 	"time"
-	"github.com/baabeetaa/glogchain/config"
+	"github.com/baabeetaa/glogchain/app"
 	"github.com/gorilla/mux"
 	"encoding/gob"
 	"github.com/baabeetaa/glogchain/db"
@@ -45,7 +45,7 @@ func StartWebServer() error  {
 	r := mux.NewRouter()
 
 	// This will serve files under http://localhost:8000/static/<filename>
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(config.GlogchainConfigGlobal.WebRootDir + "/web/static/"))))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(app.GlogchainConfigGlobal.WebRootDir + "/web/static/"))))
 
 	//r.HandleFunc("/", HomeHandler)
 	r.HandleFunc("/", CategoryHandler)
@@ -65,7 +65,7 @@ func StartWebServer() error  {
 
 	srv := &http.Server{
 		Handler:      r,
-		Addr:         config.GlogchainConfigGlobal.GlogchainWebAddr,
+		Addr:         app.GlogchainConfigGlobal.GlogchainWebAddr,
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,

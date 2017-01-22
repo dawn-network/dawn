@@ -1,27 +1,24 @@
-package main
+package app
 
 import (
 	"fmt"
 	. "github.com/tendermint/go-common"
 	"encoding/hex"
-	"github.com/baabeetaa/glogchain/protocol"
 	"log"
 	"github.com/baabeetaa/glogchain/db"
 	"github.com/tendermint/abci/types"
 	"bytes"
 	"encoding/gob"
 	"github.com/tendermint/go-merkle"
-	"encoding/json"
 	dbm "github.com/tendermint/go-db"
 	"github.com/tendermint/go-wire"
 )
 
 type GlogChainApp struct {
-	db   		dbm.DB
-	state 		merkle.Tree
-	height 		uint64
-	hashCount 	int
-	txCount   	int
+	Db   		dbm.DB
+	State 		merkle.Tree
+	Height 		uint64
+	TxCount   	int
 }
 
 func NewGlogChainApp() *GlogChainApp {
@@ -37,25 +34,24 @@ func NewGlogChainApp() *GlogChainApp {
 
 	log.Println("Loaded state", "block", lastBlock.Height, "root", state.Hash())
 
-	return &GlogChainApp{ db: db, state: state}
+	return &GlogChainApp{ Db: db, State: state}
 }
 
 func (app *GlogChainApp) Info() (resInfo types.ResponseInfo) {
 	log.Println("GlogChainApp.Info")
-	//return types.ResponseInfo{Data: Fmt("{\"hashes\":%v,\"txs\":%v}", app.hashCount, app.txCount)}
 
 	resInfo = types.ResponseInfo{}
-	resInfo.Data = Fmt("{\"hashes\":%v,\"txs\":%v}", app.hashCount, app.txCount)
+	resInfo.Data = "GlogChainApp"
 
-	lastBlock := LoadLastBlock(app.db)
+	lastBlock := LoadLastBlock(app.Db)
 	resInfo.LastBlockHeight = lastBlock.Height
 	resInfo.LastBlockAppHash = lastBlock.AppHash
 	return resInfo
 }
 
 func (app *GlogChainApp) SetOption(key string, value string) (logstr string) {
-	log.Println("GlogChainApp.SetOption")
-	return ""
+	log.Println("GlogChainApp.SetOption", key, value)
+	return Exec_SetOption(app, key, value)
 }
 
 func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
@@ -70,23 +66,18 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 
 	jsonstring:= string(arr[:])
 
-
-	// caculate hash of the tx
-	operationEnvelope := protocol.OperationEnvelope{}
-	err = json.Unmarshal([]byte(jsonstring), &operationEnvelope)
-	if (err != nil) {
-		log.Println(err.Error())
-		return types.ErrEncodingError
-	}
-	opt_hash := protocol.Hash([]byte(operationEnvelope.Operation))
-
-
-	app.state.Set(opt_hash, tx)
-
-
+	//// caculate hash of the tx
+	//operationEnvelope := protocol.OperationEnvelope{}
+	//err = json.Unmarshal([]byte(jsonstring), &operationEnvelope)
+	//if (err != nil) {
+	//	log.Println(err.Error())
+	//	return types.ErrEncodingError
+	//}
+	//opt_hash := protocol.Hash([]byte(operationEnvelope.Operation))
+	//app.state.Set(opt_hash, tx)
 
 	///////////////////////////
-	obj , err := protocol.UnMarshal(jsonstring)
+	obj , err := UnMarshal(jsonstring)
 	if (err != nil) {
 		log.Println(err.Error())
 		return types.ErrEncodingError
@@ -103,10 +94,7 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	}
 
 	switch obj.(type) {  //v:=obj.(type) {
-	case protocol.PostCreateOperation:
-		//var tx protocol.PostCreateOperation
-		//tx = v
-
+	case PostCreateOperation:
 		var post db.Post
 		err = dec.Decode(&post)
 		if err != nil {
@@ -119,10 +107,7 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 			log.Println(err.Error())
 			return types.ErrInternalError
 		}
-	case protocol.PostEditOperation:
-		//var tx protocol.PostEditOperation
-		//tx = v
-
+	case PostEditOperation:
 		var post db.Post
 		err = dec.Decode(&post)
 		if err != nil {
@@ -135,10 +120,7 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 			log.Println(err.Error())
 			return types.ErrInternalError
 		}
-	case protocol.AccountCreateOperation:
-		//var tx protocol.AccountCreateOperation
-		//tx = v
-
+	case AccountCreateOperation:
 		var user db.User
 		err = dec.Decode(&user)
 		if err != nil {
@@ -151,18 +133,38 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 			log.Println(err.Error())
 			return types.ErrInternalError
 		}
+
+		//////////////////////////
+		// store to state
+		var account Account
+		account.PubKey, err = hex.DecodeString(user.Pubkey)
+		if (err != nil) {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+		//copy(account.PubKey, barr)
+
+		account.Sequence = 1
+		account.Balance = 0
+
+		err = TreeSaveAccount(app.State, account)
+		if (err != nil) {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
 	default:
 	}
 
-	app.txCount++
-	return types.NewResult(types.CodeType_OK, tx, "DeliverTx OK")
+	app.TxCount++
+	//return types.NewResult(types.CodeType_OK, tx, "DeliverTx OK")
+	return types.OK
 }
 
 func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 	log.Println("GlogChainApp.CheckTx")
 	dst := make([]byte, len(tx) * 2)
 	hex.Encode(dst, tx)
-	fmt.Println("CheckTx: ", dst)
+	fmt.Println("CheckTx: ", string(dst[:]))
 
 	return types.OK
 }
@@ -170,21 +172,21 @@ func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 func (app *GlogChainApp) Commit() types.Result {
 	log.Println("GlogChainApp.Commit")
 
-	appHash := app.state.Save()
+	// try to not create block if no TX but doesnt work!!!
+	//if (app.txCount <= 0) {
+	//	return types.NewError(types.CodeType_InternalError, "No Tx in block")
+	//}
 
+	appHash := app.State.Save()
 	log.Println("Saved state", "root", appHash)
 
 	lastBlock := LastBlockInfo {
-		Height:  app.height,
+		Height:  app.Height,
 		AppHash: appHash, // this hash will be in the next block header
 	}
 
-	SaveLastBlock(app.db, lastBlock)
-
+	SaveLastBlock(app.Db, lastBlock)
 	return types.NewResultOK(appHash, "")
-
-	//hash := app.state.Hash()
-	//return types.NewResultOK(hash, "")
 }
 
 func (app *GlogChainApp) Query(query []byte) types.Result {
@@ -194,30 +196,16 @@ func (app *GlogChainApp) Query(query []byte) types.Result {
 
 func (app *GlogChainApp) InitChain(vals []*types.Validator) {
 	log.Println("GlogChainApp.InitChain")
-	//for _, plugin := range app.plugins.GetList() {
-	//	plugin.InitChain(app.state, validators)
-	//}
 }
 
-// TMSP::BeginBlock
 func (app *GlogChainApp) BeginBlock(hash []byte, header *types.Header) {
-	log.Println("GlogChainApp.BeginBlock")
-	app.height = header.Height
-
-	//for _, plugin := range app.plugins.GetList() {
-	//	plugin.BeginBlock(app.state, height)
-	//}
+	log.Println("GlogChainApp.BeginBlock", hash)
+	app.Height = header.Height
+	app.TxCount = 0
 }
 
-// TMSP::EndBlock
 func (app *GlogChainApp) EndBlock(height uint64) (resEndBlock types.ResponseEndBlock) {
-	log.Println("GlogChainApp.EndBlock", height)
-	//app.height = height
-
-	//for _, plugin := range app.plugins.GetList() {
-	//	moreDiffs := plugin.EndBlock(app.state, height)
-	//	diffs = append(diffs, moreDiffs...)
-	//}
+	log.Println("GlogChainApp.EndBlock", "height=", height, "size=", app.State.Size())
 	return
 }
 
@@ -259,3 +247,5 @@ func SaveLastBlock(db dbm.DB, lastBlock LastBlockInfo) {
 	}
 	db.Set(lastBlockKey, buf.Bytes())
 }
+
+////////////////////////

@@ -8,17 +8,17 @@ import (
 	"strings"
 	"encoding/hex"
 	"log"
-	"github.com/baabeetaa/glogchain/protocol"
 	"time"
 	"net/http"
 	"github.com/baabeetaa/glogchain/db"
 	"github.com/tendermint/go-crypto"
+	"github.com/baabeetaa/glogchain/app"
 )
 
 func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	log.Println("---PostCreateHandler---------------------------------------------------------------------")
 
-	var opt protocol.PostCreateOperation
+	var opt app.PostCreateOperation
 
 	// If method is GET serve an html login page
 	if req.Method != "POST" {
@@ -112,7 +112,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]
 
-	tx := protocol.OperationEnvelope {
+	tx := app.OperationEnvelope {
 		Type: "PostCreateOperation",
 		Operation: opt_str,
 		Signature: sign_str,
@@ -234,7 +234,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]
 
-	tx := protocol.OperationEnvelope {
+	tx := app.OperationEnvelope {
 		Type: "PostEditOperation",
 		Operation: opt_str,
 		Signature: sign_str,

@@ -1,4 +1,4 @@
-package protocol
+package app
 
 import (
 	"github.com/baabeetaa/glogchain/db"
@@ -7,8 +7,12 @@ import (
 	"fmt"
 	"encoding/hex"
 	"golang.org/x/crypto/ripemd160"
+	"github.com/tendermint/go-crypto"
+	"encoding/binary"
+	"bytes"
+	"github.com/tendermint/go-wire"
+	"errors"
 )
-
 
 // In prototype, we'll use json because we don't need high performance and protocols will need to be change however.
 // use dynamic json, more at http://eagain.net/articles/go-dynamic-json/
@@ -20,7 +24,7 @@ type OperationEnvelope struct {
 	Operation 	string 		// json hex string of PostCreateOperation, PostEditOperation ...
 	Signature 	string 		// crypto.SignatureEd25519 to the Operation, which is in json string
 	Pubkey 		string 		// to verify and indentify who makes the transaction
-	Fee		float64
+	Fee		int64
 }
 
 type AccountCreateOperation db.User
@@ -37,6 +41,14 @@ type PostEditOperation db.Post
 //	PostId 		string
 //	Voter 		string
 //}
+
+
+////////////////////////////////////////
+// crypto currency
+type SendTokenOperation struct {
+	ToAddress 	string
+	Amount 		int64
+}
 
 
 func UnMarshal(jsonstring string) (interface{}, error) {
@@ -130,3 +142,33 @@ func Hash(data []byte) []byte {
 	hash := hasher.Sum(nil)
 	return hash
 }
+
+func GetPubKeyFromBytes(raw []byte) (pubkey crypto.PubKeyEd25519, err error)  {
+	if (len(raw) != 32) {
+		err = errors.New("raw data must be 32 bytes")
+	}
+
+	buf := &bytes.Buffer{}
+	err = binary.Write(buf, binary.BigEndian, raw)
+	if (err != nil) {
+		return
+	}
+
+	err = binary.Read(buf, binary.BigEndian, &pubkey)
+	if (err != nil) {
+		return
+	}
+
+	return
+}
+
+func ToBytes(o interface{}) (raw []byte, err error)  {
+	buf, n := new(bytes.Buffer), new(int)
+	wire.WriteBinary(o, buf, n, &err)
+	if (err != nil) {
+		raw = buf.Bytes()
+	}
+
+	return
+}
+

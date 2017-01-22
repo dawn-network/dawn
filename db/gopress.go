@@ -3,7 +3,6 @@ package db
 import (
 	"log"
 	"database/sql"
-	//_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
 	"fmt"
 	"encoding/json"
@@ -74,6 +73,7 @@ func GetDB() (*sql.DB, error) {
 		    user_registered DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
 		    display_name VARCHAR(250) NOT NULL DEFAULT ''
 		);`)
+		// balance INTEGER NOT NULL DEFAULT '0'
 		if err != nil {
 			panic(err)
 		}

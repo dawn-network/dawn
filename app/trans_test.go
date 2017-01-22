@@ -1,4 +1,4 @@
-package protocol
+package app
 
 import (
 	"testing"
