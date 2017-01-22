@@ -18,7 +18,7 @@ type GlogChainApp struct {
 	Db   		dbm.DB
 	State 		merkle.Tree
 	Height 		uint64
-	TxCount   	int
+	TxCount   	uint64
 }
 
 func NewGlogChainApp() *GlogChainApp {
@@ -34,7 +34,7 @@ func NewGlogChainApp() *GlogChainApp {
 
 	log.Println("Loaded state", "block", lastBlock.Height, "root", state.Hash())
 
-	return &GlogChainApp{ Db: db, State: state}
+	return &GlogChainApp{ Db: db, State: state, Height: lastBlock.Height, TxCount: lastBlock.TxCount}
 }
 
 func (app *GlogChainApp) Info() (resInfo types.ResponseInfo) {
@@ -201,7 +201,6 @@ func (app *GlogChainApp) InitChain(vals []*types.Validator) {
 func (app *GlogChainApp) BeginBlock(hash []byte, header *types.Header) {
 	log.Println("GlogChainApp.BeginBlock", hash)
 	app.Height = header.Height
-	app.TxCount = 0
 }
 
 func (app *GlogChainApp) EndBlock(height uint64) (resEndBlock types.ResponseEndBlock) {
@@ -219,6 +218,7 @@ var lastBlockKey = []byte("lastblock")
 type LastBlockInfo struct {
 	Height  uint64
 	AppHash []byte
+	TxCount uint64
 }
 
 // Get the last block from the db
