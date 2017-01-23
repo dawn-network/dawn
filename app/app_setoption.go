@@ -5,6 +5,7 @@ import (
 	"log"
 	"strings"
 	"strconv"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 /**
@@ -56,7 +57,19 @@ func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string)
 			return err.Error()
 		}
 
-		//
+		// Also save to SQL DB
+		var user db.User
+		user.ID = strings.ToUpper( hex.EncodeToString(pubkey.Address()) )
+		user.Username = strs[0]
+		user.Pubkey = strings.ToUpper( hex.EncodeToString(account.PubKey))
+		user.UserRegistered = "2017-01-06 09:00:28" // TODO: need to update
+		user.DisplayName = strs[0]
+
+		err = db.CreateUser(user)
+		if (err != nil) {
+			log.Println(err.Error())
+			return err.Error()
+		}
 
 		break
 	case "genesis.block/token.transfer":
