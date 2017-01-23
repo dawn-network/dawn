@@ -1,35 +1,47 @@
 package app
 
 import (
+	"bytes"
 	"log"
-	"github.com/tendermint/go-merkle"
+	dbm "github.com/tendermint/go-db"
+	"github.com/tendermint/go-wire"
+	. "github.com/tendermint/go-common"
 )
 
-///////////////////////////////////////////
 //-----------------------------------------
-// account to store on merkle tree (key=account address, value=account)
-type Account struct {
-	PubKey   	[]byte //[32]byte , crypto.PubKeyEd25519
-	Sequence 	int64
-	Balance  	int64
+// persist the last block info
+
+var lastBlockKey = []byte("lastblock")
+
+type LastBlockInfo struct {
+	Height  	uint64
+	AppHash 	[]byte
+	TxCount 	uint64
 }
 
-
-
-func TreeSaveAccount(state merkle.Tree, acc Account) error  {
-	pubkey, err := GetPubKeyFromBytes(acc.PubKey)
-	if err != nil {
-		log.Println(err.Error())
-		return err
+// Get the last block from the db
+func LoadLastBlock(db dbm.DB) (lastBlock LastBlockInfo) {
+	buf := db.Get(lastBlockKey)
+	if len(buf) != 0 {
+		r, n, err := bytes.NewReader(buf), new(int), new(error)
+		wire.ReadBinaryPtr(&lastBlock, r, 0, n, err)
+		if *err != nil {
+			// DATA HAS BEEN CORRUPTED OR THE SPEC HAS CHANGED
+			Exit(Fmt("Data has been corrupted or its spec has changed: %v\n", *err))
+		}
+		// TODO: ensure that buf is completely read.
 	}
 
-	raw, err := ToBytes(acc)
-	if err != nil {
-		log.Println(err.Error())
-		return err
+	return lastBlock
+}
+
+func SaveLastBlock(db dbm.DB, lastBlock LastBlockInfo) {
+	log.Println("Saving block", "height", lastBlock.Height, "root", lastBlock.AppHash)
+	buf, n, err := new(bytes.Buffer), new(int), new(error)
+	wire.WriteBinary(lastBlock, buf, n, err)
+	if *err != nil {
+		// TODO
+		PanicCrisis(*err)
 	}
-
-	state.Set(pubkey.Address(), raw)
-
-	return nil
+	db.Set(lastBlockKey, buf.Bytes())
 }

@@ -15,17 +15,11 @@ import (
 	"log"
 )
 
-//type User struct {
-//	Username string
-//	Id string
-//	Secret string
-//}
-
 func GetSession(r *http.Request) (*sessions.Session) {
 	// Get a session. We're ignoring the error resulted from decoding an
 	// existing session: Get() always returns a session, even if empty.
 	session, err := store.Get(r, "session-name")
-	if err != nil {
+	if (err != nil) {
 		//http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Println("GetSession", err)
 		panic("Unexpected error!")
@@ -38,13 +32,11 @@ func AuthWrapper(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session := GetSession(r)
 
-		user, ok := session.Values["user"].(*db.User)
+		_, ok := session.Values["user"].(db.User)
 		if !ok {
 			LoginHandler(w, r)
 			return
 		}
-		//log.Println("AuthWrapper user.Username:", user.Username)
-		_ = user // avoid declared and not used
 
 		fn(w, r)
 	}
@@ -99,12 +91,24 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	session := GetSession(r)
+
 	session.Values["user"] = user // Set some session values.
 	session.Values["private_key"] = pri_key
-	session.Save(r, w) // Save it before we write to the response/return from the handler.
+	err = session.Save(r, w) // Save it before we write to the response/return from the handler.
+	if (err != nil) {
+		log.Println("WTF - can not save session!!!")
+	}
 
-	// If the login succeeded
-	//res.Write([]byte("Hello " + databaseUsername))
+	//// test get session var
+	//_, ok := session.Values["private_key"].(crypto.PrivKeyEd25519)
+	//if (!ok) {
+	//	log.Println("Can not get session private_key")
+	//}
+	_, ok := session.Values["user"].(db.User)
+	if (!ok) {
+		log.Println("WTF!!!")
+	}
+
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 

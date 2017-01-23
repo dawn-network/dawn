@@ -2,7 +2,6 @@ package app
 
 import (
 	"fmt"
-	. "github.com/tendermint/go-common"
 	"encoding/hex"
 	"log"
 	"github.com/baabeetaa/glogchain/db"
@@ -11,7 +10,6 @@ import (
 	"encoding/gob"
 	"github.com/tendermint/go-merkle"
 	dbm "github.com/tendermint/go-db"
-	"github.com/tendermint/go-wire"
 )
 
 type GlogChainApp struct {
@@ -21,10 +19,16 @@ type GlogChainApp struct {
 	TxCount   	uint64
 }
 
+type GlogVars struct {
+	GlogApp *GlogChainApp
+}
+
+// global var
+var GlogGlobal = GlogVars {}
+
 func NewGlogChainApp() *GlogChainApp {
 	log.Println("NewGlogChainApp")
 
-	//db := dbm.NewDB("state", "leveldb", ".")
 	db := dbm.NewDB("state", dbm.GoLevelDBBackendStr, ".")
 
 	lastBlock := LoadLastBlock(db)
@@ -43,7 +47,9 @@ func (app *GlogChainApp) Info() (resInfo types.ResponseInfo) {
 	resInfo = types.ResponseInfo{}
 	resInfo.Data = "GlogChainApp"
 
+	/////////////
 	lastBlock := LoadLastBlock(app.Db)
+
 	resInfo.LastBlockHeight = lastBlock.Height
 	resInfo.LastBlockAppHash = lastBlock.AppHash
 	return resInfo
@@ -172,20 +178,19 @@ func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 func (app *GlogChainApp) Commit() types.Result {
 	log.Println("GlogChainApp.Commit")
 
-	// try to not create block if no TX but doesnt work!!!
-	//if (app.txCount <= 0) {
-	//	return types.NewError(types.CodeType_InternalError, "No Tx in block")
-	//}
-
 	appHash := app.State.Save()
-	log.Println("Saved state", "root", appHash)
+	log.Println("Saved state", "root", hex.EncodeToString(appHash))
 
 	lastBlock := LastBlockInfo {
 		Height:  app.Height,
 		AppHash: appHash, // this hash will be in the next block header
+		TxCount: app.TxCount,
 	}
 
+	/////////////////////////////////////////
 	SaveLastBlock(app.Db, lastBlock)
+	log.Println("Saving block", "height", lastBlock.Height, "root", hex.EncodeToString(lastBlock.AppHash))
+
 	return types.NewResultOK(appHash, "")
 }
 
@@ -199,7 +204,7 @@ func (app *GlogChainApp) InitChain(vals []*types.Validator) {
 }
 
 func (app *GlogChainApp) BeginBlock(hash []byte, header *types.Header) {
-	log.Println("GlogChainApp.BeginBlock", hash)
+	log.Println("GlogChainApp.BeginBlock", "height=", header.Height, "hash=", hex.EncodeToString(hash))
 	app.Height = header.Height
 }
 
@@ -208,44 +213,3 @@ func (app *GlogChainApp) EndBlock(height uint64) (resEndBlock types.ResponseEndB
 	return
 }
 
-
-
-//-----------------------------------------
-// persist the last block info
-
-var lastBlockKey = []byte("lastblock")
-
-type LastBlockInfo struct {
-	Height  uint64
-	AppHash []byte
-	TxCount uint64
-}
-
-// Get the last block from the db
-func LoadLastBlock(db dbm.DB) (lastBlock LastBlockInfo) {
-	buf := db.Get(lastBlockKey)
-	if len(buf) != 0 {
-		r, n, err := bytes.NewReader(buf), new(int), new(error)
-		wire.ReadBinaryPtr(&lastBlock, r, 0, n, err)
-		if *err != nil {
-			// DATA HAS BEEN CORRUPTED OR THE SPEC HAS CHANGED
-			Exit(Fmt("Data has been corrupted or its spec has changed: %v\n", *err))
-		}
-		// TODO: ensure that buf is completely read.
-	}
-
-	return lastBlock
-}
-
-func SaveLastBlock(db dbm.DB, lastBlock LastBlockInfo) {
-	log.Println("Saving block", "height", lastBlock.Height, "root", lastBlock.AppHash)
-	buf, n, err := new(bytes.Buffer), new(int), new(error)
-	wire.WriteBinary(lastBlock, buf, n, err)
-	if *err != nil {
-		// TODO
-		PanicCrisis(*err)
-	}
-	db.Set(lastBlockKey, buf.Bytes())
-}
-
-////////////////////////

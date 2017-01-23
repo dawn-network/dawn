@@ -107,5 +107,3 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
 }
 
-
-

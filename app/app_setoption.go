@@ -36,6 +36,19 @@ func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string)
 			return err.Error()
 		}
 
+		//
+		pubkey, err := GetPubKeyFromBytes(account.PubKey)
+		if err != nil {
+			log.Println(err.Error())
+			return err.Error()
+		}
+
+
+		_, err = TreeGetAccount(app.State, pubkey.Address())
+		if (err == nil) { // return if foud
+			return err.Error()
+		}
+
 		err = TreeSaveAccount(app.State, account)
 		if (err != nil) {
 			log.Println(err.Error())

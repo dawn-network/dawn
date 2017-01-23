@@ -4,15 +4,20 @@ package web
 // use https://github.com/gorilla/mux
 
 import (
-	"github.com/gorilla/sessions"
+	//"github.com/gorilla/sessions"
 	"net/http"
 	"log"
 	"time"
 	"github.com/baabeetaa/glogchain/app"
 	"github.com/gorilla/mux"
+	//"encoding/gob"
+	//"github.com/tendermint/go-crypto"
+	//"github.com/baabeetaa/glogchain/db"
+	"github.com/gorilla/sessions"
+	//"github.com/gorilla/securecookie"
 	"encoding/gob"
-	"github.com/baabeetaa/glogchain/db"
 	"github.com/tendermint/go-crypto"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 type Context struct {
@@ -29,7 +34,8 @@ type ActionResult struct {
 	Data 		interface{}
 }
 
-var store = sessions.NewCookieStore([]byte("something-very-secret"))
+var store *sessions.CookieStore
+//var store = sessions.NewCookieStore(securecookie.GenerateRandomKey(16), securecookie.GenerateRandomKey(16))
 
 //func HomeHandler(w http.ResponseWriter, req *http.Request) {
 //	context := Context{Title: "Welcome!"}
@@ -38,9 +44,13 @@ var store = sessions.NewCookieStore([]byte("something-very-secret"))
 //}
 
 func StartWebServer() error  {
-	gob.Register(&db.User{})
-	gob.Register(&crypto.PrivKeyEd25519{})
-
+	store = sessions.NewCookieStore([]byte("something-very-secret"))
+	store.Options = &sessions.Options{
+		//Domain:   "localhost",
+		Path:     "/",
+		MaxAge:   3600 * 8, // 8 hours
+		//HttpOnly: true,
+	}
 
 	r := mux.NewRouter()
 
@@ -57,6 +67,8 @@ func StartWebServer() error  {
 	r.HandleFunc("/post", ViewSinglePostHandler)
 	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))
 	r.HandleFunc("/post/edit", AuthWrapper(PostEditHandler))
+	r.HandleFunc("/wallet/view", AuthWrapper(WalletViewHandler))
+	r.HandleFunc("/wallet/sendtoken", AuthWrapper(WalletSendTokenHandler))
 
 	// Subrouter
 	//s := r.PathPrefix("/secure").Subrouter()
@@ -74,4 +86,10 @@ func StartWebServer() error  {
 	log.Fatal(srv.ListenAndServe()) // Bind to a port and pass our router in
 
 	return nil
+}
+
+func init()  {
+	// to store a complex datatype within a session
+	gob.Register(crypto.PrivKeyEd25519 {})
+	gob.Register(db.User {})
 }

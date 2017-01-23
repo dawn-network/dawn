@@ -12,7 +12,7 @@
                 <div class="alert alert-danger" role="alert">{{ .Message }}</div>
             {{ end }}
         {{ end }}
-        <form action="/post/create" method="POST">
+        <form name="frmPostCreate" action="/post/create" method="POST" novalidate>
             <p>
                 <label for="Title">Title <span class="required">*</span></label>
                 <input id="Title" name="Title" type="text" value='{{ .Data.PostTitle }}' aria-required="true" required="required">

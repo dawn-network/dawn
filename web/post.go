@@ -147,7 +147,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	p := req.FormValue("p")
 	post, err := db.GetPost(p)
 
-	// If method is GET serve an html login page
+	// If method is GET serve an html
 	if req.Method != "POST" {
 		log.Println("PostEditHandler GET")
 

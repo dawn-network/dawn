@@ -6,12 +6,6 @@ import (
 	"log"
 	"fmt"
 	"encoding/hex"
-	"golang.org/x/crypto/ripemd160"
-	"github.com/tendermint/go-crypto"
-	"encoding/binary"
-	"bytes"
-	"github.com/tendermint/go-wire"
-	"errors"
 )
 
 // In prototype, we'll use json because we don't need high performance and protocols will need to be change however.
@@ -135,40 +129,4 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 //	//}
 //	//fmt.Printf("%s\n", buf)
 //}
-
-func Hash(data []byte) []byte {
-	hasher := ripemd160.New()
-	hasher.Write(data)
-	hash := hasher.Sum(nil)
-	return hash
-}
-
-func GetPubKeyFromBytes(raw []byte) (pubkey crypto.PubKeyEd25519, err error)  {
-	if (len(raw) != 32) {
-		err = errors.New("raw data must be 32 bytes")
-	}
-
-	buf := &bytes.Buffer{}
-	err = binary.Write(buf, binary.BigEndian, raw)
-	if (err != nil) {
-		return
-	}
-
-	err = binary.Read(buf, binary.BigEndian, &pubkey)
-	if (err != nil) {
-		return
-	}
-
-	return
-}
-
-func ToBytes(o interface{}) (raw []byte, err error)  {
-	buf, n := new(bytes.Buffer), new(int)
-	wire.WriteBinary(o, buf, n, &err)
-	if (err != nil) {
-		raw = buf.Bytes()
-	}
-
-	return
-}
 

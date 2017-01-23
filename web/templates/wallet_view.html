@@ -1,0 +1,20 @@
+{{ define "content" }}
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <h3>Wallet</h3>
+        <p>Address: <code>{{ .Data.Address }}</code></p>
+        <p>PubKey: <code>{{ .Data.PubKey }}</code></p>
+        <p>Sequence: <code>{{ .Data.Sequence }}</code></p>
+        <p>Balance: <code>{{ .Data.Balance }}</code></p>
+
+        <hr>
+        <p><a href="/wallet/sendtoken" class="btn btn-primary" role="button">Send Token</a></p>
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
+</div>
+{{ end }}
