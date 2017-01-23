@@ -44,6 +44,7 @@ func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string)
 		}
 
 
+		// Save to Merkle Tree App State
 		_, err = TreeGetAccount(app.State, pubkey.Address())
 		if (err == nil) { // return if foud
 			return err.Error()
@@ -54,6 +55,8 @@ func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string)
 			log.Println(err.Error())
 			return err.Error()
 		}
+
+		//
 
 		break
 	case "genesis.block/token.transfer":
