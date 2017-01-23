@@ -64,6 +64,8 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	log.Println("GlogChainApp.DeliverTx")
 	// tx is json string, need to convert to text and then parse into json object
 
+	var err error
+
 	arr, err := hex.DecodeString(string(tx[:]))
 	if (err != nil) {
 		log.Println(err.Error())
@@ -83,11 +85,26 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	//app.state.Set(opt_hash, tx)
 
 	///////////////////////////
-	obj , err := UnMarshal(jsonstring)
+	env, obj , err := UnMarshal(jsonstring)
 	if (err != nil) {
 		log.Println(err.Error())
 		return types.ErrEncodingError
 	}
+
+
+	bPubKey, err := hex.DecodeString(env.Pubkey)
+	if (err != nil) {
+		log.Println(err.Error())
+		return types.ErrEncodingError
+	}
+
+	PubKey, err := GetPubKeyFromBytes(bPubKey)
+	if (err != nil) {
+		log.Println(err.Error())
+		return types.ErrInternalError
+	}
+
+	Address := PubKey.Address() // address of the user who make the transaction
 
 	var buf bytes.Buffer        // Stand-in for a network connection
 	enc := gob.NewEncoder(&buf) // Will write to network.
@@ -100,32 +117,6 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 	}
 
 	switch obj.(type) {  //v:=obj.(type) {
-	case PostCreateOperation:
-		var post db.Post
-		err = dec.Decode(&post)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
-
-		err = db.CreatePost(post)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
-	case PostEditOperation:
-		var post db.Post
-		err = dec.Decode(&post)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
-
-		err = db.EditPost(post)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
 	case AccountCreateOperation:
 		var user db.User
 		err = dec.Decode(&user)
@@ -158,6 +149,61 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 			log.Println(err.Error())
 			return types.ErrInternalError
 		}
+		break
+	case SendTokenOperation:
+		var sendtoken SendToken
+		sendtoken.From = Address
+
+		opt, ok := obj.(SendTokenOperation)
+		if (!ok) {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+
+		ToAddress, err := hex.DecodeString(opt.ToAddress)
+		if (err != nil) {
+			log.Println(err.Error())
+			return types.ErrEncodingError
+		}
+
+		sendtoken.To = ToAddress
+		sendtoken.Amount = opt.Amount
+
+		err = Exec_SendToken(GlogGlobal.GlogApp.State, sendtoken)
+		if (err != nil) {
+			log.Println(err.Error())
+			return types.ErrEncodingError
+		}
+
+		break
+	case PostCreateOperation:
+		var post db.Post
+		err = dec.Decode(&post)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+
+		err = db.CreatePost(post)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+		break
+	case PostEditOperation:
+		var post db.Post
+		err = dec.Decode(&post)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+
+		err = db.EditPost(post)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+		break
 	default:
 	}
 

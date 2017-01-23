@@ -44,24 +44,20 @@ type SendTokenOperation struct {
 	Amount 		int64
 }
 
-
-func UnMarshal(jsonstring string) (interface{}, error) {
+// TODO: return OperationEnvelope and Operation, so have to fix stuff related
+func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{}, err error) {
 	log.Println("UnMarshal", jsonstring)
 
-	var returnObj interface{}
-
-	env := OperationEnvelope{}
-
-	err := json.Unmarshal([]byte(jsonstring), &env)
+	err = json.Unmarshal([]byte(jsonstring), &env)
 	if (err != nil) {
 		log.Println(err.Error())
-		return nil, err
+		return
 	}
 
 	opt_arr, err := hex.DecodeString(env.Operation)
 	if (err != nil) {
 		log.Fatal(err)
-		return nil, err
+		return
 	}
 
 	//opt_str := string(opt_arr)
@@ -69,37 +65,49 @@ func UnMarshal(jsonstring string) (interface{}, error) {
 	switch env.Type {
 	case "AccountCreateOperation":
 		var accountCreateOperation AccountCreateOperation
-		if err := json.Unmarshal(opt_arr, &accountCreateOperation); err != nil {
+		if err = json.Unmarshal(opt_arr, &accountCreateOperation); err != nil {
 			log.Fatal(err)
-			return nil, err
+			return
 		}
 		returnObj = accountCreateOperation
+		break
+	case "SendTokenOperation":
+		var sendTokenOperation SendTokenOperation
+		if err = json.Unmarshal(opt_arr, &sendTokenOperation); err != nil {
+			log.Fatal(err)
+			return
+		}
+		returnObj = sendTokenOperation
+		break
 	case "PostCreateOperation":
 		var postOperation PostCreateOperation
-		if err := json.Unmarshal(opt_arr, &postOperation); err != nil {
+		if err = json.Unmarshal(opt_arr, &postOperation); err != nil {
 			log.Fatal(err)
-			return nil, err
+			return
 		}
 
 		returnObj = postOperation
+		break
 	case "PostEditOperation":
 		var postOperation PostEditOperation
-		if err := json.Unmarshal(opt_arr, &postOperation); err != nil {
+		if err = json.Unmarshal(opt_arr, &postOperation); err != nil {
 			log.Fatal(err)
-			return nil, err
+			return
 		}
 
 		returnObj = postOperation
+		break
 	case "VoteOperation":
 		log.Fatalf("not support this type yet: %q", env.Type)
-		return nil, fmt.Errorf("not support this type yet")
+		err = fmt.Errorf("not support this type yet")
+		return
 	default:
 		log.Fatalf("unknown Operation type: %q", env.Type)
-		return nil, fmt.Errorf("unknown Operation type")
+		err = fmt.Errorf("unknown Operation type")
+		return
 	}
 
-
-	return returnObj, nil
+	return
 }
 
 //func Marshal() {

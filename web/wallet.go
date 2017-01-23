@@ -8,6 +8,8 @@ import (
 	"github.com/baabeetaa/glogchain/app"
 	"strings"
 	"strconv"
+	"encoding/json"
+	"github.com/baabeetaa/glogchain/service"
 )
 
 func WalletViewHandler(w http.ResponseWriter, req *http.Request) {
@@ -35,6 +37,8 @@ func WalletViewHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func WalletSendTokenHandler(w http.ResponseWriter, req *http.Request) {
+	session := GetSession(req)
+
 	pToAddress := req.FormValue("ToAddress")
 	pAmount := req.FormValue("Amount")
 
@@ -81,7 +85,7 @@ func WalletSendTokenHandler(w http.ResponseWriter, req *http.Request) {
 
 
 	Amount, err := strconv.ParseInt(pAmount, 10, 64)
-	if err != nil {
+	if (err != nil) {
 		render(w, "wallet_sendtoken",
 			ActionResult{
 				Status: "error",
@@ -96,6 +100,69 @@ func WalletSendTokenHandler(w http.ResponseWriter, req *http.Request) {
 
 	log.Println("ToAddress=", hex.EncodeToString(ToAddress), "Amount=", Amount)
 
+
+	opt := app.SendTokenOperation {
+		ToAddress: strings.ToUpper(hex.EncodeToString(ToAddress)),
+		Amount: Amount,
+	}
+
+	opt_arr, err := json.Marshal(opt)
+	if (err != nil) {
+		render(w, "wallet_sendtoken",
+			ActionResult{
+				Status: "error",
+				Message: err.Error(),
+				Data: map[string]interface{}{
+					"ToAddress": pToAddress,
+					"Amount": pAmount,
+				},
+			})
+		return
+	}
+	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
+
+	// sign the transaction
+	private_key, ok := session.Values["private_key"].(crypto.PrivKeyEd25519)
+	if (!ok) {
+		log.Fatal(err.Error())
+		return
+	}
+	sign := private_key.Sign([]byte(opt_str))
+	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
+	sign_str = sign_str[2:len(sign_str)]
+
+	tx := app.OperationEnvelope {
+		Type: "SendTokenOperation",
+		Operation: opt_str,
+		Signature: sign_str,
+		Pubkey: private_key.PubKey().KeyString(),
+		Fee: 0,
+	}
+
+	byte_arr, err := json.Marshal(tx)
+	if err != nil {
+		log.Fatal("PostEditHandler Cannot encode to JSON ", err)
+		return
+	}
+
+	tx_json := string(byte_arr[:])
+	log.Println("PostEditHandler tx_json=", tx_json)
+
+	tx_json_hex := make([]byte, len(tx_json) * 2)
+	hex.Encode(tx_json_hex, []byte(tx_json))
+	log.Println("PostEditHandler tx_json_hex", string(tx_json_hex[:]))
+
+	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
+
+	render(w, "wallet_sendtoken",
+		ActionResult{
+			Status: "success",
+			Message: "send OK!",
+			Data: map[string]interface{}{
+				"ToAddress": pToAddress,
+				"Amount": pAmount,
+			},
+		})
 
 	//receiver, err := app.TreeGetAccount(app.GlogGlobal.GlogApp.State, tx.To)
 	//if (err != nil) {
