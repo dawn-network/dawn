@@ -31,7 +31,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	log.Println("PostCreateHandler POST")
 
 	session := GetSession(req)
-	user, ok := session.Values["user"].(*db.User)
+	user, ok := session.Values["user"].(db.User)
 	if !ok {
 		panic("PostCreateHandler: wtf?? session user is nil")
 		return
@@ -159,7 +159,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	log.Println("PostEditHandler POST")
 
 	session := GetSession(req)
-	user, ok := session.Values["user"].(*db.User)
+	user, ok := session.Values["user"].(db.User)
 	if !ok {
 		panic("PostCreateHandler: wtf?? session user is nil")
 		return
