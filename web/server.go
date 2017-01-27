@@ -70,6 +70,8 @@ func StartWebServer() error  {
 	r.HandleFunc("/wallet/view", AuthWrapper(WalletViewHandler))
 	r.HandleFunc("/wallet/sendtoken", AuthWrapper(WalletSendTokenHandler))
 
+	r.HandleFunc("/test/webtorrent", TestWebTorrentHandler)
+
 	// /blockexplorer - Block Explorer Subrouter
 	s := r.PathPrefix("/blockexplorer").Subrouter()
 	s.HandleFunc("/dump_consensus_state", BlockExplorer_ConsensusState_Handler)
@@ -94,4 +96,9 @@ func init()  {
 	// to store a complex datatype within a session
 	gob.Register(crypto.PrivKeyEd25519 {})
 	gob.Register(db.User {})
+}
+
+
+func TestWebTorrentHandler(w http.ResponseWriter, req *http.Request) {
+	render(w, "test_webtorrent", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ }})
 }

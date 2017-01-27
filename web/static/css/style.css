@@ -2605,3 +2605,8 @@ Responsive Structure
 	list-style: disc;
 	padding-left: 40px;
 }
+
+/** Fix width for WebTorrent */
+video {
+	width: 100%;
+}
