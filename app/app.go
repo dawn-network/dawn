@@ -116,7 +116,7 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 		return types.ErrInternalError
 	}
 
-	switch obj.(type) {  //v:=obj.(type) {
+	switch obj.(type) {
 	case AccountCreateOperation:
 		var user db.User
 		err = dec.Decode(&user)
@@ -214,11 +214,7 @@ func (app *GlogChainApp) DeliverTx(tx []byte) types.Result {
 
 func (app *GlogChainApp) CheckTx(tx []byte) types.Result {
 	log.Println("GlogChainApp.CheckTx")
-	dst := make([]byte, len(tx) * 2)
-	hex.Encode(dst, tx)
-	fmt.Println("CheckTx: ", string(dst[:]))
-
-	return types.OK
+	return Exec_CheckTx(tx)
 }
 
 func (app *GlogChainApp) Commit() types.Result {

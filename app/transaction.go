@@ -82,7 +82,15 @@ func Exec_SendToken(state merkle.Tree, tx SendToken) error {
 		return err
 	}
 
-	// need to validate here
+	if (tx.Amount <= 0) {
+		return errors.New("Amout value is invalid")
+	}
+
+	if (sender.Balance < tx.Amount) {
+		return errors.New("Amout value is invalid")
+	}
+
+	// TODO: more validation
 	sender.Balance -= tx.Amount
 	receiver.Balance += tx.Amount
 
@@ -92,5 +100,5 @@ func Exec_SendToken(state merkle.Tree, tx SendToken) error {
 	TreeSaveAccount(state, sender)
 	TreeSaveAccount(state, receiver)
 
-	return nil
+	return nil // everything OK, return nil
 }

@@ -35,6 +35,25 @@ func GetPubKeyFromBytes(raw []byte) (pubkey crypto.PubKeyEd25519, err error)  {
 	return
 }
 
+func GetSignatureFromBytes(raw []byte) (pubkey crypto.SignatureEd25519, err error)  {
+	if (len(raw) != 64) {
+		err = errors.New("raw data must be 64 bytes")
+	}
+
+	buf := &bytes.Buffer{}
+	err = binary.Write(buf, binary.BigEndian, raw)
+	if (err != nil) {
+		return
+	}
+
+	err = binary.Read(buf, binary.BigEndian, &pubkey)
+	if (err != nil) {
+		return
+	}
+
+	return
+}
+
 func StructToBytes(o interface{}) (raw []byte, err error)  {
 	buf, n := new(bytes.Buffer), new(int)
 	wire.WriteBinary(o, buf, n, &err)
