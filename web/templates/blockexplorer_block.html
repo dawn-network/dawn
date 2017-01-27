@@ -7,7 +7,6 @@
         {{ $block_header := index $block "header" }}
 
         <h3>BlockExplorer BlockInfo #{{index $block_header "height"}}</h3>
-        <!--<p>json_str: <br><code>{{index .Data "json_str"}}</code></p>-->
 
         <div class="row-fluid">
             <div class="span6">
@@ -55,6 +54,8 @@
             </div>
             {{end}}
         </div>
+
+        <p>debug json_str: <br><code>{{index .Data "json_str"}}</code></p>
 
     </div>
 

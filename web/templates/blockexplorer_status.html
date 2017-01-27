@@ -1,10 +1,30 @@
 {{ define "content" }}
 <div class="main-content-section clearfix">
     <div id="primary">
-
+        {{ $result := index .Data "result" }}
+        {{ $result_data := index $result 1 }}
+        {{ $node_info := index $result_data "node_info" }}
         <h3>BlockExplorer Status</h3>
-        <!--<p>secret: <code>{{index .Data "jsonrpc"}}</code></p>-->
-        <p>json_str: <br><code>{{index .Data "json_str"}}</code></p>
+        <div class="row-fluid">
+            <div class="span6">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr><th colspan="2">Status</th></tr>
+                    <tr><td>network</td><td>{{index $node_info "network"}}</td></tr>
+                    <tr><td>version</td><td>{{index $node_info "version"}} <br > {{index $node_info "other"}}</td></tr>
+                    <tr><td>pub_key</td><td>{{index $node_info "pub_key"}}</td></tr>
+                    <tr><td>moniker</td><td>{{index $node_info "moniker"}}</td></tr>
+                    <tr><td>latest_block_hash</td><td>{{index $result_data "latest_block_hash"}}</td></tr>
+                    <tr><td>latest_app_hash</td><td>{{index $result_data "latest_app_hash"}}</td></tr>
+                    <tr><td>latest_block_height</td><td><a href="/blockexplorer/block?height={{index $result_data "latest_block_height"}}">{{index $result_data "latest_block_height"}}</a></td></tr>
+                    <tr><td>latest_block_time</td><td>{{index $result_data "latest_block_time"}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <p>debug json_str: <br><code>{{index .Data "json_str"}}</code></p>
     </div>
 
     <div id="secondary">
