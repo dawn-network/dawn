@@ -72,6 +72,7 @@ func StartWebServer() error  {
 
 	// /blockexplorer - Block Explorer Subrouter
 	s := r.PathPrefix("/blockexplorer").Subrouter()
+	s.HandleFunc("/dump_consensus_state", BlockExplorer_ConsensusState_Handler)
 	s.HandleFunc("/status", BlockExplorer_Status_Handler)
 	s.HandleFunc("/netinfo", BlockExplorer_NetInfo_Handler)
 

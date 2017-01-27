@@ -82,10 +82,30 @@ func BlockExplorer_NetInfo_Handler(w http.ResponseWriter, req *http.Request) {
 
 	data["json_str"] = str_json_response
 
-	render(w, "blockexplorer_status", ActionResult{Status: "success", Message: "ok", Data: data })
+	render(w, "blockexplorer_netinfo", ActionResult{Status: "success", Message: "ok", Data: data })
 	return
 }
 
+func BlockExplorer_ConsensusState_Handler(w http.ResponseWriter, req *http.Request) {
+	var data = map[string]interface{}{ }
+
+	str_json_response, err := service.TmRpc_Dump_Consensus_State()
+	if (err != nil) {
+		render(w, "blockexplorer_dump_consensus_state", ActionResult{Status: "error", Message: err.Error(), Data: data })
+		return
+	}
+
+	err = json.Unmarshal([]byte(str_json_response), &data)
+	if (err != nil) {
+		log.Println(err.Error())
+		return
+	}
+
+	data["json_str"] = str_json_response
+
+	render(w, "blockexplorer_dump_consensus_state", ActionResult{Status: "success", Message: "ok", Data: data })
+	return
+}
 
 func RecentBlocksHandler(w http.ResponseWriter, req *http.Request) {
 
