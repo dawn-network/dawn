@@ -70,10 +70,10 @@ func StartWebServer() error  {
 	r.HandleFunc("/wallet/view", AuthWrapper(WalletViewHandler))
 	r.HandleFunc("/wallet/sendtoken", AuthWrapper(WalletSendTokenHandler))
 
-	// Subrouter
-	//s := r.PathPrefix("/secure").Subrouter()
-	//// /secure/test
-	//s.HandleFunc("/test", AuthWrapper(HomeHandler))
+	// /blockexplorer - Block Explorer Subrouter
+	s := r.PathPrefix("/blockexplorer").Subrouter()
+	s.HandleFunc("/status", BlockExplorer_Status_Handler)
+	s.HandleFunc("/recentblocks", RecentBlocksHandler)
 
 	srv := &http.Server{
 		Handler:      r,
