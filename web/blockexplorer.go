@@ -5,6 +5,7 @@ import (
 	"github.com/baabeetaa/glogchain/service"
 	"encoding/json"
 	"log"
+	"strconv"
 )
 
 // Handerling /blockexplorer/* requests
@@ -59,6 +60,12 @@ func BlockExplorer_Status_Handler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	///////
+	//result := data["result"].([]interface{})
+	//result_info := result[1].(map[string]interface{})
+	//latest_block_height := result_info["latest_block_height"]
+	//log.Println("latest_block_height", latest_block_height)
+
 	data["json_str"] = str_json_response
 
 	render(w, "blockexplorer_status", ActionResult{Status: "success", Message: "ok", Data: data })
@@ -107,7 +114,62 @@ func BlockExplorer_ConsensusState_Handler(w http.ResponseWriter, req *http.Reque
 	return
 }
 
-func RecentBlocksHandler(w http.ResponseWriter, req *http.Request) {
+func BlockExplorer_Block_Handler(w http.ResponseWriter, req *http.Request) {
+	var data = map[string]interface{}{ }
 
+	pHeight := req.FormValue("height")
+
+	var height int64
+	var err error
+
+	if (pHeight != "") {
+		height, err = strconv.ParseInt(pHeight, 10, 64)
+		if (err != nil) {
+			render(w, "blockexplorer_block", ActionResult{Status: "error", Message: err.Error(), Data: data })
+			return
+		}
+	} else {
+		height = getLastBlockHeight()
+	}
+
+	str_json_response, err := service.TmRpc_Block(height)
+	if (err != nil) {
+		render(w, "blockexplorer_block", ActionResult{Status: "error", Message: err.Error(), Data: data })
+		return
+	}
+
+	err = json.Unmarshal([]byte(str_json_response), &data)
+	if (err != nil) {
+		log.Println(err.Error())
+		return
+	}
+
+	data["json_str"] = str_json_response
+
+	render(w, "blockexplorer_block", ActionResult{Status: "success", Message: "ok", Data: data })
+	return
 }
 
+func getLastBlockHeight() int64  {
+	var data = map[string]interface{}{ }
+
+	str_json_response, err := service.TmRpc_Status()
+	if (err != nil) {
+		log.Println(err.Error())
+		return 0
+	}
+
+	err = json.Unmarshal([]byte(str_json_response), &data)
+	if (err != nil) {
+		log.Println(err.Error())
+		return 0
+	}
+
+	/////
+	result := data["result"].([]interface{})
+	result_info := result[1].(map[string]interface{})
+	latest_block_height := result_info["latest_block_height"]
+	log.Println("latest_block_height", latest_block_height)
+
+	return int64(latest_block_height.(float64))
+}

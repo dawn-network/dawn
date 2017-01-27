@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"github.com/baabeetaa/glogchain/app"
 	"net/http"
+	"fmt"
 )
 
 // https://github.com/tendermint/tendermint/wiki/RPC
@@ -33,7 +34,6 @@ import (
 //http://localhost:46657/dump_consensus_state
 func TmRpc_Dump_Consensus_State() (str_json_response string, err error) {
 	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/dump_consensus_state"
-
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -58,7 +58,6 @@ func TmRpc_Dump_Consensus_State() (str_json_response string, err error) {
 // http://localhost:46657/status
 func TmRpc_Status() (str_json_response string, err error) {
 	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/status"
-
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -83,7 +82,6 @@ func TmRpc_Status() (str_json_response string, err error) {
 //http://localhost:46657/net_info
 func TmRpc_NetInfo() (str_json_response string, err error) {
 	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/net_info"
-
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -105,3 +103,26 @@ func TmRpc_NetInfo() (str_json_response string, err error) {
 	return
 }
 
+//http://localhost:46657/block?height=_
+func TmRpc_Block(height int64) (str_json_response string, err error) {
+	var url_request string = fmt.Sprintf("%s/block?height=%d", app.GlogchainConfigGlobal.TmRpcLaddr, height)
+	log.Println("url_request", url_request)
+
+	resp, err := http.Get(url_request)
+	if (err != nil) {
+		log.Println(err.Error())
+		return;
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if (err != nil) {
+		log.Println(err.Error())
+		return;
+	}
+
+	str_json_response = string(body[:])
+	log.Println("json_response_string", str_json_response)
+
+	return
+}

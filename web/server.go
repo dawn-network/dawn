@@ -75,8 +75,7 @@ func StartWebServer() error  {
 	s.HandleFunc("/dump_consensus_state", BlockExplorer_ConsensusState_Handler)
 	s.HandleFunc("/status", BlockExplorer_Status_Handler)
 	s.HandleFunc("/netinfo", BlockExplorer_NetInfo_Handler)
-
-	s.HandleFunc("/recentblocks", RecentBlocksHandler)
+	s.HandleFunc("/block", BlockExplorer_Block_Handler)
 
 	srv := &http.Server{
 		Handler:      r,
