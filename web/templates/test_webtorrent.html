@@ -5,30 +5,17 @@
         <h3>Test WebTorrent</h3>
         <p>Download files using the WebTorrent protocol (BitTorrent over WebRTC).</p>
 
-
-
-                <div id="hero">
-                    <div id="output">
-                        <div id="progressBar"></div>
-                        <!-- The video player will be added here -->
-                    </div>
-                    <!-- Statistics -->
-                    <div id="status">
-                        <div>
-                            Downloading
-                            <a id="torrentLink" href="https://webtorrent.io/torrents/sintel.torrent">sintel.torrent</a>
-                           from <code id="numPeers">0 peers</code>.
-                        </div>
-                        <div>
-                            <code id="downloaded"></code> of <code id="total"></code> — <span id="remaining"></span><br/>
-                            ↓ <code id="downloadSpeed">0 b/s</code> / ↑<code id="uploadSpeed">0 b/s</code>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
+        <div id="output">
+            <div id="progressBar"></div>
+            <!-- The video player will be added here -->
+        </div>
+        <div id="status">
+            <div>Downloading from <code id="numPeers">0 peers</code>.</div>
+            <div>
+                <code id="downloaded"></code> of <code id="total"></code> — <span id="remaining"></span><br/>
+                ↓ <code id="downloadSpeed">0 b/s</code> / ↑<code id="uploadSpeed">0 b/s</code>
+            </div>
+        </div>
 
 
     </div>
@@ -41,7 +28,8 @@
 <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 <script src="http://momentjs.com/downloads/moment.min.js"></script>
 <script>
-    var torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
+    //var torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
+    var torrentId = 'magnet:?xt=urn:btih:fb42a665ed65efc04a16432da05aa1078ecbe660&dn=yosemite-hd.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Ffastcast.nz%2Fdownloads%2Fyosemite-hd.mp4&ws=https%3A%2F%2Fwebseed.btorrent.xyz%2Fyosemite-hd.mp4'
 
     var client = new WebTorrent()
 
