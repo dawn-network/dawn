@@ -24,7 +24,17 @@ type Post struct {
 	PostTitle           	string
 	PostModified        	string
 	Thumb 		    	string
-	Cat 			string // category
+	Cat 			string 		// category
+}
+
+type Comment struct {
+	ID                  	string
+	PostID                 	string 		// which post belong to
+	Parent 			string 		// parrent comment, empty string means no parent
+	Author          	string		// ID/Address of Account/User
+	Date            	string 		// create datetime
+	Content         	string
+	Modified        	string 		// Last Modified datetime
 }
 
 type Category struct {
@@ -94,6 +104,21 @@ func GetDB() (*sql.DB, error) {
 			panic(err)
 		}
 
+		//////
+		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS tbl_comments
+		(
+		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
+		    postID VARCHAR(40) NOT NULL DEFAULT '0',
+		    cm_parent VARCHAR(40) NOT NULL DEFAULT '',
+		    cm_author VARCHAR(40) NOT NULL DEFAULT '0',
+		    cm_date DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
+		    cm_content LONGTEXT NOT NULL,
+		    cm_modified DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00'
+		);`)
+		if err != nil {
+			panic(err)
+		}
+
 		__db = db
 	}
 
@@ -118,6 +143,7 @@ func Query (sql string) (*sql.Rows, error) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+// User
 
 func GetUser(ID string) (User, error)  {
 	var item User
@@ -174,6 +200,7 @@ func CreateUser(user User) error {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+// Post
 
 func CreatePost(post Post) error {
 	db, err := GetDB()
@@ -315,6 +342,76 @@ func GetCategoryOfPost(json_arr_str string) ([]Category, error)  {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+// Comment
+
+func CreateComment(cm Comment) error {
+	db, err := GetDB()
+	if err != nil {
+		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
+		return err
+	}
+	//defer db.Close()
+
+	_, err = db.Exec("INSERT INTO tbl_comments(ID, postID, cm_parent, cm_author, cm_date, cm_content, cm_modified) " +
+		"VALUES(?, ?, ?, ?, ?, ?)",
+		cm.ID, cm.PostID, cm.Parent, cm.Author, cm.Date, cm.Content, cm.Modified)
+
+	return err
+}
+
+func EditComment(cm Comment) error {
+	db, err := GetDB()
+	if err != nil {
+		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
+		return err
+	}
+	//defer db.Close()
+
+
+	_, err = db.Exec("UPDATE tbl_comments SET cm_content=?, cm_modified=? WHERE ID=?", cm.Content, cm.Modified, cm.ID)
+
+	return err
+}
+
+func GetComment(ID string) (Comment, error)  {
+	var cm Comment
+
+	sql := fmt.Sprintf(`SELECT * FROM tbl_comments WHERE ID="%s"`, ID)
+
+	rows, err := Query (sql)
+	if err != nil {
+		panic(err.Error()) // proper error handling instead of panic in your app
+		return cm, err
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		err := rows.Scan(
+			&cm.ID,
+			&cm.PostID,
+			&cm.Parent,
+			&cm.Author,
+			&cm.Date,
+			&cm.Content,
+			&cm.Modified,
+		)
+		if err != nil {
+			log.Println("GetPost", err)
+			return cm, err
+		}
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+		return cm, err
+	}
+
+	return cm, nil
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Category
 
 func GetTopCategories(max_records int64) ([]Category, error)  {
 	sql := fmt.Sprintf(`SELECT * FROM tbl_cat ORDER BY count DESC LIMIT 0, %d`, max_records)

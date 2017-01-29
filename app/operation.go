@@ -21,15 +21,23 @@ type OperationEnvelope struct {
 	Fee		int64
 }
 
+////////////////////////////////////////
+// Account
+
 type AccountCreateOperation db.User
 
 //type AccountUpdateOperation struct {
 //	// need to define here
 //}
 
+////////////////////////////////////////
+// Posting
+
 type PostCreateOperation db.Post
 
 type PostEditOperation db.Post
+
+type CommentCreateOperation db.Comment
 
 //type VoteOperation struct {
 //	PostId 		string
@@ -44,7 +52,6 @@ type SendTokenOperation struct {
 	Amount 		int64
 }
 
-// TODO: return OperationEnvelope and Operation, so have to fix stuff related
 func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{}, err error) {
 	log.Println("UnMarshal", jsonstring)
 
@@ -96,6 +103,15 @@ func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{},
 		}
 
 		returnObj = postOperation
+		break
+	case "CommentCreateOperation":
+		var commentCreateOperation CommentCreateOperation
+		if err = json.Unmarshal(opt_arr, &commentCreateOperation); err != nil {
+			log.Fatal(err)
+			return
+		}
+
+		returnObj = commentCreateOperation
 		break
 	case "VoteOperation":
 		log.Fatalf("not support this type yet: %q", env.Type)
