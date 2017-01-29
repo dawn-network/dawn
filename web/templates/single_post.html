@@ -48,13 +48,23 @@
 
         <!--<div id="comments" class="comments-area">-->
             <!--<div id="respond" class="comment-respond">-->
-                <!--<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress/?p=8#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://localhost/wordpress/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">-->
-                <!--<p class="logged-in-as"><a href="http://localhost/wordpress/wp-admin/profile.php" aria-label="Logged in as admin. Edit your profile.">Logged in as admin</a>. <a href="http://localhost/wordpress/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Flocalhost%2Fwordpress%2F%3Fp%3D8&amp;_wpnonce=9311f4a43e">Log out?</a></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="8" id="comment_post_ID">-->
-                <!--<input type="hidden" name="comment_parent" id="comment_parent" value="0">-->
-            <!--</p><input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment" value="def9cafa12"><script>(function(){if(window===window.parent){document.getElementById('_wp_unfiltered_html_comment_disabled').name='_wp_unfiltered_html_comment';}})();</script>-->
+                <!--<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress/?p=8#respond" style="display:none;">Cancel reply</a></small></h3>-->
+                <!--<form action="###" method="post" id="commentform" class="comment-form" novalidate="">-->
+                    <!--<p class="logged-in-as"><a href="###" aria-label="Logged in as admin. Edit your profile.">Logged in as admin</a>. <a href="###">Log out?</a></p>-->
+                    <!--<p class="comment-form-comment">-->
+                        <!--<label for="comment">Comment</label>-->
+                        <!--<textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea>-->
+                    <!--</p>-->
+                    <!--<p class="form-submit">-->
+                        <!--<input name="submit" type="submit" id="submit" class="submit" value="Post Comment">-->
+                        <!--<input type="hidden" name="comment_post_ID" value="8" id="comment_post_ID">-->
+                        <!--<input type="hidden" name="comment_parent" id="comment_parent" value="0">-->
+                    <!--</p>-->
             <!--</form>-->
             <!--</div>-->
         <!--</div>-->
+
+        <p><a href="/comment/create?p={{ $post.ID }}">Reply</a></p>
 
 
     </div>
@@ -67,17 +77,6 @@
 
 <script type='text/javascript'>
     jQuery(document).ready(function(){
-//        var PostContent = new SimpleMDE(
-//            {
-//                element: jQuery("#PostContent")[0],
-//                status: false,
-//                toolbar: false
-//            }
-//        );
-//
-//        PostContent.togglePreview();
-
-
         var md_str = jQuery("#PostContent").text();
         var html_str = SimpleMDE.prototype.markdown(md_str);
         jQuery("#PostContent").parent().html(html_str);

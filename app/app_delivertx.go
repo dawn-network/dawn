@@ -152,7 +152,22 @@ func Exec_DeliverTx(tx []byte) types.Result {
 			return types.ErrInternalError
 		}
 		break
+	case CommentCreateOperation:
+		var comment db.Comment
+		err = dec.Decode(&comment)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+
+		err = db.CreateComment(comment)
+		if err != nil {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
+		break
 	default:
+		log.Println("Unknow Operation")
 	}
 
 	GlogGlobal.GlogApp.TxCount++

@@ -61,12 +61,17 @@ func StartWebServer() error  {
 	r.HandleFunc("/", CategoryHandler)
 	r.HandleFunc("/login", LoginHandler)
 	r.HandleFunc("/logout", LogoutHandler)
+
 	r.HandleFunc("/account/create", AccountCreate)
 	r.HandleFunc("/account/generate_keypair", GenerateKeyPair)
 	//r.HandleFunc("/category", CategoryHandler)
+
 	r.HandleFunc("/post", ViewSinglePostHandler)
 	r.HandleFunc("/post/create", AuthWrapper(PostCreateHandler))
 	r.HandleFunc("/post/edit", AuthWrapper(PostEditHandler))
+
+	r.HandleFunc("/comment/create", AuthWrapper(CommentCreateHandler))
+
 	r.HandleFunc("/wallet/view", AuthWrapper(WalletViewHandler))
 	r.HandleFunc("/wallet/sendtoken", AuthWrapper(WalletSendTokenHandler))
 

@@ -6,6 +6,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"fmt"
 	"encoding/json"
+	"errors"
 )
 
 type User struct {
@@ -233,20 +234,18 @@ func EditPost(post Post) error {
 	return err
 }
 
-func GetPost(postID string) (Post, error)  {
-	var post Post
-
+func GetPost(postID string) (post Post, err error)  {
 	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE ID="%s"`, postID)
 
 	rows, err := Query (sql)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
-		return post, err
+		return
 	}
 	defer rows.Close()
 
 	if rows.Next() {
-		err := rows.Scan(
+		err = rows.Scan(
 			&post.ID,
 			&post.PostAuthor,
 			&post.PostDate,
@@ -255,19 +254,22 @@ func GetPost(postID string) (Post, error)  {
 			&post.PostModified,
 			&post.Thumb,
 			&post.Cat)
-		if err != nil {
-			log.Println("GetPost", err)
-			return post, err
+		if (err != nil) {
+			log.Println(err.Error())
+			return
 		}
+	} else {
+		err = errors.New("No Item found!")
+		return
 	}
 
 	err = rows.Err()
-	if err != nil {
+	if (err != nil) {
 		log.Fatal(err)
-		return post, err
+		return
 	}
 
-	return post, nil
+	return
 }
 
 /**
@@ -353,7 +355,7 @@ func CreateComment(cm Comment) error {
 	//defer db.Close()
 
 	_, err = db.Exec("INSERT INTO tbl_comments(ID, postID, cm_parent, cm_author, cm_date, cm_content, cm_modified) " +
-		"VALUES(?, ?, ?, ?, ?, ?)",
+		"VALUES(?, ?, ?, ?, ?, ?, ?)",
 		cm.ID, cm.PostID, cm.Parent, cm.Author, cm.Date, cm.Content, cm.Modified)
 
 	return err
@@ -373,20 +375,18 @@ func EditComment(cm Comment) error {
 	return err
 }
 
-func GetComment(ID string) (Comment, error)  {
-	var cm Comment
-
+func GetComment(ID string) (cm Comment, err error)  {
 	sql := fmt.Sprintf(`SELECT * FROM tbl_comments WHERE ID="%s"`, ID)
 
 	rows, err := Query (sql)
-	if err != nil {
+	if (err != nil) {
 		panic(err.Error()) // proper error handling instead of panic in your app
-		return cm, err
+		return
 	}
 	defer rows.Close()
 
 	if rows.Next() {
-		err := rows.Scan(
+		err = rows.Scan(
 			&cm.ID,
 			&cm.PostID,
 			&cm.Parent,
@@ -395,19 +395,22 @@ func GetComment(ID string) (Comment, error)  {
 			&cm.Content,
 			&cm.Modified,
 		)
-		if err != nil {
-			log.Println("GetPost", err)
+		if (err != nil) {
+			log.Println(err.Error())
 			return cm, err
 		}
+	} else {
+		err = errors.New("No Item found!")
+		return
 	}
 
 	err = rows.Err()
 	if err != nil {
 		log.Fatal(err)
-		return cm, err
+		return
 	}
 
-	return cm, nil
+	return
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

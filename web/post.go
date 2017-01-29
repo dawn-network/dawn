@@ -20,7 +20,6 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	var opt app.PostCreateOperation
 
-	// If method is GET serve an html login page
 	if req.Method != "POST" {
 		log.Println("PostCreateHandler GET")
 		context := Context{Title: "PostCreate", Data: opt}
