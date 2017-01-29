@@ -147,9 +147,30 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	p := req.FormValue("p")
 	post, err := db.GetPost(p)
 
+	session := GetSession(req)
+	user, ok := session.Values["user"].(db.User)
+	if (!ok) {
+		panic("PostCreateHandler: wtf?? session user is nil")
+		return
+	}
+
 	// If method is GET serve an html
 	if req.Method != "POST" {
 		log.Println("PostEditHandler GET")
+
+		// TODO: Only the author can edit the post
+		// https://github.com/baabeetaa/glogchain/issues/8
+
+		// check the current logged user is the author of the post or not
+		if (user.ID != post.PostAuthor) {
+			render(w, "post_edit",
+				ActionResult{
+					Status: "error",
+					Message: "Only the author can edit the post",
+					Data: map[string]interface{}{ },
+				})
+			return
+		}
 
 		context := Context{Title: "PostEdit", Data: post}
 		render(w, "post_edit", context)
@@ -157,14 +178,6 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	log.Println("PostEditHandler POST")
-
-	session := GetSession(req)
-	user, ok := session.Values["user"].(db.User)
-	if !ok {
-		panic("PostCreateHandler: wtf?? session user is nil")
-		return
-	}
-
 	timeNow := time.Now()
 
 	/////////
