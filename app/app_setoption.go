@@ -14,7 +14,7 @@ glogChainApp.SetOption("genesis.block/create.account", "jan/CDD6774218138DF657C7
 glogChainApp.SetOption("genesis.block/create.account", "jake/488B8FF58E8E9868823C3388BAAB9C1F7CFCB3D7482376E7495639A1EC0F7407/1000")
 glogChainApp.SetOption("genesis.block/create.account", "tuan/EB3B42091EF6C2F8FA951319940C003BEC7AAE2336BD2AFABD6FB59EB4A3EF6E/1000")
  */
-func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string) {
+func Exec_SetOption(key string, value string) (logstr string) {
 	var err error
 
 	switch key {
@@ -46,12 +46,12 @@ func Exec_SetOption(app *GlogChainApp, key string, value string) (logstr string)
 
 
 		// Save to Merkle Tree App State
-		_, err = TreeGetAccount(app.State, pubkey.Address())
+		_, err = TreeGetAccount(GlogGlobal.GlogApp.State, pubkey.Address())
 		if (err == nil) { // return if foud
 			return err.Error()
 		}
 
-		err = TreeSaveAccount(app.State, account)
+		err = TreeSaveAccount(GlogGlobal.GlogApp.State, account)
 		if (err != nil) {
 			log.Println(err.Error())
 			return err.Error()
