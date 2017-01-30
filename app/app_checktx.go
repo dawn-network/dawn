@@ -10,10 +10,6 @@ import (
  * should be very long validating...
  */
 func Exec_CheckTx(tx []byte) types.Result {
-	//dst := make([]byte, len(tx) * 2)
-	//hex.Encode(dst, tx)
-	//fmt.Println("CheckTx: ", string(dst[:]))
-
 	var err error
 
 	// decode hex string to json string
@@ -42,7 +38,7 @@ func Exec_CheckTx(tx []byte) types.Result {
 		return types.ErrEncodingError
 	}
 
-	PubKey, err := GetPubKeyFromBytes(bPubKey)
+	pubKey, err := GetPubKeyFromBytes(bPubKey)
 	if (err != nil) {
 		log.Println(err.Error())
 		return types.ErrInternalError
@@ -55,27 +51,29 @@ func Exec_CheckTx(tx []byte) types.Result {
 		return types.ErrEncodingError
 	}
 
-	Signature, err := GetSignatureFromBytes(bSignature)
+	signature, err := GetSignatureFromBytes(bSignature)
 	if (err != nil) {
 		log.Println(err.Error())
 		return types.ErrInternalError
 	}
 
 	// verify signature
-	verify := PubKey.VerifyBytes([]byte(envelope.Operation), Signature)
+	verify := pubKey.VerifyBytes([]byte(envelope.Operation), signature)
 	if (!verify) {
-		log.Println("Can not verify Signature")
+		log.Println("Can not verify signature")
 		return types.ErrUnauthorized
 	}
 
 	// address of the user who make the transaction
-	Address := PubKey.Address()
+	address := pubKey.Address()
 
 	// check if Address existing
-	_, err = TreeGetAccount(GlogGlobal.GlogApp.State, Address)
-	if (err != nil) {
-		log.Println(err.Error())
-		return types.ErrInternalError
+	if (envelope.Type != "AccountCreateOperation") {
+		_, err = TreeGetAccount(GlogGlobal.GlogApp.State, address)
+		if (err != nil) {
+			log.Println(err.Error())
+			return types.ErrInternalError
+		}
 	}
 
 	// validate the Fee
@@ -88,7 +86,7 @@ func Exec_CheckTx(tx []byte) types.Result {
 	// Validate the operation
 	///////////
 
-	switch operation.(type) {  //v:=obj.(type) {
+	switch operation.(type) {
 	case AccountCreateOperation:
 		_, ok := operation.(AccountCreateOperation)
 		if (!ok) {

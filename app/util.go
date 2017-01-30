@@ -16,6 +16,25 @@ func Hash(data []byte) []byte {
 	return hash
 }
 
+func GetPrivateKeyFromBytes(raw []byte) (prikey crypto.PrivKeyEd25519, err error)  {
+	if (len(raw) != 64) {
+		err = errors.New("raw data must be 64 bytes")
+	}
+
+	buf := &bytes.Buffer{}
+	err = binary.Write(buf, binary.BigEndian, raw)
+	if (err != nil) {
+		return
+	}
+
+	err = binary.Read(buf, binary.BigEndian, &prikey)
+	if (err != nil) {
+		return
+	}
+
+	return
+}
+
 func GetPubKeyFromBytes(raw []byte) (pubkey crypto.PubKeyEd25519, err error)  {
 	if (len(raw) != 32) {
 		err = errors.New("raw data must be 32 bytes")
@@ -35,7 +54,7 @@ func GetPubKeyFromBytes(raw []byte) (pubkey crypto.PubKeyEd25519, err error)  {
 	return
 }
 
-func GetSignatureFromBytes(raw []byte) (pubkey crypto.SignatureEd25519, err error)  {
+func GetSignatureFromBytes(raw []byte) (sig crypto.SignatureEd25519, err error)  {
 	if (len(raw) != 64) {
 		err = errors.New("raw data must be 64 bytes")
 	}
@@ -46,7 +65,7 @@ func GetSignatureFromBytes(raw []byte) (pubkey crypto.SignatureEd25519, err erro
 		return
 	}
 
-	err = binary.Read(buf, binary.BigEndian, &pubkey)
+	err = binary.Read(buf, binary.BigEndian, &sig)
 	if (err != nil) {
 		return
 	}

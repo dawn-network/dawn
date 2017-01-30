@@ -3,13 +3,10 @@ package web
 import (
 	"strings"
 	"encoding/hex"
-	"bytes"
-	"encoding/binary"
 	"log"
 	"encoding/json"
 	"github.com/baabeetaa/glogchain/service"
 	"net/http"
-	"github.com/tendermint/go-crypto"
 	"github.com/baabeetaa/glogchain/app"
 )
 
@@ -24,42 +21,38 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	}
 
 	username := req.FormValue("username")
-	prikey := req.FormValue("prikey")
+	prikey_str := req.FormValue("prikey")
 
-	log.Println("AccountCreateHandler", "username", username)
-	log.Println("AccountCreateHandler", "prikey", prikey)
+	log.Println("username", username)
+	log.Println("prikey", prikey_str)
 
 	if (len(username) < 3) {
-		render(w, "account_create", ActionResult{Status: "error", Message: "username must be at least 3 characters", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+		render(w, "account_create", ActionResult{Status: "error", Message: "username must be at least 3 characters", Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 		return
 	}
 
-	if (len(prikey) != 128) {
-		render(w, "account_create", ActionResult{Status: "error", Message: "PubKey must be 32 bytes in Hex String ( 64 characters)", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+	if (len(prikey_str) != 128) {
+		render(w, "account_create", ActionResult{Status: "error", Message: "PubKey must be 32 bytes in Hex String ( 64 characters)", Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 		return
 	}
 
 
-	prikey = strings.ToUpper(prikey)
-	byte_arr, err := hex.DecodeString(prikey)
+	prikey_str = strings.ToUpper(prikey_str)
+	prikey_byte_arr, err := hex.DecodeString(prikey_str)
 	if (err != nil) {
-		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 		return
 	}
 
-	buf := &bytes.Buffer{}
-	err = binary.Write(buf, binary.BigEndian, byte_arr)
+	private_key, err := app.GetPrivateKeyFromBytes(prikey_byte_arr)
 	if err != nil {
-		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 		return
 	}
 
-	var key crypto.PrivKeyEd25519
-	binary.Read(buf, binary.BigEndian, &key);
-
-	log.Println("AccountCreateHandler", "PubKey", key.PubKey().KeyString())
-	var address string = strings.ToUpper(hex.EncodeToString(key.PubKey().Address()))
-	log.Println("AccountCreateHandler Address=\t\t" + address)
+	log.Println("PubKey", private_key.PubKey().KeyString())
+	var address string = strings.ToUpper(hex.EncodeToString(private_key.PubKey().Address()))
+	log.Println("Address=\t\t" + address)
 
 
 	//////////////////////////////////////
@@ -67,43 +60,46 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	var opt app.AccountCreateOperation
 	opt.ID = address
 	opt.Username = username
-	opt.Pubkey = key.PubKey().KeyString()
+	opt.Pubkey = private_key.PubKey().KeyString()
 	opt.UserRegistered = "2017-01-06 09:00:28"
 	opt.DisplayName = username
 
 	opt_arr, err := json.Marshal(opt)
 	if (err != nil) {
-		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+		render(w, "account_create", ActionResult{Status: "error", Message: err.Error(), Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 		return
 	}
 	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
 
 	// sign the transaction
-	sign := key.Sign(opt_arr)
+	sign := private_key.Sign([]byte(opt_str))
 	sign_str := strings.ToUpper(hex.EncodeToString(sign.Bytes()))
 	sign_str = sign_str[2:len(sign_str)]
+
+	// test verifying
+	log.Println("vefify", private_key.PubKey().VerifyBytes(opt_arr, sign))
 
 	tx := app.OperationEnvelope{
 		Type: "AccountCreateOperation",
 		Operation: opt_str,
 		Signature: sign_str,
-		Pubkey: key.PubKey().KeyString(),
+		Pubkey: private_key.PubKey().KeyString(),
 		Fee: 0,
 	}
 
-	byte_arr, err = json.Marshal(tx)
+	byte_arr, err := json.Marshal(tx)
 	if err != nil {
-		log.Fatal("AccountCreateHandler Cannot encode to JSON ", err)
+		log.Fatal("Cannot encode to JSON ", err)
+		return
 	}
 
-	//tx_json := string(byte_arr[:])
-	log.Println("AccountCreateHandler tx_json=", string(byte_arr[:]))
+	log.Println("tx_json=", string(byte_arr[:]))
 
 	tx_json_hex := make([]byte, len(byte_arr) * 2)
 	hex.Encode(tx_json_hex, byte_arr)
-	log.Println("AccountCreateHandler tx_json_hex", string(tx_json_hex[:]))
+	log.Println("tx_json_hex", string(tx_json_hex[:]))
 
 	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
-	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "prikey": prikey}})
+	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 }
 

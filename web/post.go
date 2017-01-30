@@ -50,12 +50,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	// very basic from validating
 	if ((len(opt.PostTitle) < 6) || (len(opt.PostContent) < 6) || (len(opt.Thumb) < 6)) {
-		render(w, "PostCreate",
-			ActionResult{
-				Status: "error",
-				Message: "field must be at least 6 characters",
-				Data: opt,
-			})
+		render(w, "PostCreate", ActionResult{Status: "error", Message: "field must be at least 6 characters", Data: opt})
 		return
 	}
 
@@ -68,12 +63,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	cats_string := []string{}
 	err := json.Unmarshal([]byte(opt.Cat), &cats_string)
 	if (err != nil) {
-		render(w, "PostCreate",
-			ActionResult{
-				Status: "error",
-				Message: "Categories json array string is invalid",
-				Data: opt,
-			})
+		render(w, "PostCreate", ActionResult{Status: "error", Message: "Categories json array string is invalid", Data: opt})
 		return
 	}
 
@@ -90,12 +80,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	opt_arr, err := json.Marshal(opt)
 	if (err != nil) {
-		render(w, "PostCreate",
-			ActionResult{
-				Status: "error",
-				Message: err.Error(),
-				Data: opt,
-			})
+		render(w, "PostCreate", ActionResult{Status: "error", Message: err.Error(), Data: opt })
 		return
 	}
 	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))
