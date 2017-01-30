@@ -413,6 +413,45 @@ func GetComment(ID string) (cm Comment, err error)  {
 	return
 }
 
+func GetCommentsByPost(postID string) (items []Comment, err error)  {
+	var sql string
+	sql = fmt.Sprintf(`SELECT * FROM tbl_comments WHERE postID="%s"
+			ORDER BY cm_date`, postID)
+	rows, err := Query (sql)
+	if (err != nil) {
+		panic(err.Error()) // proper error handling instead of panic in your app
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var item Comment
+		err = rows.Scan(
+			&item.ID,
+			&item.PostID,
+			&item.Parent,
+			&item.Author,
+			&item.Date,
+			&item.Content,
+			&item.Modified)
+		if err != nil {
+			log.Println(err.Error())
+			return
+		}
+
+		items = append(items, item)
+	}
+
+
+	err = rows.Err()
+	if (err != nil) {
+		log.Fatal(err)
+		return
+	}
+
+	return
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Category
 
