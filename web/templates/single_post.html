@@ -3,7 +3,6 @@
     <div id="primary">
         <div id="content" class="clearfix">
             {{ $post := .Data }}
-            {{ $comments := GetCommentsByPost $post.ID }}
             <article class="post type-post status-publish format-standard has-post-thumbnail hentry">
                 <div class="featured-image">
                     <img width="800" height="445" src="{{$post.Thumb}}" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="">
@@ -25,7 +24,7 @@
                         <span class="posted-on"><a href="###" title="{{$post.PostDate}}" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="{{$post.PostDate}}">{{$post.PostDate}}</time></a></span>
                         {{ $author := GetUser $post.PostAuthor}}
                         <span class="byline"><span class="author vcard"><i class="fa fa-user"></i><a class="url fn n" href="?author={{$author.ID}}" title="{{$author.DisplayName}}">{{$author.DisplayName}}</a></span></span>
-                        <span class="comments"><a href="###respond"><i class="fa fa-comment"></i> {{ len $comments }} Comment</a></span>
+                        <!--<span class="comments"><a href="###respond"><i class="fa fa-comment"></i> Comment</a></span>-->
                         {{ $currentUser := index .SessionValues "user"}}
                         {{if $currentUser.ID}}
                             {{if eq $author.ID $currentUser.ID}}
@@ -46,136 +45,17 @@
             <!--<li class="next"><a href="http://localhost/wordpress/?p=158" rel="next">One of the most awesome Tourist destination <span class="meta-nav">→</span></a></li>-->
         <!--</ul>-->
 
-
-        <!--<div id="comments" class="comments-area">-->
-            <!--<div id="respond" class="comment-respond">-->
-                <!--<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress/?p=8#respond" style="display:none;">Cancel reply</a></small></h3>-->
-                <!--<form action="###" method="post" id="commentform" class="comment-form" novalidate="">-->
-                    <!--<p class="logged-in-as"><a href="###" aria-label="Logged in as admin. Edit your profile.">Logged in as admin</a>. <a href="###">Log out?</a></p>-->
-                    <!--<p class="comment-form-comment">-->
-                        <!--<label for="comment">Comment</label>-->
-                        <!--<textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea>-->
-                    <!--</p>-->
-                    <!--<p class="form-submit">-->
-                        <!--<input name="submit" type="submit" id="submit" class="submit" value="Post Comment">-->
-                        <!--<input type="hidden" name="comment_post_ID" value="8" id="comment_post_ID">-->
-                        <!--<input type="hidden" name="comment_parent" id="comment_parent" value="0">-->
-                    <!--</p>-->
-            <!--</form>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <p><i class="fa fa-reply"></i> <a rel="nofollow" class="comment-reply-link" href="/comment/create?p={{ $post.ID }}" aria-label="Reply to a">Reply</a></p>
 
-
-
-
-
-
-
-
-
-
         <div id="comments" class="comments-area">
-            <h3 class="comments-title">{{ len $comments }} thoughts on “<span>{{ $post.PostTitle }}</span>”</h3>
+            <h3 class="comments-title">Comments on “<span>{{ $post.PostTitle }}</span>”</h3>
             <ul class="comment-list">
-
+                {{ $comments := GetCommentsByPost $post.ID "" }}
                 {{range $index, $comment := $comments}}
-                    <li class="comment even thread-even depth-1">
-                        <article id="comment-7" class="comment">
-                            <header class="comment-meta comment-author vcard">
-                                <img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">
-                                <div class="comment-author-link"><i class="fa fa-user"></i>{{ $comment.Author }}</div>
-                                <div class="comment-date-time"><i class="fa fa-calendar-o"></i>{{ $comment.Date }}</div>
-                                <a class="comment-permalink" href="###"><i class="fa fa-link"></i>Permalink</a>
-                            </header>
-                            <section class="comment-content comment">
-                                <p>{{ $comment.Content }}</p>
-                                <a rel="nofollow" class="comment-reply-link" href="###" aria-label="Reply to a">Reply</a>
-                            </section>
-                        </article>
-                    </li>
+                    {{ template "display_comment" $comment }}
                 {{end}}
-
-
-
-                <!--<li class="comment even thread-even depth-1" id="li-comment-7">-->
-                    <!--<article id="comment-7" class="comment">-->
-                        <!--<header class="comment-meta comment-author vcard">-->
-                            <!--<img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">-->
-                            <!--<div class="comment-author-link"><i class="fa fa-user"></i>a</div>-->
-                            <!--<div class="comment-date-time"><i class="fa fa-calendar-o"></i>January 29, 2017 at 9:00 pm</div>-->
-                            <!--<a class="comment-permalink" href="###"><i class="fa fa-link"></i>Permalink</a>-->
-                        <!--</header>-->
-                        <!--<section class="comment-content comment">-->
-                            <!--<p>aaaa</p>-->
-                            <!--<a rel="nofollow" class="comment-reply-link" href="###" aria-label="Reply to a">Reply</a>-->
-                        <!--</section>-->
-                    <!--</article>-->
-
-                    <!--<ul class="children">-->
-                        <!--<li class="comment odd alt depth-2" id="li-comment-9">-->
-                            <!--<article id="comment-9" class="comment">-->
-                                <!--<header class="comment-meta comment-author vcard">-->
-                                    <!--<img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">-->
-                                    <!--<div class="comment-author-link"><i class="fa fa-user"></i>a</div>-->
-                                    <!--<div class="comment-date-time"><i class="fa fa-calendar-o"></i>January 29, 2017 at 9:01 pm</div>-->
-                                    <!--<a class="comment-permalink" href="###"><i class="fa fa-link"></i>Permalink</a>-->
-                                <!--</header>-->
-                                <!--<section class="comment-content comment">-->
-                                    <!--<p>ccc</p>-->
-                                    <!--<a rel="nofollow" class="comment-reply-link" href="###" aria-label="Reply to a">Reply</a>-->
-                                <!--</section>-->
-                            <!--</article>-->
-
-                            <!--<ul class="children">-->
-                                <!--<li class="comment even depth-3" id="li-comment-10">-->
-                                    <!--<article id="comment-10" class="comment">-->
-                                        <!--<header class="comment-meta comment-author vcard">-->
-                                            <!--<img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">-->
-                                            <!--<div class="comment-author-link"><i class="fa fa-user"></i>a</div><div class="comment-date-time"><i class="fa fa-calendar-o"></i>January 29, 2017 at 9:01 pm</div>-->
-                                            <!--<a class="comment-permalink" href="https://demo.themegrill.com/colormag-pro-technology/2016/08/10/the-new-imac-and-parallels-desktop/#comment-10"><i class="fa fa-link"></i>Permalink</a>-->
-                                        <!--</header>-->
-                                        <!--<section class="comment-content comment">-->
-                                            <!--<p>ddd</p>-->
-                                            <!--<a rel="nofollow" class="comment-reply-link" href="###" aria-label="Reply to a">Reply</a>-->
-                                        <!--</section>-->
-                                    <!--</article>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <!--<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-8">-->
-                    <!--<article id="comment-8" class="comment">-->
-                        <!--<header class="comment-meta comment-author vcard">-->
-                            <!--<img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">-->
-                            <!--<div class="comment-author-link"><i class="fa fa-user"></i>a</div>-->
-                            <!--<div class="comment-date-time"><i class="fa fa-calendar-o"></i>January 29, 2017 at 9:00 pm</div>-->
-                            <!--<a class="comment-permalink" href="###"><i class="fa fa-link"></i>Permalink</a>-->
-                        <!--</header>-->
-                        <!--<section class="comment-content comment">-->
-                            <!--<p>bbb</p>-->
-                            <!--<a rel="nofollow" class="comment-reply-link" href="###" aria-label="Reply to a">Reply</a>-->
-                        <!--</section>-->
-
-                    <!--</article>-->
-                <!--</li>-->
-
             </ul>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     </div>
@@ -188,11 +68,52 @@
 
 <script type='text/javascript'>
     jQuery(document).ready(function(){
+        // post
         var md_str = jQuery("#PostContent").text();
         var html_str = SimpleMDE.prototype.markdown(md_str);
         jQuery("#PostContent").parent().html(html_str);
+
+        // comments
+        jQuery( ".comment-container > textarea" ).each(function() {
+            var comment_md_str = jQuery( this ).text();
+            var comment_html_str = SimpleMDE.prototype.markdown(comment_md_str);
+            console.log(comment_html_str);
+            jQuery(this).parent().html(comment_html_str);
+        });
     });
 </script>
 
 
+{{ end }}
+
+
+{{ define "display_comment" }}
+    {{ $comment := . }}
+    {{ $author := GetUser $comment.Author}}
+    <li class="comment even thread-even">
+        <article class="comment">
+            <header class="comment-meta comment-author vcard">
+                <img alt="" src="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=74&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c9edf70098f8c270a022a29f0a2c876f?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo" height="74" width="74">
+                <div class="comment-author-link"><i class="fa fa-user"></i><a href="/?author={{$author.ID}}">{{$author.DisplayName}}</a></div>
+                <div class="comment-date-time"><i class="fa fa-calendar-o"></i>{{ $comment.Date }}</div>
+                <!--<a class="comment-permalink" href="###"><i class="fa fa-link"></i>Permalink</a>-->
+            </header>
+            <section class="comment-content comment">
+                <div class="comment-container">
+                    <textarea>{{ $comment.Content }}</textarea>
+                </div>
+                <a rel="nofollow" class="comment-reply-link" href="/comment/create?p={{ $comment.PostID }}&c={{ $comment.ID }}" aria-label="Reply to a">Reply</a>
+            </section>
+        </article>
+
+        {{ $comments := GetCommentsByPost $comment.PostID $comment.ID }}
+        {{ $length := len $comments }}
+        {{ if ne $length 0 }}
+            <ul class="children">
+                {{range $index, $sub_comment := $comments}}
+                {{ template "display_comment" $sub_comment }}
+                {{end}}
+            </ul>
+        {{ end }}
+    </li>
 {{ end }}

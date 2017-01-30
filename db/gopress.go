@@ -413,10 +413,10 @@ func GetComment(ID string) (cm Comment, err error)  {
 	return
 }
 
-func GetCommentsByPost(postID string) (items []Comment, err error)  {
+func GetCommentsByPost(postID string, parent string) (items []Comment, err error)  {
 	var sql string
-	sql = fmt.Sprintf(`SELECT * FROM tbl_comments WHERE postID="%s"
-			ORDER BY cm_date`, postID)
+	sql = fmt.Sprintf(`SELECT * FROM tbl_comments WHERE postID="%s" AND cm_parent="%s" ORDER BY cm_date`, postID, parent)
+
 	rows, err := Query (sql)
 	if (err != nil) {
 		panic(err.Error()) // proper error handling instead of panic in your app
