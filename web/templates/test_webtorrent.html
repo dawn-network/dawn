@@ -5,17 +5,20 @@
         <h3>Test WebTorrent</h3>
         <p>Download files using the WebTorrent protocol (BitTorrent over WebRTC).</p>
 
-        <div id="output">
-            <div id="progressBar"></div>
-            <!-- The video player will be added here -->
-        </div>
-        <div id="status">
-            <div>Downloading from <code id="numPeers">0 peers</code>.</div>
-            <div>
-                <code id="downloaded"></code> of <code id="total"></code> — <span id="remaining"></span><br/>
-                ↓ <code id="downloadSpeed">0 b/s</code> / ↑<code id="uploadSpeed">0 b/s</code>
-            </div>
-        </div>
+        <!--<div id="output">-->
+            <!--<div id="progressBar"></div>-->
+            <!--&lt;!&ndash; The video player will be added here &ndash;&gt;-->
+        <!--</div>-->
+        <!--<div id="status">-->
+            <!--<div>Downloading from <code id="numPeers">0 peers</code>.</div>-->
+            <!--<div>-->
+                <!--<code id="downloaded"></code> of <code id="total"></code> — <span id="remaining"></span><br/>-->
+                <!--↓ <code id="downloadSpeed">0 b/s</code> / ↑<code id="uploadSpeed">0 b/s</code>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <img src="magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4">
 
 
     </div>
@@ -28,6 +31,7 @@
 <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script>
+    /*
     //var torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
     var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4'
 
@@ -44,56 +48,118 @@
 
     // Download the torrent
     client.add(torrentId, function (torrent) {
-
-        // Stream the file in the browser
-        torrent.files[0].appendTo('#output')
-
-        // Trigger statistics refresh
-        torrent.on('done', onDone)
-        setInterval(onProgress, 500)
-        onProgress()
+        torrent.files[0].appendTo('#output');       // Stream the file in the browser
+        torrent.on('done', onDone);                 // Trigger statistics refresh
+        setInterval(onProgress, 500);
+        onProgress();
 
         // Statistics
         function onProgress () {
             // Peers
-            $numPeers.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers')
+            $numPeers.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers');
 
             // Progress
-            var percent = Math.round(torrent.progress * 100 * 100) / 100
-            $progressBar.style.width = percent + '%'
-            $downloaded.innerHTML = prettyBytes(torrent.downloaded)
-            $total.innerHTML = prettyBytes(torrent.length)
+            var percent = Math.round(torrent.progress * 100 * 100) / 100;
+            $progressBar.style.width = percent + '%';
+            $downloaded.innerHTML = prettyBytes(torrent.downloaded);
+            $total.innerHTML = prettyBytes(torrent.length);
 
             // Remaining time
-            var remaining
+            var remaining;
             if (torrent.done) {
-                remaining = 'Done.'
+                remaining = 'Done.';
             } else {
-                remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
-                remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.'
+                remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize();
+                remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.';
             }
-            $remaining.innerHTML = remaining
+            $remaining.innerHTML = remaining;
 
             // Speed rates
-            $downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s'
-            $uploadSpeed.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
+            $downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s';
+            $uploadSpeed.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s';
         }
         function onDone () {
             //$body.className += ' is-seed'
-            onProgress()
+            onProgress();
         }
     })
 
     // Human readable bytes util
     function prettyBytes(num) {
-        var exponent, unit, neg = num < 0, units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-        if (neg) num = -num
-        if (num < 1) return (neg ? '-' : '') + num + ' B'
-        exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
-        num = Number((num / Math.pow(1000, exponent)).toFixed(2))
-        unit = units[exponent]
-        return (neg ? '-' : '') + num + ' ' + unit
+        var exponent, unit, neg = num < 0, units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        if (neg) num = -num;
+        if (num < 1) return (neg ? '-' : '') + num + ' B';
+        exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1);
+        num = Number((num / Math.pow(1000, exponent)).toFixed(2));
+        unit = units[exponent];
+        return (neg ? '-' : '') + num + ' ' + unit;
     }
+
+    jQuery(document).ready(function(){
+
+    });
+*/
+
+
+    var webTorrent;
+    var counter = 0;
+
+    jQuery(document).ready(function(){
+        jQuery("img").each(function( index ) {
+            var img = jQuery( this );
+            var magnet_uri = img.attr('src');
+            //console.log( magnet_uri );
+
+            if (!magnet_uri.match("^magnet")) { // begins with magnet
+                return true; // continue next loop
+            }
+
+            var magnet_obj = parseQuery(magnet_uri)
+            var file_ext = magnet_obj["dn"].split('.').pop();
+
+            // video (.mp4, .webm, .m4v, etc.),
+            // audio (.m4a, .mp3, .wav, etc.)
+            // images (.jpg, .gif, .png, etc.),
+            // and other file formats (.pdf, .md, .txt, etc.).
+            if (jQuery.inArray(file_ext, ["mp4", "avi", "mov", "wmv", "mpeg"]) != -1) {
+                //console.log("video");
+                loadTorrentVideo (img, magnet_uri);
+                counter++;
+            }
+        });
+    });
+
+    function initWebTorrent() {
+        if (typeof variable === 'undefined') {
+            webTorrent = new WebTorrent();
+        }
+    }
+
+    function loadTorrentVideo (img, magnet_uri) {
+        initWebTorrent();
+
+        var outputId = "#output" + counter;
+        var progressBarId = "#progressBar" + counter;
+
+        var root = jQuery('<div id="' + outputId + '"><div id="' + progressBarId + '"></div></div>');
+        img.replaceWith( root );
+
+        webTorrent.add(magnet_uri, function (torrent) {
+            var file = torrent.files[0];   // Torrents can contain many files. Let's use the first.
+            file.appendTo( jQuery (outputId) ); // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
+        });
+    }
+
+    function parseQuery(qstr) {
+        var query = {};
+        var a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
+        for (var i = 0; i < a.length; i++) {
+            var b = a[i].split('=');
+            query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
+        }
+        return query;
+    }
+
 </script>
 
 
