@@ -7,10 +7,10 @@
 
 
 
-jQuery(document).ready(function(){
-    single_post_md_parse(); // call this before loadTorrent
-    loadTorrent();
-});
+// jQuery(document).ready(function(){
+//     single_post_md_parse(); // call this before loadTorrent
+//     loadTorrent();
+// });
 
 ///////////////////////////////
 // WebTorrent Video
