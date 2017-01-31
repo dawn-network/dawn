@@ -2,15 +2,20 @@
  * Created by tuanpa on 1/31/17.
  */
 
-// WebTorrent Video
 
-///////////////////////////////
-var webTorrent;
-var counter = 0;
+
+
+
 
 jQuery(document).ready(function(){
+    single_post_md_parse(); // call this before loadTorrent
     loadTorrent();
 });
+
+///////////////////////////////
+// WebTorrent Video
+var webTorrent;
+var counter = 0;
 
 function initWebTorrent() {
     if (typeof variable === 'undefined') {
@@ -66,4 +71,27 @@ function parseQuery(qstr) {
         query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
     }
     return query;
+}
+
+
+
+///////////////
+// for single post page
+function single_post_md_parse() {
+    // post
+    if (jQuery("#PostContent").length <= 0) {
+        return;
+    }
+
+    var md_str = jQuery("#PostContent").text();
+    var html_str = SimpleMDE.prototype.markdown(md_str);
+    jQuery("#PostContent").parent().html(html_str);
+
+    // comments
+    jQuery( ".comment-container > textarea" ).each(function() {
+        var comment_md_str = jQuery( this ).text();
+        var comment_html_str = SimpleMDE.prototype.markdown(comment_md_str);
+        console.log(comment_html_str);
+        jQuery(this).parent().html(comment_html_str);
+    });
 }
