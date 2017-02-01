@@ -15,6 +15,8 @@ type GlogCfg struct {
 	GlogchainWebAddr 	string
 	TmspAddr 		string
 	TmRpcLaddr 		string
+	IpFsAPI			string
+	IpFsGateway 		string
 }
 
 var GlogchainConfigGlobal = GlogCfg{}

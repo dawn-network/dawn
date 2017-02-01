@@ -1,0 +1,40 @@
+{{ define "content" }}
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <h3>Test IPFS</h3>
+        <p>Upload media data ( images, videos) for post.</p>
+
+        {{ if eq .Status "success" }}
+            <div class="alert alert-success" role="alert">{{ .Message }}</div>
+        {{ else }}
+            <div class="alert alert-danger" role="alert">{{ .Message }}</div>
+        {{ end }}
+
+        <form enctype="multipart/form-data" action="/test/ipfs" method="post">
+            <p>
+                <label for="uploadfile">Upload File <span class="required">*</span></label>
+                <input id="uploadfile" name="uploadfile" type="file" required="required">
+            </p>
+            <p class="form-submit">
+                <input id="submit" name="submit" type="submit" class="submit" value="Upload">
+            </p>
+        </form>
+
+
+        <hr>
+
+        {{ if .Data.mhash }}
+        <p>Hash: <code>{{ .Data.mhash }}</code> ( <a href="{{ .Data.http_gateway }}">View</a> )</p>
+        {{ end }}
+
+
+
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
+</div>
+{{ end }}

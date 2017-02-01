@@ -35,6 +35,7 @@ db/db.db
 *.db
 state.db
 state.db/
+tmp/
 
 # OS generated files #
 ######################
