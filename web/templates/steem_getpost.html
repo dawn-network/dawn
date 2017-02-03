@@ -1,0 +1,25 @@
+{{ define "content" }}
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <h3>Get a post from steem</h3>
+        <p>This is tool which allow user to import a post from steem and post it on glogchain..</p>
+
+        <form action="/test/steem_getpost" method="post">
+            <p>
+                <label for="steem_post_link">Steem Post Link <span class="required">*</span></label>
+                <input id="steem_post_link" name="steem_post_link" type="text" required="required" value="https://steemit.com/beyondbitcoin/@baabeetaa/open-source-steem-blog-coming-soon">
+            </p>
+            <p class="form-submit">
+                <input id="submit" name="submit" type="submit" class="submit" value="Upload">
+            </p>
+        </form>
+
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
+</div>
+{{ end }}
