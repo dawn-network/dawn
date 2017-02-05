@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"reflect"
 	"github.com/baabeetaa/glogchain/app"
+	"github.com/baabeetaa/glogchain/db"
 )
 
 func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {
@@ -166,4 +167,16 @@ func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {
 	//render(w, "steem_getpost", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{
 	//	"str_json_response": str_json_response,
 	//}})
+}
+
+
+func Steem_Posting_Handler(w http.ResponseWriter, req *http.Request) {
+	p := req.FormValue("p")
+	post, err := db.GetPost(p)
+	if (err != nil) {
+		render(w, "steem_posting", ActionResult{Status: "error", Message:err.Error(), Data: post})
+		return
+	}
+
+	render(w, "steem_posting", ActionResult{Status: "success", Message: "ok", Data: post })
 }

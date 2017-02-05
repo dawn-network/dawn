@@ -1,0 +1,113 @@
+{{ define "content" }}
+<div class="main-content-section clearfix">
+    <div id="primary">
+
+        <h3>Share a post to Steem Network</h3>
+        <p>This is tool which allow user to share a post from glogchain to Steem.</p>
+
+        <form action="####" method="post">
+            <p>
+                <label for="steem_key">steem_key <span class="required">*</span></label>
+                <input id="steem_key" name="steem_key" type="password" required="required" value="">
+            </p>
+            <p>
+                <label for="steem_author">steem_author <span class="required">*</span></label>
+                <input id="steem_author" name="steem_author" type="text" required="required" value="">
+            </p>
+            <hr>
+            <p>
+                <label for="steem_title">steem_title <span class="required">*</span></label>
+                <input id="steem_title" name="steem_title" type="text" required="required" value="{{ .Data.PostTitle }}">
+            </p>
+            <p>
+                <label for="steem_permlink">steem_permlink <span class="required">*</span></label>
+                <input id="steem_permlink" name="steem_permlink" type="text" required="required" value="">
+            </p>
+            <p>
+                <label for="steem_img">Feature Image <span class="required">*</span></label>
+                <input id="steem_img" name="steem_img" type="text" value='{{ .Data.Thumb }}' aria-required="true" required="required">
+            </p>
+            <p>
+                <label for="steem_body">steem_body <span class="required">*</span></label>
+                <textarea id="steem_body" name="steem_body" rows="8" aria-required="true" required="required">{{ .Data.PostContent }}</textarea>
+            </p>
+            <p>
+                <label for="steem_jsonMetadata">steem_jsonMetadata <span class="required">*</span></label>
+                <input id="steem_jsonMetadata" name="steem_jsonMetadata" type="text" required="required" value="{{ .Data.Cat }}">
+            </p>
+            <p class="form-submit">
+                <input id="submit" name="submit" type="button" class="submit" value="Submit">
+            </p>
+        </form>
+
+
+    </div>
+
+    <div id="secondary">
+        {{ template "secondary"}}
+    </div>
+</div>
+
+<script type='text/javascript' src='/static/js/steem.min.js'></script>
+<!--<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>-->
+<script>
+
+    jQuery(document).ready(function(){
+        jQuery("#submit").click(function() {
+            var wif = jQuery("#steem_key").val();
+            var parentAuthor = "";
+            var author = jQuery("#steem_author").val();
+            var title = jQuery("#steem_title").val();
+
+            var permlink = convertToSlug(title);
+            if (permlink.length > 254) {
+                permlink = permlink.substr(0, 254);
+            }
+            jQuery("#steem_permlink").val( permlink );
+
+            //jQuery("#steem_body").val( jQuery("#steem_body").val() );
+            var body = jQuery("#steem_body").val();
+
+            var jsonMetadata = {
+                "tags":  JSON.parse( jQuery("#steem_jsonMetadata").val().toLowerCase() ),
+                "users": [],
+                "image":[ jQuery("#steem_img").val() ],
+                "links": []
+            };
+            jQuery("#steem_jsonMetadata").val( JSON.stringify(steem_jsonMetadata) );
+//            jQuery("#steem_jsonMetadata").val( steem_jsonMetadata );
+
+            if (jsonMetadata.tags.length <= 0) {
+                jsonMetadata.tags = ["dawn"];
+            }
+
+            var parentPermlink = jsonMetadata.tags[0];
+
+
+//            console.log("wif: ", wif);
+//            console.log("parentAuthor: ", parentAuthor);
+//            console.log("parentPermlink: ", parentPermlink);
+//            console.log("author: ", author);
+//            console.log("permlink: ", permlink);
+//            console.log("title: ", title);
+//            console.log("body:", body);
+//            console.log("jsonMetadata: ", jsonMetadata);
+
+            steem.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, result) {
+                //console.log(err, result);
+                //alert(err);
+                alert("OK")
+            });
+        });
+    });
+
+    function convertToSlug(Text) {
+        return Text
+            .toLowerCase()
+            .replace(/[^\w ]+/g,'')
+            .replace(/ +/g,'-')
+            ;
+    }
+</script>
+
+{{ end }}

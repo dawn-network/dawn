@@ -78,6 +78,7 @@ func StartWebServer() error  {
 	r.HandleFunc("/test/webtorrent", TestWebTorrentHandler)
 	r.HandleFunc("/test/ipfs", AuthWrapper(TestIpFsHandler))
 	r.HandleFunc("/test/steem_getpost", AuthWrapper(Steem_GetPost_Handler))
+	r.HandleFunc("/test/steem_posting", Steem_Posting_Handler)
 
 	// /blockexplorer - Block Explorer Subrouter
 	s := r.PathPrefix("/blockexplorer").Subrouter()
