@@ -3,9 +3,16 @@
     <div id="primary">
 
         <h3>BlockExplorer NetInfo</h3>
+        
         <!--<p>secret: <code>{{index .Data "jsonrpc"}}</code></p>-->
         <p>json_str: <br><code>{{index .Data "json_str"}}</code></p>
+        <script>
+        window.onload = function() {
+    alert( "welcome" ); 
+};
+            </script>
     </div>
+    
 
     <div id="secondary">
         {{ template "secondary"}}
