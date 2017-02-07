@@ -25,7 +25,15 @@ Privacy is implemented as follows:
 * Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  
 
 ## seed nodes
-Please see @baabeetaa's guide to creating non-validator nodes.  
+Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/baabeetaa/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.  
 
+## binaries
+Binaries for OSX, Linux, and windows will be available shortly.  
+
+## Coin and inflation
+To ensure its survival in perpetuity, we have implemented a cryptocurrency system called Ray in glogchain.  One unit of currency is created with each block, forever.  This means that while early years will have a high inflation rate, actual currency supply after the 10th year or so will ahve relatively low inflation.  Given that content distribution and storage in this manner is at an infant state, we feel that ensuring a high enough validator count and a high (90%) rate of payments to creators based on hit count + eyeball-time will distribute the network's creative rays in a manner that reflects reality.  
+
+## Tendermint and Cosmos
+We are of course huge fans of the tendermint blockchain toolkit, and of the inter-network of blocckahins called cosmos.  For more information, please see their whitepaper.  
 
 
