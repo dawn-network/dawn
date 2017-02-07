@@ -15,3 +15,17 @@ By storing hashes to our blockchain, and checking file hashes for validity, we a
 
 We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with a modern x86 CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an opinionated golang development environment.  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment.  If you've any questions about the router or would like to buy one (sold at cost to developers) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.  
 
+## Privacy
+![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
+This.
+
+Privacy is implemented as follows:
+
+Public - Shared far and wide
+Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  
+
+## seed nodes
+Please see @baabeetaa's guide to creating non-validator nodes.  
+
+
+
