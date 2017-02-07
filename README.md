@@ -2,9 +2,10 @@
 
 Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent hashes.  It will serve webtorent files to a single page web application that handles a number of different content types.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
 
-By building this repository you can use an incomplete version of our network.  If you wish to join the test network as a validator, please contact Jacob Gadikian at faddat@gmail.com on Google Hangouts.  
+By building this repository you can use an incomplete version of our network. 
 
-The new front end Web UI will be available shortly.  
+## test network
+If you wish to join the test network as a validator, please contact Jacob Gadikian at faddat@gmail.com on Google Hangouts.  
 
 ## Torrent Hashing: Intentionally Awesome
 
