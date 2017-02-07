@@ -13,7 +13,9 @@ By storing hashes to our blockchain, and checking file hashes for validity, we a
 
 ## Development Kit
 
-We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with a modern x86 CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an opinionated golang development environment.  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment.  If you've any questions about the router or would like to buy one (sold at cost to developers) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.  
+![Router5645f5.png](http://www.steemimg.com/images/2017/02/02/Router5645f5.png)
+
+We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with a modern x86 CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an opinionated golang development environment.  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment.  If you've any questions about the router or would like to buy one (sold at cost to developers who have made code commits to our projects) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.  
 
 ## Privacy
 ![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
