@@ -25,7 +25,7 @@ func init() {
 func chainpeer_monitoring()  {
 	for { // I will run forever
 		//log.Println("chain_peer_monitoring")
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Minute * 5)
 
 		travelled_nodes := map[string]string{} 	// holding all nodes travelled
 

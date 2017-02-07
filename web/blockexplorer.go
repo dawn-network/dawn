@@ -89,6 +89,15 @@ func BlockExplorer_NetInfo_Handler(w http.ResponseWriter, req *http.Request) {
 
 	data["json_str"] = str_json_response
 
+
+	///////
+	bChain_Node_List, err := json.Marshal(service.Chain_Node_List)
+	if err != nil {
+		render(w, "blockexplorer_netinfo", ActionResult{Status: "error", Message: err.Error(), Data: data })
+		return;
+	}
+	data["Chain_Node_List"] = string(bChain_Node_List)
+
 	render(w, "blockexplorer_netinfo", ActionResult{Status: "success", Message: "ok", Data: data })
 	return
 }
