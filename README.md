@@ -5,7 +5,7 @@ Glogchain is dawn's first application specific blockchain.  Our blockchain store
 By building this repository you can use an incomplete version of our network. 
 
 ## test network
-If you wish to join the test network as a validator, please contact Jacob Gadikian at faddat@gmail.com on Google Hangouts.  
+![Screen_Shot_2017-02-07_at_2.09.09_PM396a4.png](http://www.steemimg.com/images/2017/02/07/Screen_Shot_2017-02-07_at_2.09.09_PM396a4.png)
 
 ## Torrent Hashing: Intentionally Awesome
 
