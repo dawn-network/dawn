@@ -1,6 +1,6 @@
 # glogchain: better communities
 
-Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent hashes.  It will serve [webtorent](webtorrent.io) files to a single page web application that handles a number of different content types.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
+Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve [webtorent](webtorrent.io) files to a single page web application that handles a number of different content types.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
 
 By building this repository you can use an incomplete version of our network. 
 
@@ -28,7 +28,22 @@ Privacy is implemented as follows:
 Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/baabeetaa/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.  
 
 ## binaries
-Binaries for OSX, Linux, and windows will be available shortly.  
+Binaries for OSX, Linux, and windows will be available shortly.  We are interested in user feedback on the interface that we present to users, which we can build in the following ways:
+
+#### Web: Javascript vs Dart
+* **javascript** 
+* Dart - (-- does anyone even know how to port webtorrent to dart?  And how does that work, as dart compiles to javascript?)
+
+#### Desktop: go/qt, 
+* **go/qt** for Android, iOS, Mac and Linux including Raspberry Pi
+* Electron (slow but fast dev time)
+
+#### Mobile
+* **Flutter**
+* go/qt
+* Electron (slow but fast dev time)
+
+The one we are least sure about is the mobile app.  If we can make it work well in go/qt, we will.  Otherwise, it will be a flutter app.  
 
 ## Coin and inflation
 To ensure its survival in perpetuity, we have implemented a cryptocurrency system called Ray in glogchain.  One unit of currency is created with each block, forever.  This means that while early years will have a high inflation rate, actual currency supply after the 10th year or so will ahve relatively low inflation.  Given that content distribution and storage in this manner is at an infant state, we feel that ensuring a high enough validator count and a high (90%) rate of payments to creators based on hit count + eyeball-time will distribute the network's creative rays in a manner that reflects reality.  
