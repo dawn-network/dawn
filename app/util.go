@@ -7,6 +7,7 @@ import (
 	"github.com/tendermint/go-crypto"
 	"errors"
 	"github.com/tendermint/go-wire"
+	"reflect"
 )
 
 func Hash(data []byte) []byte {
@@ -123,3 +124,34 @@ func StructToBytes(o interface{}) (raw []byte, err error)  {
 //
 //	return o
 //}
+
+/**
+ http://stackoverflow.com/questions/21011023/copy-pointer-values-a-b-in-golang
+ usage:
+	type data struct {
+		a string
+		b string
+	}
+
+	func main() {
+		old := &data{
+			"works1",
+			"works2",
+		}
+		var new *data = &data{}
+		CloneValue(old, new)
+		fmt.Println(new)
+	}
+ */
+func CloneValue(source interface{}, destin interface{}) {
+	x := reflect.ValueOf(source)
+	if x.Kind() == reflect.Ptr {
+		starX := x.Elem()
+		y := reflect.New(starX.Type())
+		starY := y.Elem()
+		starY.Set(starX)
+		reflect.ValueOf(destin).Elem().Set(y.Elem())
+	} else {
+		destin = x.Interface()
+	}
+}

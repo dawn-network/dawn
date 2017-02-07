@@ -6,12 +6,13 @@ import (
 	dbm "github.com/tendermint/go-db"
 	"github.com/tendermint/go-wire"
 	. "github.com/tendermint/go-common"
+	"encoding/hex"
 )
 
 //-----------------------------------------
 // persist the last block info
 
-var lastBlockKey = []byte("lastblock")
+const lastBlockKey = "lastblock"
 
 type LastBlockInfo struct {
 	Height  	uint64
@@ -21,7 +22,7 @@ type LastBlockInfo struct {
 
 // Get the last block from the db
 func LoadLastBlock(db dbm.DB) (lastBlock LastBlockInfo) {
-	buf := db.Get(lastBlockKey)
+	buf := db.Get([]byte(lastBlockKey))
 	if len(buf) != 0 {
 		r, n, err := bytes.NewReader(buf), new(int), new(error)
 		wire.ReadBinaryPtr(&lastBlock, r, 0, n, err)
@@ -36,12 +37,12 @@ func LoadLastBlock(db dbm.DB) (lastBlock LastBlockInfo) {
 }
 
 func SaveLastBlock(db dbm.DB, lastBlock LastBlockInfo) {
-	log.Println("Saving block", "height", lastBlock.Height, "root", lastBlock.AppHash)
+	log.Println("Saving block", "height", lastBlock.Height, "root", hex.EncodeToString(lastBlock.AppHash))
 	buf, n, err := new(bytes.Buffer), new(int), new(error)
 	wire.WriteBinary(lastBlock, buf, n, err)
 	if *err != nil {
 		// TODO
 		PanicCrisis(*err)
 	}
-	db.Set(lastBlockKey, buf.Bytes())
+	db.Set([]byte(lastBlockKey), buf.Bytes())
 }
