@@ -32,18 +32,12 @@ Please see @baabeetaa's [guide to creating non-validator nodes](https://github.c
 ## binaries
 Binaries for OSX, Linux, and windows will be available shortly.  We are interested in user feedback on the interface that we present to users, which we can build in the following ways:
 
+## Client Software
 #### Web: Javascript vs Dart
 * **javascript** 
 * Dart - (-- does anyone even know how to port webtorrent to dart?  And how does that work, as dart compiles to javascript?)
-
-#### Desktop: go/qt, 
-* **go/qt** for Android, iOS, Mac and Linux including Raspberry Pi
-* Electron (slow but fast dev time)
-
-#### Mobile
-* **Flutter**
-* go/qt
-* Electron (slow but fast dev time)
+#### Mobile: Flutter vs go-qt vs electron
+* Electron
 
 The one we are least sure about is the mobile app.  If we can make it work well in go/qt, we will.  Otherwise, it will be a flutter app.  
 
@@ -54,8 +48,7 @@ To ensure its survival in perpetuity, we have implemented a cryptocurrency syste
 We are of course huge fans of the tendermint blockchain toolkit, and of the inter-network of blocckahins called cosmos.  For more information, please see their whitepaper.  
 
 ## Piracy
-We are supporters of the Pirate Party.  
 
-We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music.  
+We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music. 
 
 
