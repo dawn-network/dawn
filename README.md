@@ -30,16 +30,7 @@ Privacy is implemented as follows:
 Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/baabeetaa/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.  
 
 ## binaries
-Binaries for OSX, Linux, and windows will be available shortly.  We are interested in user feedback on the interface that we present to users, which we can build in the following ways:
-
-## Client Software
-#### Web: Javascript vs Dart
-* **javascript** 
-* Dart - (-- does anyone even know how to port webtorrent to dart?  And how does that work, as dart compiles to javascript?)
-#### Mobile: Flutter vs go-qt vs electron
-* Electron
-
-The one we are least sure about is the mobile app.  If we can make it work well in go/qt, we will.  Otherwise, it will be a flutter app.  
+Binaries for OSX, Linux, and windows will be available shortly. 
 
 ## Coin and inflation
 To ensure its survival in perpetuity, we have implemented a cryptocurrency system called Ray in glogchain.  One unit of currency is created with each block, forever.  This means that while early years will have a high inflation rate, actual currency supply after the 10th year or so will ahve relatively low inflation.  Given that content distribution and storage in this manner is at an infant state, we feel that ensuring a high enough validator count and a high (90%) rate of payments to creators based on hit count + eyeball-time will distribute the network's creative rays in a manner that reflects reality.  
@@ -50,5 +41,10 @@ We are of course huge fans of the tendermint blockchain toolkit, and of the inte
 ## Piracy
 
 We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music. 
+
+## systemD units
+https://gist.github.com/faddat/dd58de868fee12b85d8e31168ffce93d/edit
+
+
 
 
