@@ -21,8 +21,8 @@ This.
 
 Privacy is implemented as follows:
 
-Public - Shared far and wide
-Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  
+* Public - Shared far and wide
+* Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  
 
 ## seed nodes
 Please see @baabeetaa's guide to creating non-validator nodes.  
