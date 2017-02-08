@@ -8,6 +8,11 @@ import (
 	"github.com/baabeetaa/glogchain/web"
 	. "github.com/baabeetaa/glogchain/app"
 	"log"
+	cfg "github.com/tendermint/go-config"
+	"github.com/tendermint/go-logger"
+	"github.com/tendermint/tendermint/node"
+	tmcfg "github.com/tendermint/tendermint/config/tendermint"
+	"time"
 )
 
 func main() {
@@ -30,14 +35,21 @@ func main() {
 		//glogChainApp.SetOption("genesis.block/token.transfer", "E405128ABE228A095EFF8D4940C66EC7A40AAA91/1000")
 	}
 
+	/////////////////////////////////////////////
 	// Start the listener
 	s, err := server.NewServer(*addrPtr, "grpc", GlogGlobal.GlogApp)
 	if err != nil {
 		Exit(err.Error())
 	}
 
+	/////////////////////////////////////////////
 	// start web server on port 8000
 	go web.StartWebServer()
+
+
+	/////////////////////////////////////////////
+	// start embedded tendermint
+	go startTendermintNode()
 
 	// Wait forever
 	TrapSignal(func() {
@@ -46,6 +58,28 @@ func main() {
 	})
 }
 
+
+
+var tm_config cfg.Config
+
+/**
+ Start Tendermint service as embedded mode.
+ - Simpler for deploying
+ - Hopefully avoid the panic bug when stop Glogchain before TM.
+ */
+func startTendermintNode()  {
+	// Get configuration
+	tm_config = tmcfg.GetConfig(GlogchainConfigGlobal.TmRoot)
+	//parseFlags(config, args[1:]) // Command line overrides
+
+	// set the log level
+	logger.SetLogLevel(tm_config.GetString("log_level"))
+
+	// wait sometime to make sure glogchain is up
+	log.Println("Wait 30s to lauch Tendermint...")
+	time.Sleep(time.Second * 30)
+	node.RunNode(tm_config)
+}
 
 func init() {
 	// to change the flags on the default logger

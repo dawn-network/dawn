@@ -13,7 +13,7 @@ type GlogChainApp struct {
 	Db   		dbm.DB
 	State 		merkle.Tree
 	Height 		uint64
-	TxCount   	uint64
+	TxCount   	uint64		// dont need this!!!!?
 }
 
 type GlogVars struct {

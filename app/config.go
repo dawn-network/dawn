@@ -17,6 +17,7 @@ type GlogCfg struct {
 	TmRpcLaddr 		string
 	IpFsAPI			string
 	IpFsGateway 		string
+	TmRoot			string 	// where to store the tendermint data (chain + config for TM)
 }
 
 var GlogchainConfigGlobal = GlogCfg{}
