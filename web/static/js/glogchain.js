@@ -77,21 +77,27 @@ function parseQuery(qstr) {
 
 ///////////////
 // for single post page
-function single_post_md_parse() {
+function single_post_md_parse(Config_IpFsGateway) {
     // post
     if (jQuery("#PostContent").length <= 0) {
         return;
     }
 
-    var md_str = jQuery("#PostContent").text();
-    var html_str = SimpleMDE.prototype.markdown(md_str);
-    jQuery("#PostContent").parent().html(html_str);
+    // http://127.0.0.1:8080/ipfs/QmR168W81xikZdtCfzYYp7TVi1L9Cad2UTbLmTPt3e73PT
+    var url = Config_IpFsGateway + "/ipfs/" + jQuery("#PostContent").text();
 
-    // comments
-    jQuery( ".comment-container > textarea" ).each(function() {
-        var comment_md_str = jQuery( this ).text();
-        var comment_html_str = SimpleMDE.prototype.markdown(comment_md_str);
-        console.log(comment_html_str);
-        jQuery(this).parent().html(comment_html_str);
+    $.get( url, function( data ) {
+        var md_str = data;
+        var html_str = SimpleMDE.prototype.markdown(md_str);
+        jQuery("#PostContent").parent().html(html_str);
+
+        // comments
+        jQuery( ".comment-container > textarea" ).each(function() {
+            var comment_md_str = jQuery( this ).text();
+            var comment_html_str = SimpleMDE.prototype.markdown(comment_md_str);
+            console.log(comment_html_str);
+            jQuery(this).parent().html(comment_html_str);
+        });
     });
+
 }

@@ -54,6 +54,15 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	/////////////////////////////////////////
+	// Save the post content to IPFS and return its hash to opt.PostContent
+	mhash, err := service.Ipfs_add([]byte(opt.PostContent))
+	if (err != nil) {
+		render(w, "PostCreate", ActionResult{Status: "error", Message: "Can not save content to IPFS", Data: opt})
+		return
+	}
+	opt.PostContent = mhash // set the body to hash because content already stored in IPFS
+
 	// validating Categories
 	opt.Cat = strings.ToLower(opt.Cat)
 	if (len(opt.Cat) < 6) {
@@ -61,7 +70,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	cats_string := []string{}
-	err := json.Unmarshal([]byte(opt.Cat), &cats_string)
+	err = json.Unmarshal([]byte(opt.Cat), &cats_string)
 	if (err != nil) {
 		render(w, "PostCreate", ActionResult{Status: "error", Message: "Categories json array string is invalid", Data: opt})
 		return

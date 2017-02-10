@@ -5,6 +5,7 @@ import (
 	"github.com/baabeetaa/glogchain/service"
 	"log"
 	"github.com/baabeetaa/glogchain/app"
+	"io/ioutil"
 )
 
 func TestIpFsHandler(w http.ResponseWriter, req *http.Request) {
@@ -41,15 +42,15 @@ func TestIpFsHandler(w http.ResponseWriter, req *http.Request) {
 	//defer f.Close()
 	//io.Copy(f, file)
 
-	//raw, err := ioutil.ReadAll(file)
-	//if (err != nil) {
-	//	log.Println(err.Error())
-	//	return;
-	//}
+	raw, err := ioutil.ReadAll(file)
+	if (err != nil) {
+		log.Println(err.Error())
+		return;
+	}
 
 
 	// upload to IPFS network
-	mhash, err := service.Ipfs_add(file)
+	mhash, err := service.Ipfs_add(raw)
 	if (err != nil) {
 		log.Println(err.Error())
 		return

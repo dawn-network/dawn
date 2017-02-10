@@ -9,7 +9,7 @@ import (
 	"github.com/baabeetaa/glogchain/db"
 )
 
-var funcMap template.FuncMap = template.FuncMap{
+var funcMap template.FuncMap = template.FuncMap {
 	//"GetFeaturedPosts": 	db.GetFeaturedPosts,
 	"GetPost": 		db.GetPost,
 	"GetCategoryOfPost": 	db.GetCategoryOfPost,
@@ -20,7 +20,8 @@ var funcMap template.FuncMap = template.FuncMap{
 	"GetTopCategories":	db.GetTopCategories,
 	"GetType": 		GetType,
 	"Dict": 		Dict,
-	"StringCut": 		StringCut}
+	"StringCut": 		StringCut,
+	"Config_IpFsGateway": 	Config_IpFsGateway }
 
 
 func CategoryHandler(w http.ResponseWriter, req *http.Request) {

@@ -43,8 +43,15 @@
 
 
 <script type='text/javascript'>
+    var Config_IpFsGateway = "{{ Config_IpFsGateway }}";
+
     jQuery(document).ready(function(){
-        var simplemde = new SimpleMDE({ element: jQuery("#PostContent")[0] });
+        var url = Config_IpFsGateway + "/ipfs/" + jQuery("#PostContent").text();
+
+        $.get( url, function( data ) {
+            jQuery("#PostContent").val( data );
+            var simplemde = new SimpleMDE({ element: jQuery("#PostContent")[0] });
+        });
     });
 </script>
 

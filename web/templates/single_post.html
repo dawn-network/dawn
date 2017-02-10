@@ -28,9 +28,17 @@
                         {{ $currentUser := index .SessionValues "user"}}
                         {{if $currentUser.ID}}
                             {{if eq $author.ID $currentUser.ID}}
-                                <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="/post/edit?p={{$post.ID}}">Edit</a></span></div>
+                                <span class="edit-link"><i class="fa fa-edit"></i><a class="post-edit-link" href="/post/edit?p={{$post.ID}}">Edit</a></span>
                             {{end}}
                         {{end}}
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Share <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/test/steem_posting?p={{$post.ID}}">SteemIt</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="entry-content clearfix">
                         <textarea id="PostContent" name="PostContent">{{ $post.PostContent }}</textarea>
                     </div>
@@ -67,8 +75,10 @@
 
 
 <script type='text/javascript'>
-    jQuery(document).ready(function(){
-        single_post_md_parse(); // call this before loadTorrent
+    var Config_IpFsGateway = "{{ Config_IpFsGateway }}";
+
+    jQuery(document).ready(function() {
+        single_post_md_parse(Config_IpFsGateway); // call this before loadTorrent
         loadTorrent();
     });
 </script>

@@ -13,7 +13,9 @@ import (
 )
 
 // https://ipfs.io/docs/api/#apiv0add
-func Ipfs_add(r io.Reader) (mhash string, err error) {
+//func Ipfs_add(r io.Reader) (mhash string, err error) {
+func Ipfs_add(data []byte) (mhash string, err error) {
+	r := bytes.NewReader(data)
 
 	//////////////////////////////////
 	// DONT USE THE GO IPFS API CLIENT, IT BREAKS GLIDE
