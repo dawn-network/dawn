@@ -132,6 +132,9 @@ func Exec_CheckTx(tx []byte) types.Result {
 	}
 
 	//TODO: more validation here or the chain get fucked!
+	//TODO: make a list of security threats
+	//TODO: write tests (jake) (but tuan please check my tests!)
+
 
 	//var buf bytes.Buffer        // Stand-in for a network connection
 	//enc := gob.NewEncoder(&buf) // Will write to network.

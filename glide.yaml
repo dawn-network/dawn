@@ -1,18 +1,30 @@
 package: github.com/dawn-network/glogchain
 import:
+- package: github.com/golang/crypto
 - package: github.com/gorilla/mux
+  version: ^1.3.0
 - package: github.com/gorilla/sessions
-- package: github.com/ipfs/go-ipfs-api
+  version: ^1.1.0
 - package: github.com/mattn/go-sqlite3
+  version: ^1.2.0
+- package: github.com/pkg/errors
+  version: ^0.8.0
 - package: github.com/tendermint/abci
   subpackages:
   - server
   - types
 - package: github.com/tendermint/go-common
+- package: github.com/tendermint/go-config
 - package: github.com/tendermint/go-crypto
 - package: github.com/tendermint/go-db
+- package: github.com/tendermint/go-logger
 - package: github.com/tendermint/go-merkle
 - package: github.com/tendermint/go-wire
+- package: github.com/tendermint/tendermint
+  version: ^0.8.0
+  subpackages:
+  - config/tendermint
+  - node
 - package: golang.org/x/crypto
   subpackages:
   - ripemd160
