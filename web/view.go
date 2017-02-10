@@ -5,8 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"log"
-	"github.com/baabeetaa/glogchain/app"
-	"github.com/baabeetaa/glogchain/db"
+	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/db"
 )
 
 var funcMap template.FuncMap = template.FuncMap {

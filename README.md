@@ -27,7 +27,7 @@ Privacy is implemented as follows:
 * Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  
 
 ## seed nodes
-Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/baabeetaa/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.  
+Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/dawn-network/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.
 
 ## binaries
 Binaries for OSX, Linux, and windows will be available shortly. 

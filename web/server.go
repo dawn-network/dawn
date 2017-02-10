@@ -8,16 +8,16 @@ import (
 	"net/http"
 	"log"
 	"time"
-	"github.com/baabeetaa/glogchain/app"
+	"github.com/dawn-network/glogchain/app"
 	"github.com/gorilla/mux"
 	//"encoding/gob"
 	//"github.com/tendermint/go-crypto"
-	//"github.com/baabeetaa/glogchain/db"
+	//"github.com/dawn-network/glogchain/db"
 	"github.com/gorilla/sessions"
 	//"github.com/gorilla/securecookie"
 	"encoding/gob"
 	"github.com/tendermint/go-crypto"
-	"github.com/baabeetaa/glogchain/db"
+	"github.com/dawn-network/glogchain/db"
 )
 
 type Context struct {

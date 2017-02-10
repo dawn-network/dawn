@@ -8,7 +8,7 @@ import (
 	"github.com/tendermint/go-crypto"
 	"reflect"
 	"errors"
-	"github.com/baabeetaa/glogchain/app"
+	"github.com/dawn-network/glogchain/app"
 )
 
 // http://stackoverflow.com/questions/20170275/how-to-find-a-type-of-a-object-in-golang

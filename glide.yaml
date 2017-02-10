@@ -1,4 +1,4 @@
-package: github.com/baabeetaa/glogchain
+package: github.com/dawn-network/glogchain
 import:
 - package: github.com/gorilla/mux
 - package: github.com/gorilla/sessions

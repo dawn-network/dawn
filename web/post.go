@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"golang.org/x/crypto/ripemd160"
 	"fmt"
-	"github.com/baabeetaa/glogchain/service"
+	"github.com/dawn-network/glogchain/service"
 	"strings"
 	"encoding/hex"
 	"log"
 	"time"
 	"net/http"
-	"github.com/baabeetaa/glogchain/db"
+	"github.com/dawn-network/glogchain/db"
 	"github.com/tendermint/go-crypto"
-	"github.com/baabeetaa/glogchain/app"
+	"github.com/dawn-network/glogchain/app"
 )
 
 func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
@@ -152,7 +152,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 		log.Println("PostEditHandler GET")
 
 		// TODO: Only the author can edit the post
-		// https://github.com/baabeetaa/glogchain/issues/8
+		// https://github.com/dawn-network/glogchain/issues/8
 
 		// check the current logged user is the author of the post or not
 		if (user.ID != post.PostAuthor) {
