@@ -2,34 +2,40 @@ package db
 
 import (
 	"log"
-	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/asdine/storm"
 	"fmt"
 	"encoding/json"
 	"errors"
+	"github.com/dawn-network/glogchain/db"
+	"github.com/asdine/storm/q"
 )
 
 type User struct {
-	ID			string
-	Username 		string
+	ID			int `"storm:id,increment,index"`
+	Username 		string `"storm:index"`
+	Email			string `"storm:unique"`
+	X			int
+	Y			int
+	GpsInterval		int
 	Pubkey  		string
 	UserRegistered 		string
 	DisplayName 		string
+
 }
 
 type Post struct {
-	ID                  	string
-	PostAuthor          	string
-	PostDate            	string
+	ID                  	int `"storm:id,increment,index"`
+	PostAuthor          	string `"storm:index"`
+	PostDate            	string `"storm:index"`
 	PostContent         	string
-	PostTitle           	string
+	PostTitle           	string `"storm:index"`
 	PostModified        	string
-	Thumb 		    	string
-	Cat 			string 		// category
+	Thumb 		    	string  `"storm:index"`
+	Cat 			string 	`"storm:index"`	// category
 }
 
 type Comment struct {
-	ID                  	string
+	ID                  	int `"storm:id,increment,index"`
 	PostID                 	string 		// which post belong to
 	Parent 			string 		// parrent comment, empty string means no parent
 	Author          	string		// ID/Address of Account/User
@@ -39,7 +45,7 @@ type Comment struct {
 }
 
 type Category struct {
-	ID    			string
+	ID    			int `"storm:id,increment,index"`
 	Count 			int64
 }
 
@@ -51,147 +57,33 @@ type TermRelationship struct {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-var __db *sql.DB = nil
-
-func GetDB() (*sql.DB, error) {
-	if (__db == nil) {
-		db, err := sql.Open("sqlite3", "db.db")
-
-		if err != nil {
-			panic(err)
-		}
-
-		if db == nil {
-			panic("db nil")
-		}
-
-		////////////
-		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS tbl_cat
-		(
-		    ID VARCHAR(200) NOT NULL PRIMARY KEY,
-		    count INTEGER NOT NULL DEFAULT '0'
-		);`)
-		if err != nil {
-			panic(err)
-		}
-
-		//////
-		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wp_users
-		(
-		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
-		    user_username VARCHAR(60) NOT NULL DEFAULT '',
-		    user_pubkey VARCHAR(255) NOT NULL DEFAULT '',
-		    user_registered DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
-		    display_name VARCHAR(250) NOT NULL DEFAULT ''
-		);`)
-		// balance INTEGER NOT NULL DEFAULT '0'
-		if err != nil {
-			panic(err)
-		}
-
-		//////
-		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wp_posts
-		(
-		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
-		    post_author VARCHAR(40) NOT NULL DEFAULT '0',
-		    post_date DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
-		    post_content LONGTEXT NOT NULL,
-		    post_title TEXT NOT NULL,
-		    post_modified DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
-		    thumb VARCHAR(255) NOT NULL DEFAULT '',
-		    cat VARCHAR(255) NOT NULL DEFAULT ''
-		);`)
-		if err != nil {
-			panic(err)
-		}
-
-		//////
-		_, err = db.Exec(`CREATE TABLE IF NOT EXISTS tbl_comments
-		(
-		    ID VARCHAR(40) NOT NULL PRIMARY KEY,
-		    postID VARCHAR(40) NOT NULL DEFAULT '0',
-		    cm_parent VARCHAR(40) NOT NULL DEFAULT '',
-		    cm_author VARCHAR(40) NOT NULL DEFAULT '0',
-		    cm_date DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
-		    cm_content LONGTEXT NOT NULL,
-		    cm_modified DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00'
-		);`)
-		if err != nil {
-			panic(err)
-		}
-
-		__db = db
+func GetDB() (*storm.DB) {
+	BoltDatabase, err := storm.Open("my.db")
+	defer db.Close()
+	if err != nil {
+		log.Println(err)
 	}
-
-	return __db, nil
 }
 
-func Query (sql string) (*sql.Rows, error) {
-	db, err := GetDB()
-	if err != nil {
-		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
-		return nil, err
-	}
-	//defer db.Close()
-
-	rows, err := db.Query(sql)
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
-		return nil, err
-	}
-
-	return rows, nil
-}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // User
 
 func GetUser(ID string) (User, error)  {
-	var item User
-
-	sql := fmt.Sprintf("SELECT * FROM wp_users WHERE ID=\"%s\"", ID)
-
-	rows, err := Query (sql)
+	var user User
+	err := BoltDatabase.Find("ID", ID, &user)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 		return item, err
 	}
-	defer rows.Close()
-
-	if rows.Next() {
-		err := rows.Scan(
-			&item.ID,
-			&item.Username,
-			&item.Pubkey,
-			&item.UserRegistered,
-			&item.DisplayName)
-		if err != nil {
-			log.Println("GetUser", err)
-			return item, err
-		}
-	}
-
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-		return item, err
-	}
-
-	return item, nil
+	return user, err
 }
 
 func CreateUser(user User) error {
-	db, err := GetDB()
-	if err != nil {
-		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
-		return err
-	}
+
 	//defer db.Close()
 
-
-	_, err = db.Exec("INSERT INTO wp_users(ID, user_username, user_pubkey, user_registered, display_name) " +
-		"VALUES(?, ?, ?, ?, ?)",
-		user.ID, user.Username, user.Pubkey, user.UserRegistered, user.DisplayName)
+	_, err = Db.Save(&user)
 
 	//if err != nil {
 	//	return err
@@ -204,17 +96,9 @@ func CreateUser(user User) error {
 // Post
 
 func CreatePost(post Post) error {
-	db, err := GetDB()
-	if err != nil {
-		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
-		return err
-	}
-	//defer db.Close()
 
+	err := Db.Save(&post),
 
-	_, err = db.Exec("INSERT INTO wp_posts(ID, post_author, post_date, post_content, post_title, post_modified, thumb, cat) " +
-		"VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
-		post.ID, post.PostAuthor, post.PostDate, post.PostContent, post.PostTitle, post.PostModified, post.Thumb, post.Cat)
 
 	return err
 }
@@ -235,7 +119,7 @@ func EditPost(post Post) error {
 }
 
 func GetPost(postID string) (post Post, err error)  {
-	sql := fmt.Sprintf(`SELECT * FROM wp_posts WHERE ID="%s"`, postID)
+	Db.
 
 	rows, err := Query (sql)
 	if err != nil {
