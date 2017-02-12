@@ -29,8 +29,8 @@
         {{ end }}
 
         {{ if .Data.mhash_torrent }}
-        <p>mhash_torrent: <code>{{ .Data.mhash_torrent }}</code> ( <a href="{{ Config_IpFsGateway }}/ipfs/{{ .Data.mhash_torrent }}">View</a> )</p>
-        <p>torrent file: <code>{{ .Data.mhash_torrent }}</code> ( <a href="/torrent/{{ .Data.mhash_torrent }}">View</a> )</p>
+        <!--<p>mhash_torrent: <code>{{ .Data.mhash_torrent }}</code> ( <a href="{{ Config_IpFsGateway }}/ipfs/{{ .Data.mhash_torrent }}">View</a> )</p>-->
+        <p>torrent: <code>{{ .Data.mhash_torrent }}.torrent</code> ( <a href="/torrent/{{ .Data.mhash_torrent }}">Download</a> )</p>
         {{ end }}
 
 

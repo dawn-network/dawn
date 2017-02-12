@@ -54,6 +54,8 @@ func main() {
 
 	// Wait forever
 	TrapSignal(func() {
+		time.Sleep(3 * time.Second) // wait 3s for TM stopping
+
 		// Cleanup
 		s.Stop()
 	})
@@ -77,8 +79,8 @@ func startTendermintNode()  {
 	logger.SetLogLevel(tm_config.GetString("log_level"))
 
 	// wait sometime to make sure glogchain is up
-	log.Println("Wait 30s to lauch Tendermint...")
-	time.Sleep(time.Second * 30)
+	log.Println("Wait 10s to lauch Tendermint...")
+	time.Sleep(time.Second * 10)
 	node.RunNode(tm_config)
 }
 

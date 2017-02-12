@@ -75,7 +75,7 @@ func StartWebServer() error  {
 	r.HandleFunc("/wallet/view", AuthWrapper(WalletViewHandler))
 	r.HandleFunc("/wallet/sendtoken", AuthWrapper(WalletSendTokenHandler))
 
-	r.HandleFunc("/torrent/{ipfshash}", TorrentFileHandler)
+	r.HandleFunc("/torrent/{ipfshash}.torrent", TorrentFileHandler)
 
 	r.HandleFunc("/test/webtorrent", TestWebTorrentHandler)
 	r.HandleFunc("/test/ipfs", AuthWrapper(TestIpFsHandler))

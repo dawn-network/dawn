@@ -1,6 +1,22 @@
-hash: 407570329c693e140f4e52c03bbf67b4ae83690bb1e1d4813b4f1e9ffa644632
-updated: 2017-02-08T16:02:15.172784098+07:00
+hash: 98d3ca2b38c0e47c2fcc82bf5c2f00fa0d0486f123a934a70e8c1868f4850665
+updated: 2017-02-12T17:09:12.149995135+07:00
 imports:
+- name: github.com/anacrolix/missinggo
+  version: 7ad9e62619a5c5d1ec4361af1ce579ad11fa1297
+  subpackages:
+  - slices
+- name: github.com/anacrolix/torrent
+  version: b868a6b9e2cf372cbaec8e84cfd4682401b1ea46
+  subpackages:
+  - bencode
+  - metainfo
+- name: github.com/dawn-network/glogchain
+  version: 049027cedb8a22bd0318d84b5556835404449f88
+  subpackages:
+  - app
+  - service
+- name: github.com/bradfitz/iter
+  version: 454541ec3da2a73fc34fd049b19ee5777bf19345
 - name: github.com/btcsuite/btcd
   version: afec1bd1245a4a19e6dfe1306974b733e7cbb9b8
   subpackages:
@@ -13,6 +29,8 @@ imports:
   version: c1eddaa09da2b4017351245b0d43234955276798
 - name: github.com/go-stack/stack
   version: 100eb0c0a9c5b306ca2fb4f165df21d80ada4b82
+- name: github.com/golang/crypto
+  version: 453249f01cfeb54c3d549ddb75ff152ca243f9d8
 - name: github.com/golang/protobuf
   version: 1f49d83d9aa00e6ce4fc8258c71cc7786aec968a
   subpackages:
@@ -22,15 +40,13 @@ imports:
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - name: github.com/gorilla/mux
-  version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
+  version: 392c28fe23e1c45ddba891b0320b3b5df220beea
 - name: github.com/gorilla/securecookie
   version: fa5329f913702981df43dcb2a380bac429c810b5
 - name: github.com/gorilla/sessions
   version: ca9ada44574153444b00d3fd9c8559e4cc95f896
 - name: github.com/gorilla/websocket
   version: c36f2fe5c330f0ac404b616b96c438b8616b1aaf
-- name: github.com/ipfs/go-ipfs-api
-  version: 60ded1996d84cc0c5607e7e32b8138cc91cb4b18
 - name: github.com/jmhodges/levigo
   version: c42d9e0ca023e2198120196f842701bb4c55d7b9
 - name: github.com/mattn/go-colorable
@@ -39,6 +55,8 @@ imports:
   version: 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
 - name: github.com/mattn/go-sqlite3
   version: ca5e3819723d8eeaf170ad510e7da1d6d2e94a08
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/syndtr/goleveldb
   version: 6ae1797c0b42b9323fc27ff7dcf568df88f2f33d
   subpackages:
