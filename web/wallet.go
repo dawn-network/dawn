@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"encoding/json"
 	"github.com/dawn-network/glogchain/service"
-	"crypto"
 )
 
 func WalletViewHandler(w http.ResponseWriter, req *http.Request) {

@@ -56,7 +56,7 @@ func PostCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	/////////////////////////////////////////
 	// Save the post content to IPFS and return its hash to opt.PostContent
-	mhash, err := service.Ipfs_add([]byte(opt.PostContent))
+	mhash, err := service.Ipfs_add_raw([]byte(opt.PostContent))
 	if (err != nil) {
 		render(w, "PostCreate", ActionResult{Status: "error", Message: "Can not save content to IPFS", Data: opt})
 		return
@@ -185,12 +185,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 
 	// very basic from validating
 	if ((len(post.PostTitle) < 6) || (len(post.PostContent) < 6) || (len(post.Thumb) < 6)) {
-		render(w, "post_edit",
-			ActionResult{
-				Status: "error",
-				Message: "field must be at least 6 characters",
-				Data: post,
-			})
+		render(w, "post_edit", ActionResult{ Status: "error", Message: "field must be at least 6 characters", Data: post })
 		return
 	}
 
@@ -203,28 +198,28 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	cats_string := []string{}
 	err = json.Unmarshal([]byte(post.Cat), &cats_string)
 	if (err != nil) {
-		render(w, "post_edit",
-			ActionResult{
-				Status: "error",
-				Message: "Categories json array string is invalid",
-				Data: post,
-			})
+		render(w, "post_edit", ActionResult{ Status: "error", Message: "Categories json array string is invalid", Data: post })
 		return
 	}
 
 
+	/////////////////////////////////////////
+	// Save the post content to IPFS and return its hash to opt.PostContent
+	mhash, err := service.Ipfs_add_raw([]byte(post.PostContent))
+	if (err != nil) {
+		render(w, "post_edit", ActionResult{ Status: "error", Message: "Can not save content to IPFS", Data: post })
+		return
+	}
+	post.PostContent = mhash // set the body to hash because content already stored in IPFS
+
+	//
 	log.Println("PostEditHandler", "id=", post.ID, "PostAuthor=", post.PostAuthor, "PostDate=",
 		post.PostDate, "Title=", post.PostTitle, "PostModified=", post.PostModified, "Thumb=",
 		post.Thumb, "Categories=", post.Cat, "PostContent=", post.PostContent)
 
 	opt_arr, err := json.Marshal(post)
 	if (err != nil) {
-		render(w, "post_edit",
-			ActionResult{
-				Status: "error",
-				Message: err.Error(),
-				Data: post,
-			})
+		render(w, "post_edit", ActionResult{ Status: "error", Message: err.Error(), Data: post })
 		return
 	}
 	opt_str := strings.ToUpper(hex.EncodeToString(opt_arr))

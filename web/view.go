@@ -7,6 +7,7 @@ import (
 	"log"
 	"github.com/dawn-network/glogchain/app"
 	"github.com/dawn-network/glogchain/db"
+	"io"
 )
 
 var funcMap template.FuncMap = template.FuncMap {
@@ -91,3 +92,18 @@ func render(w http.ResponseWriter, tmpl string, data interface{}) {
 		log.Print("template executing error: ", err)
 	}
 }
+
+/////////////////////////////////////////
+
+func serve400(w http.ResponseWriter) {
+	w.WriteHeader(http.StatusBadRequest)
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	io.WriteString(w, http.StatusText(http.StatusBadRequest))
+}
+
+func serve404(w http.ResponseWriter) {
+	w.WriteHeader(http.StatusNotFound)
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	io.WriteString(w, http.StatusText(http.StatusNotFound))
+}
+

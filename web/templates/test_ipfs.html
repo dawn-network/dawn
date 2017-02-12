@@ -24,10 +24,14 @@
 
         <hr>
 
-        {{ if .Data.mhash }}
-        <p>Hash: <code>{{ .Data.mhash }}</code> ( <a href="{{ .Data.http_gateway }}">View</a> )</p>
+        {{ if .Data.mhash_upload }}
+        <p>mhash_upload: <code>{{ .Data.mhash_upload }}</code> ( <a href="{{ Config_IpFsGateway }}/ipfs/{{ .Data.mhash_upload }}">View</a> )</p>
         {{ end }}
 
+        {{ if .Data.mhash_torrent }}
+        <p>mhash_torrent: <code>{{ .Data.mhash_torrent }}</code> ( <a href="{{ Config_IpFsGateway }}/ipfs/{{ .Data.mhash_torrent }}">View</a> )</p>
+        <p>torrent file: <code>{{ .Data.mhash_torrent }}</code> ( <a href="/torrent/{{ .Data.mhash_torrent }}">View</a> )</p>
+        {{ end }}
 
 
 

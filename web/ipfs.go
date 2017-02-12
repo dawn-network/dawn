@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"github.com/dawn-network/glogchain/service"
 	"log"
-	"github.com/dawn-network/glogchain/app"
-	"io/ioutil"
+	"os"
+	"io"
 )
 
 func TestIpFsHandler(w http.ResponseWriter, req *http.Request) {
@@ -23,43 +23,76 @@ func TestIpFsHandler(w http.ResponseWriter, req *http.Request) {
 	////////////////
 	// handling POST here
 	req.ParseMultipartForm(32 << 20)
-	file, handler, err := req.FormFile("uploadfile")
+	file_upload, handler, err := req.FormFile("uploadfile")
 	if (err != nil) {
 		log.Println(err.Error())
 		return
 	}
-	defer file.Close()
+	defer file_upload.Close()
 
 	log.Println(handler.Filename)
 
+	// save to local temp file
 	////fmt.Fprintf(w, "%v", handler.Header)
-	//filpath_relative := "./tmp/" + handler.Filename
-	//f, err := os.OpenFile(filpath_relative, os.O_WRONLY|os.O_CREATE, 0666)
-	//if (err != nil) {
-	//	log.Println(err.Error())
-	//	return
-	//}
-	//defer f.Close()
-	//io.Copy(f, file)
+	filepath_relative := "./tmp/" + handler.Filename
+	filepath_torrent := filepath_relative + ".torrent"
 
-	raw, err := ioutil.ReadAll(file)
+
+	file_temp, err := os.OpenFile(filepath_relative, os.O_WRONLY|os.O_CREATE, 0666)
 	if (err != nil) {
 		log.Println(err.Error())
-		return;
+		return
 	}
+	defer file_temp.Close()
+	io.Copy(file_temp, file_upload)
+
+	//raw, err := ioutil.ReadAll(file)
+	//if (err != nil) {
+	//	log.Println(err.Error())
+	//	return;
+	//}
+
+	defer func() {
+		//////////////////////////////////////////////
+		// delete the temp file
+		file_upload.Close()
+		file_temp.Close()
+		err = os.Remove(filepath_relative)
+		err = os.Remove(filepath_torrent)
+	}()
 
 
+	//////////////////////////////////////////////
 	// upload to IPFS network
-	mhash, err := service.Ipfs_add(raw)
+	mhash_upload, err := service.Ipfs_add_file(filepath_relative)
 	if (err != nil) {
 		log.Println(err.Error())
 		return
 	}
 
+
+	//////////////////////////////////////////////
+	// generate torrent file and upload to ipfs
+	err = service.Create_Torrent_From_Local_File(filepath_relative, mhash_upload)
+	if (err != nil) {
+		log.Println(err.Error())
+		return
+	}
+
+	// upload torrent to IPFS network
+
+	mhash_torrent, err := service.Ipfs_add_file(filepath_torrent)
+	if (err != nil) {
+		log.Println(err.Error())
+		return
+	}
+
+	// use {{ Config_IpFsGateway }}
+	// "http_gateway": app.GlogchainConfigGlobal.IpFsGateway + "/ipfs/" + mhash_file,
 	render(w, "test_ipfs", ActionResult{Status: "success", Message: "ok",
 		Data: map[string]interface{}{
-			"mhash": mhash,
-			"http_gateway": app.GlogchainConfigGlobal.IpFsGateway + "/ipfs/" + mhash,
+			"mhash_upload": mhash_upload,
+			"mhash_torrent": mhash_torrent,
 		},
 	})
 }

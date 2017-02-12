@@ -10,13 +10,30 @@ import (
 	"github.com/dawn-network/glogchain/app"
 	"encoding/json"
 	"github.com/pkg/errors"
+	"os"
+	"bufio"
 )
 
-// https://ipfs.io/docs/api/#apiv0add
-//func Ipfs_add(r io.Reader) (mhash string, err error) {
-func Ipfs_add(data []byte) (mhash string, err error) {
-	r := bytes.NewReader(data)
+func Ipfs_add_file(filepath string) (mhash string, err error) {
+	file, err := os.Open(filepath)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer file.Close()
 
+	r := bufio.NewReader(file)
+	return Ipfs_add_reader(r)
+}
+
+
+// https://ipfs.io/docs/api/#apiv0add
+func Ipfs_add_raw(data []byte) (mhash string, err error) {
+	r := bytes.NewReader(data)
+	return Ipfs_add_reader(r)
+}
+
+func Ipfs_add_reader(r io.Reader) (mhash string, err error) {
 	//////////////////////////////////
 	// DONT USE THE GO IPFS API CLIENT, IT BREAKS GLIDE
 	//log.Println("Ipfs_add")

@@ -13,6 +13,7 @@ import (
 	"github.com/tendermint/tendermint/node"
 	tmcfg "github.com/tendermint/tendermint/config/tendermint"
 	"time"
+	"os"
 )
 
 func main() {
@@ -84,6 +85,12 @@ func startTendermintNode()  {
 func init() {
 	// to change the flags on the default logger
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	// create tmp folder if need
+	_, err := os.Stat("./tmp")
+	if os.IsNotExist(err) {
+		os.Mkdir("./tmp", os.ModePerm)
+	}
 
 	ReadConfig()
 }
