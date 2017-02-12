@@ -1,8 +1,8 @@
 {
   "WebRootDir": "./",
-  "GlogchainWebAddr": "10.0.0.11:8000",
-  "TmspAddr": "tcp://10.0.0.11:46658",
-  "TmRpcLaddr" : "http://10.0.0.11:46657",
+  "GlogchainWebAddr": "0.0.0.0:8000",
+  "TmspAddr": "tcp://0.0.0.0:46658",
+  "TmRpcLaddr" : "http://0.0.0.0:46657",
   "IpFsAPI": "http://127.0.0.1:5001",
   "IpFsGateway": "http://127.0.0.1:8080",
   "TmRoot": "/Users/tuanpa/Work/blockchain/tendermint/node1"
