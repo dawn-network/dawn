@@ -3,6 +3,7 @@ package db
 import (
 	"log"
 	"github.com/asdine/storm"
+	"github.com/blevesearch/bleve"
 	"time"
 )
 
@@ -45,33 +46,47 @@ type Post struct {
 	Long			int
 }
 
-var Gdb *storm.DB
-var err error
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-func GetDB() {
-	Gdb, err = storm.Open("my.db", storm.Batch())
-	defer Gdb.Close()
+func GetDB() (*storm.DB){
+	db, err := storm.Open("my.db", storm.Batch())
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 	}
+	return db
+}
+
+func Bleve() (bleve.Index) {
+	mapping := bleve.NewIndexMapping()
+	index, err := bleve.New("bleve", mapping)
+	if err != nil {
+		panic(err)
+	}
+	return index
 }
 
 
 // ---------------------------------------------------------------------------------------------------------------------
 // User
 
-//GetUser allows
+//GetUser allows users and non-users to search for users
 func GetUser(ID string) (User, error)  {
 	var user User
-	err := Gdb.Find("ID", ID, &user)
+	db := GetDB()
+	err := db.Find("ID", ID, &user)
 	return user, err
 }
 
+
+
 //CreateUser allows non-users to become users
 func CreateUser(user User) {
-	Gdb.Save(&user)
+	db := GetDB()
+	index := Bleve()
+	index.Index(user.ID, user)
+	db.Save(&user)
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -79,21 +94,30 @@ func CreateUser(user User) {
 
 //CreatePost allows users to create new posts
 func CreatePost(post Post)  {
-	Gdb.Save(&post)
+	db := GetDB()
+	index := Bleve()
+	db.Save(&post)
+	index.Index(post.ID, post)
 }
 
 //EditPost allows users to edit their posts.
 func EditPost(post Post)  {
-	Gdb.Update(&post)
+	db := GetDB()
+	index := Bleve()
+	db.Update(post)
+	
+	index.Index(post.ID, post)
 }
 
 //GetPost will return posts with a certain ID (ID=IPFS Hash)
 func GetPost(postID string) (post Post)  {
-	Gdb.Find("ID", postID, &post)
+	db := GetDB()
+	db.Find("ID", postID, post)
 	return post
 }
 //GetPostsByCategory will return posts of N category
 func GetPostsByCategory(category string) (posts []Post)  {
-	Gdb.Find("cat", category, &posts )
+	db := GetDB()
+	db.Find("cat", category, posts )
 	return posts
 }
