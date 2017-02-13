@@ -119,13 +119,6 @@ func Exec_CheckTx(tx []byte) types.Result {
 		}
 
 		break
-	case CommentCreateOperation:
-		_, ok := operation.(CommentCreateOperation)
-		if (!ok) {
-			log.Println("Can not cast operation to CommentCreateOperation")
-			return types.ErrInternalError
-		}
-		break
 	default:
 		log.Println("Unknow Operation!")
 		return types.ErrUnknownRequest

@@ -5,6 +5,6 @@
   "TmRpcLaddr" : "http://0.0.0.0:46657",
   "IpFsAPI": "http://127.0.0.1:5001",
   "IpFsGateway": "http://127.0.0.1:8080",
-  "TmRoot": "/Users/tuanpa/Work/blockchain/tendermint/node1"
+  "TmRoot": "./"
 }
 

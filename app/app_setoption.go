@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 	"strconv"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 /**
@@ -14,6 +14,7 @@ glogChainApp.SetOption("genesis.block/create.account", "jan/CDD6774218138DF657C7
 glogChainApp.SetOption("genesis.block/create.account", "jake/488B8FF58E8E9868823C3388BAAB9C1F7CFCB3D7482376E7495639A1EC0F7407/1000")
 glogChainApp.SetOption("genesis.block/create.account", "tuan/EB3B42091EF6C2F8FA951319940C003BEC7AAE2336BD2AFABD6FB59EB4A3EF6E/1000")
  */
+
 func Exec_SetOption(key string, value string) (logstr string) {
 	var err error
 
@@ -65,7 +66,7 @@ func Exec_SetOption(key string, value string) (logstr string) {
 		user.UserRegistered = "2017-01-06 09:00:28" // TODO: need to update
 		user.DisplayName = strs[0]
 
-		err = db.CreateUser(user)
+		db.CreateUser(user)
 		if (err != nil) {
 			log.Println(err.Error())
 			return err.Error()

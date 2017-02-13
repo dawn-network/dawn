@@ -12,12 +12,12 @@ import (
 	"github.com/gorilla/mux"
 	//"encoding/gob"
 	//"github.com/tendermint/go-crypto"
-	//"github.com/dawn-network/glogchain/db"
+	//"github.com/dawn-network/glogchain/gopressdb"
 	"github.com/gorilla/sessions"
 	//"github.com/gorilla/securecookie"
 	"encoding/gob"
 	"github.com/tendermint/go-crypto"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 type Context struct {

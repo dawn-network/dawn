@@ -6,18 +6,15 @@ import (
 	"net/http"
 	"log"
 	"github.com/dawn-network/glogchain/app"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 var funcMap template.FuncMap = template.FuncMap {
 	//"GetFeaturedPosts": 	db.GetFeaturedPosts,
 	"GetPost": 		db.GetPost,
-	"GetCategoryOfPost": 	db.GetCategoryOfPost,
 	//"GetPostThumbnail": 	db.GetPostThumbnail,
-	"GetCommentsByPost":	db.GetCommentsByPost,
 	"GetUser": 		db.GetUser,
 	"GetPostsByCategory": 	db.GetPostsByCategory,
-	"GetTopCategories":	db.GetTopCategories,
 	"GetType": 		GetType,
 	"Dict": 		Dict,
 	"StringCut": 		StringCut,
@@ -34,11 +31,8 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 	//	panic(err)
 	//}
 
-	posts, err := db.GetPostsByCategory(cat, 0, 20)
-	if err != nil {
-		log.Println("CategoryHandler", err)
-		panic(err)
-	}
+	posts := db.GetPostsByCategory(cat)
+
 
 	render(w, "category", posts)
 }
@@ -50,10 +44,8 @@ func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	context.SessionValues = GetSession(req).Values
 
 	p := req.FormValue("p")
-	post, err := db.GetPost(p)
-	if err != nil {
-		panic(err)
-	}
+	post := db.GetPost(p)
+
 
 	context.Data = post
 	render(w, "single_post", context)

@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"bytes"
 	"encoding/gob"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 func Exec_DeliverTx(tx []byte) types.Result {
@@ -73,7 +73,7 @@ func Exec_DeliverTx(tx []byte) types.Result {
 			return types.ErrInternalError
 		}
 
-		err = db.CreateUser(user)
+		db.CreateUser(user)
 		if err != nil {
 			log.Println(err.Error())
 			return types.ErrInternalError
@@ -132,7 +132,7 @@ func Exec_DeliverTx(tx []byte) types.Result {
 			return types.ErrInternalError
 		}
 
-		err = db.CreatePost(post)
+		db.CreatePost(post)
 		if err != nil {
 			log.Println(err.Error())
 			return types.ErrInternalError
@@ -146,21 +146,7 @@ func Exec_DeliverTx(tx []byte) types.Result {
 			return types.ErrInternalError
 		}
 
-		err = db.EditPost(post)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
-		break
-	case CommentCreateOperation:
-		var comment db.Comment
-		err = dec.Decode(&comment)
-		if err != nil {
-			log.Println(err.Error())
-			return types.ErrInternalError
-		}
-
-		err = db.CreateComment(comment)
+		db.EditPost(post)
 		if err != nil {
 			log.Println(err.Error())
 			return types.ErrInternalError

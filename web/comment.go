@@ -2,7 +2,7 @@ package web
 
 import (
 	"net/http"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 	"time"
 	"github.com/dawn-network/glogchain/app"
 	"golang.org/x/crypto/ripemd160"
@@ -16,9 +16,9 @@ import (
 )
 
 func CommentCreateHandler(w http.ResponseWriter, req *http.Request) {
-	var opt app.CommentCreateOperation
+	var opt app.PostCreateOperation
 	var post db.Post
-	var cm_parent db.Comment
+	var cm_parent db.Post
 	var err error
 
 	session := GetSession(req)
@@ -31,9 +31,9 @@ func CommentCreateHandler(w http.ResponseWriter, req *http.Request) {
 	p := req.FormValue("p") 	// postid
 	c := req.FormValue("c") 	// parent comment id
 	CommentContent := req.FormValue("CommentContent")
-	opt.Content = CommentContent
+	opt.PostContent = CommentContent
 
-	post, err = db.GetPost(p)
+	post = db.GetPost(p)
 	opt.PostID = post.ID
 	if (err != nil) {
 		render(w, "comment_create", ActionResult{Status: "error", Message: "No Post found", Data: opt })
@@ -41,7 +41,7 @@ func CommentCreateHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	if (c != "") {
-		cm_parent, err = db.GetComment(c)
+		cm_parent = db.GetPost(c)
 		opt.Parent = cm_parent.ID
 		if (err != nil) {
 			render(w, "comment_create", ActionResult{ Status: "error", Message: "No Comment found", Data: opt})
@@ -61,8 +61,7 @@ func CommentCreateHandler(w http.ResponseWriter, req *http.Request) {
 
 	opt.Author = user.ID 				// take from session
 	opt.Date = timeNow.String() 			// take from current datetime
-
-	opt.Modified = timeNow.String() 		// take from current datetime
+	opt.PostModified = timeNow.String() 		// take from current datetime
 
 	// generate ID of new comment
 	hasher := ripemd160.New()

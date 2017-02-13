@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"reflect"
 	"github.com/dawn-network/glogchain/app"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {
@@ -20,7 +20,7 @@ func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {
 	steem_post_link := req.FormValue("steem_post_link")
 	log.Println("steem_post_link", steem_post_link)
 
-	str_json_response , err := service.Steem_get_content(steem_post_link)
+	str_json_response, err := service.Steem_get_content(steem_post_link)
 	if (err != nil) {
 		render(w, "steem_getpost", ActionResult{Status: "error", Message:err.Error(), Data: map[string]interface{}{ }})
 		return
@@ -172,11 +172,7 @@ func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {
 
 func Steem_Posting_Handler(w http.ResponseWriter, req *http.Request) {
 	p := req.FormValue("p")
-	post, err := db.GetPost(p)
-	if (err != nil) {
-		render(w, "steem_posting", ActionResult{Status: "error", Message:err.Error(), Data: post})
-		return
-	}
+	post := db.GetPost(p)
 
 	render(w, "steem_posting", ActionResult{Status: "success", Message: "ok", Data: post })
 }

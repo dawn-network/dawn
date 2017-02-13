@@ -10,7 +10,7 @@ import (
 	"log"
 	"time"
 	"net/http"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/gopressdb"
 	"github.com/tendermint/go-crypto"
 	"github.com/dawn-network/glogchain/app"
 )
@@ -138,7 +138,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	log.Println("---PostEditHandler---------------------------------------------------------------------")
 
 	p := req.FormValue("p")
-	post, err := db.GetPost(p)
+	post := db.GetPost(p)
 
 	session := GetSession(req)
 	user, ok := session.Values["user"].(db.User)
@@ -201,7 +201,7 @@ func PostEditHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	cats_string := []string{}
-	err = json.Unmarshal([]byte(post.Cat), &cats_string)
+	err := json.Unmarshal([]byte(post.Cat), &cats_string)
 	if (err != nil) {
 		render(w, "post_edit",
 			ActionResult{

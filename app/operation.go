@@ -1,11 +1,11 @@
 package app
 
 import (
-	"github.com/dawn-network/glogchain/db"
 	"encoding/json"
 	"log"
 	"fmt"
 	"encoding/hex"
+	"github.com/dawn-network/glogchain/gopressdb"
 )
 
 // In prototype, we'll use json because we don't need high performance and protocols will need to be change however.
@@ -34,10 +34,7 @@ type AccountCreateOperation db.User
 // Posting
 
 type PostCreateOperation db.Post
-
 type PostEditOperation db.Post
-
-type CommentCreateOperation db.Comment
 
 //type VoteOperation struct {
 //	PostId 		string
@@ -92,7 +89,6 @@ func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{},
 			log.Fatal(err)
 			return
 		}
-
 		returnObj = postOperation
 		break
 	case "PostEditOperation":
@@ -101,17 +97,7 @@ func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{},
 			log.Fatal(err)
 			return
 		}
-
 		returnObj = postOperation
-		break
-	case "CommentCreateOperation":
-		var commentCreateOperation CommentCreateOperation
-		if err = json.Unmarshal(opt_arr, &commentCreateOperation); err != nil {
-			log.Fatal(err)
-			return
-		}
-
-		returnObj = commentCreateOperation
 		break
 	case "VoteOperation":
 		log.Fatalf("not support this type yet: %q", env.Type)
@@ -122,7 +108,6 @@ func UnMarshal(jsonstring string) (env OperationEnvelope, returnObj interface{},
 		err = fmt.Errorf("unknown Operation type")
 		return
 	}
-
 	return
 }
 
