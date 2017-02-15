@@ -93,7 +93,7 @@ func StartWebServer() error  {
 		Handler:      r,
 		Addr:         app.GlogchainConfigGlobal.GlogchainWebAddr,
 		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
+		WriteTimeout: 1500 * time.Second, // set timeout to high value for uploading large file to ipfs
 		ReadTimeout:  1500 * time.Second, // set timeout to high value for uploading large file to ipfs
 	}
 
