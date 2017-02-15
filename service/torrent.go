@@ -85,16 +85,10 @@ func Get_Torrent_From_Ipfs(mhash string) (data []byte, err error)  {
 	/////////////////////////////////
 	// get the file first
 	//url := app.GlogchainConfigGlobal.IpFsGateway + "/ipfs/" + mhash
-	////log.Println("url", url)
-	//resp, err := http.Get(url)
-	//if err != nil {
-	//	log.Println(err.Error())
-	//	return
-	//}
-	//defer resp.Body.Close()
 
-	// get from api instead of from gateway
-	url := app.GlogchainConfigGlobal.IpFsAPI + "/api/v0/get?arg=" + mhash
+	// remember to config ipfs ( ipfs service ) to listen on 0.0.0.0 so that it can be accessed behind firewall,
+	// behind firewall: 127.0.0.1, external still accessed via app.GlogchainConfigGlobal.IpFsGateway
+	url := "http://127.0.0.1:8080/ipfs/" + mhash
 	//log.Println("url", url)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -102,7 +96,6 @@ func Get_Torrent_From_Ipfs(mhash string) (data []byte, err error)  {
 		return
 	}
 	defer resp.Body.Close()
-
 
 	/////////////////////////////////
 	// load to torrent
