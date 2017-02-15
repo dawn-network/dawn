@@ -94,7 +94,7 @@ func StartWebServer() error  {
 		Addr:         app.GlogchainConfigGlobal.GlogchainWebAddr,
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		ReadTimeout:  1500 * time.Second, // set timeout to high value for uploading large file to ipfs
 	}
 
 	log.Fatal(srv.ListenAndServe()) // Bind to a port and pass our router in
