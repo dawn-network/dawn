@@ -84,7 +84,17 @@ func Create_Torrent_From_Local_File(filepath string, mhash_upload string) (err e
 func Get_Torrent_From_Ipfs(mhash string) (data []byte, err error)  {
 	/////////////////////////////////
 	// get the file first
-	url := app.GlogchainConfigGlobal.IpFsGateway + "/ipfs/" + mhash
+	//url := app.GlogchainConfigGlobal.IpFsGateway + "/ipfs/" + mhash
+	////log.Println("url", url)
+	//resp, err := http.Get(url)
+	//if err != nil {
+	//	log.Println(err.Error())
+	//	return
+	//}
+	//defer resp.Body.Close()
+
+	// get from api instead of from gateway
+	url := app.GlogchainConfigGlobal.IpFsAPI + "/api/v0/get?arg=" + mhash
 	//log.Println("url", url)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -130,3 +140,4 @@ func Get_Torrent_From_Ipfs(mhash string) (data []byte, err error)  {
 
 	return
 }
+
