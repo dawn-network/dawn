@@ -18,6 +18,7 @@ import (
 	"encoding/gob"
 	"github.com/tendermint/go-crypto"
 	"github.com/dawn-network/glogchain/db"
+	//"github.com/elazarl/go-bindata-assetfs"
 )
 
 type Context struct {
@@ -55,7 +56,8 @@ func StartWebServer() error  {
 	r := mux.NewRouter()
 
 	// This will serve files under http://localhost:8000/static/<filename>
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(app.GlogchainConfigGlobal.WebRootDir + "/web/static/"))))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/static/"))))
+	//r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(&assetfs.AssetFS{Asset: Asset, AssetDir: AssetDir, AssetInfo: AssetInfo, Prefix: "data"})))
 
 	//r.HandleFunc("/", HomeHandler)
 	r.HandleFunc("/", CategoryHandler)
