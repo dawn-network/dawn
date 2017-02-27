@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 	"github.com/gorilla/sessions"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 	"encoding/hex"
 	"bytes"
 	"encoding/binary"

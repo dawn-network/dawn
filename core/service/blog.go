@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"io/ioutil"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 )
 
 //func categories_normalize(jsonstr string) (string, error) {

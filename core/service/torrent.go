@@ -7,7 +7,7 @@ import (
 	"github.com/anacrolix/torrent/bencode"
 	"os"
 	"bufio"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"net/http"
 	"bytes"
 )

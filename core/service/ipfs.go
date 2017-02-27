@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"encoding/json"
 	"github.com/pkg/errors"
 	"os"

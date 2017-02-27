@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"log"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 	"io"
 )
 

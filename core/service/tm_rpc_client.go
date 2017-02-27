@@ -3,7 +3,7 @@ package service
 import (
 	"log"
 	"io/ioutil"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"net/http"
 	"fmt"
 )

@@ -11,6 +11,8 @@
 *.so
 vendor/
 glogchain
+glide.yaml
+glide.lock
 
 # Packages #
 ############
@@ -46,3 +48,4 @@ tmp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+

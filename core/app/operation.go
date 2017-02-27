@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 	"encoding/json"
 	"log"
 	"fmt"

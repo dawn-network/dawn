@@ -2,7 +2,7 @@ package web
 
 import (
 	"net/http"
-	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/core/service"
 	"encoding/json"
 	"log"
 	"strconv"

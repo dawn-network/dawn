@@ -5,11 +5,11 @@ import (
 	"encoding/hex"
 	"net/http"
 	"github.com/tendermint/go-crypto"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"strings"
 	"strconv"
 	"encoding/json"
-	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/core/service"
 )
 
 func WalletViewHandler(w http.ResponseWriter, req *http.Request) {

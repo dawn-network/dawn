@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"bytes"
 	"encoding/gob"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 )
 
 func Exec_DeliverTx(tx []byte) types.Result {

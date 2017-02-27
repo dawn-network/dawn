@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"log"
-	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/core/service"
 	"strconv"
 )
 

@@ -2,12 +2,12 @@ package web
 
 import (
 	"net/http"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 	"time"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"golang.org/x/crypto/ripemd160"
 	"fmt"
-	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/core/service"
 	"strings"
 	"encoding/hex"
 	"encoding/json"

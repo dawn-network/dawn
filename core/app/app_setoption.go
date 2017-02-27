@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 	"strconv"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/db"
 )
 
 /**

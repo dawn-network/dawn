@@ -6,7 +6,7 @@ import (
 	. "github.com/tendermint/go-common"
 	"github.com/tendermint/abci/server"
 	"github.com/dawn-network/glogchain/web"
-	. "github.com/dawn-network/glogchain/app"
+	. "github.com/dawn-network/glogchain/core/app"
 	"log"
 	cfg "github.com/tendermint/go-config"
 	"github.com/tendermint/go-logger"

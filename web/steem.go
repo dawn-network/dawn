@@ -2,12 +2,12 @@ package web
 
 import (
 	"net/http"
-	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/core/service"
 	"log"
 	"encoding/json"
 	"reflect"
-	"github.com/dawn-network/glogchain/app"
-	"github.com/dawn-network/glogchain/db"
+	"github.com/dawn-network/glogchain/core/app"
+	"github.com/dawn-network/glogchain/core/db"
 )
 
 func Steem_GetPost_Handler(w http.ResponseWriter, req *http.Request) {

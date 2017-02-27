@@ -5,7 +5,7 @@ import (
 	"time"
 	"io/ioutil"
 	"log"
-	"github.com/dawn-network/glogchain/app"
+	"github.com/dawn-network/glogchain/core/app"
 	"net/http"
 	"strings"
 	"net/url"
