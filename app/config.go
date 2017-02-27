@@ -11,7 +11,7 @@ import (
 
 
 type GlogCfg struct {
-	WebRootDir 		string
+	//WebRootDir 		string	// dont need anymore because using https://github.com/elazarl/go-bindata-assetfs
 	GlogchainWebAddr 	string
 	TmspAddr 		string
 	TmRpcLaddr 		string

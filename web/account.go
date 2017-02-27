@@ -14,7 +14,7 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	// If method is GET serve an html
 	if req.Method != "POST" {
 		context := Context{Title: "Welcome!"}
-		context.Static = app.GlogchainConfigGlobal.WebRootDir + "/static/"
+		context.Static = "/static/"
 		context.Data = map[string]interface{}{ "username": "", "prikey": ""}
 		render(w, "account_create", context)
 		return

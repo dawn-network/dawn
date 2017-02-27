@@ -1,5 +1,4 @@
 {
-  "WebRootDir": "./",
   "GlogchainWebAddr": "10.0.0.11:8000",
   "TmspAddr": "tcp://10.0.0.11:46658",
   "TmRpcLaddr" : "http://10.0.0.11:46657",

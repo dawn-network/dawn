@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"net/http"
 	"log"
-	"github.com/dawn-network/glogchain/app"
 	"github.com/dawn-network/glogchain/db"
 	"io"
 )
@@ -46,7 +45,7 @@ func CategoryHandler(w http.ResponseWriter, req *http.Request) {
 
 func ViewSinglePostHandler(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
-	context.Static = app.GlogchainConfigGlobal.WebRootDir + "/webcontent/static/"
+	context.Static = "/webcontent/static/"
 	//context.Request = req
 	context.SessionValues = GetSession(req).Values
 
@@ -68,26 +67,54 @@ func render(w http.ResponseWriter, tmpl string, data interface{}) {
 	t := template.New("index.html")
 	t = t.Funcs(funcMap)
 
-	var tmpl_list = []string {
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/index.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/header.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/footer.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/featured_posts.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/highlighted_posts.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/primary.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/secondary.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_slider.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_featured_posts_vertical.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_featured_posts.html",
-		app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_728x90_advertisement.html",
-		fmt.Sprintf(app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/%s.html", tmpl)}
 
-	t, err := t.ParseFiles(tmpl_list...)
-	if err != nil {
-		log.Print("template parsing error: ", err)
+	//////////////////////////
+	// using file system
+	//var tmpl_list = []string {
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/index.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/header.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/footer.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/featured_posts.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/highlighted_posts.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/primary.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/secondary.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_slider.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_featured_posts_vertical.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_featured_posts.html",
+	//	app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/widget_728x90_advertisement.html",
+	//	fmt.Sprintf(app.GlogchainConfigGlobal.WebRootDir + "/web/webcontent/templates/%s.html", tmpl)}
+	//
+	//t, err := t.ParseFiles(tmpl_list...)
+	//
+	//if err != nil {
+	//	log.Print("template parsing error: ", err)
+	//}
+
+	//////////////////////////
+	// using bundle resources
+	prefix_path := "webcontent/templates/"
+
+	var tmpl_list = []string {
+		prefix_path + "index.html",
+		prefix_path + "header.html",
+		prefix_path + "footer.html",
+		prefix_path + "featured_posts.html",
+		prefix_path + "highlighted_posts.html",
+		prefix_path + "primary.html",
+		prefix_path + "secondary.html",
+		prefix_path + "widget_slider.html",
+		prefix_path + "widget_featured_posts_vertical.html",
+		prefix_path + "widget_featured_posts.html",
+		prefix_path + "widget_728x90_advertisement.html",
+		fmt.Sprintf(prefix_path + "%s.html", tmpl)}
+
+	for _, v := range tmpl_list {
+		source, _ := Asset(v)
+		t, _ = t.Parse(string(source))
 	}
 
-	err = t.Execute(w, data)
+
+	err := t.Execute(w, data)
 	if err != nil {
 		log.Print("template executing error: ", err)
 	}
