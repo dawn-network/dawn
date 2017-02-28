@@ -11,8 +11,8 @@
 *.so
 vendor/
 glogchain
-glide.yaml
-glide.lock
+#glide.yaml
+#glide.lock
 
 # Packages #
 ############
