@@ -94,12 +94,7 @@ func AccountCreate(w http.ResponseWriter, req *http.Request) {
 	}
 
 	log.Println("tx_json=", string(byte_arr[:]))
-
-	tx_json_hex := make([]byte, len(byte_arr) * 2)
-	hex.Encode(tx_json_hex, byte_arr)
-	log.Println("tx_json_hex", string(tx_json_hex[:]))
-
-	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
+	service.TM_broadcast_tx_commit(byte_arr)
 	render(w, "account_create", ActionResult{Status: "success", Message: "ok", Data: map[string]interface{}{ "username": username, "prikey": prikey_str}})
 }
 

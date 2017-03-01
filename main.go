@@ -2,9 +2,7 @@ package main
 
 import (
 	"flag"
-
 	. "github.com/tendermint/go-common"
-	"github.com/tendermint/abci/server"
 	"github.com/dawn-network/glogchain/core/rpc"
 	"github.com/dawn-network/glogchain/web"
 	. "github.com/dawn-network/glogchain/core/app"
@@ -15,6 +13,7 @@ import (
 	tmcfg "github.com/tendermint/tendermint/config/tendermint"
 	"time"
 	"os"
+	"github.com/tendermint/abci/server"
 )
 
 func main() {
@@ -56,23 +55,27 @@ func main() {
 	// start embedded tendermint
 	go startTendermintNode()
 
-	// Wait forever
+	//// Wait forever
 	TrapSignal(func() {
-		time.Sleep(3 * time.Second) // wait 3s for TM stopping
+		//time.Sleep(3 * time.Second) // wait 3s for TM stopping
 
 		// Cleanup
 		s.Stop()
+		//tm_node.Stop()
 	})
 }
 
 
 
 var tm_config cfg.Config
+//var tm_node *node.Node
 
 /**
  Start Tendermint service as embedded mode.
  - Simpler for deploying
  - Hopefully avoid the panic bug when stop Glogchain before TM.
+
+ TODO: look at TM in-proc app to see if there is any imrovment on glogchain ( https://github.com/tendermint/basecoin/blob/master/cmd/commands/start.go#L88 )
  */
 func startTendermintNode()  {
 	// Get configuration
@@ -85,7 +88,32 @@ func startTendermintNode()  {
 	// wait sometime to make sure glogchain is up
 	log.Println("Wait 10s to lauch Tendermint...")
 	time.Sleep(time.Second * 10)
+
+	///////////////
 	node.RunNode(tm_config)
+
+	//privValidatorFile := tm_config.GetString("priv_validator_file")
+	//privValidator := tmtypes.LoadOrGenPrivValidator(privValidatorFile)
+	//
+	//tm_node = node.NewNode(tm_config, privValidator, proxy.NewLocalClientCreator(GlogGlobal.GlogApp))
+	//tm_node.Start()
+	//
+	////s, err := server.NewServer(*addrPtr, "grpc", GlogGlobal.GlogApp)
+	////if err != nil {
+	////	Exit(err.Error())
+	////}
+	//_, err := tm_node.StartRPC()
+	//if (err != nil) {
+	//	log.Println(err)
+	//}
+
+	////// Wait forever
+	//TrapSignal(func() {
+	//	//time.Sleep(3 * time.Second) // wait 3s for TM stopping
+	//
+	//	// Cleanup
+	//	tm_node.Stop()
+	//})
 }
 
 func init() {

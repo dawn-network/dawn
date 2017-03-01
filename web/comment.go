@@ -103,15 +103,7 @@ func CommentCreateHandler(w http.ResponseWriter, req *http.Request) {
 		log.Fatal("Cannot encode to JSON ", err)
 		return
 	}
-
-	tx_json := string(byte_arr[:])
-	log.Println("tx_json=", tx_json)
-
-	tx_json_hex := make([]byte, len(tx_json) * 2)
-	hex.Encode(tx_json_hex, []byte(tx_json))
-	log.Println("tx_json_hex", string(tx_json_hex[:]))
-
-	service.TM_broadcast_tx_commit(string(tx_json_hex[:]))
+	service.TM_broadcast_tx_commit(byte_arr)
 
 	// delay sometime then Redirect to the  post
 	time.Sleep(1000 * time.Millisecond) // 1s

@@ -2,14 +2,10 @@ package service
 
 import (
 	"encoding/json"
-	"time"
 	"io/ioutil"
 	"log"
-	"github.com/dawn-network/glogchain/core/app"
 	"net/http"
 	"strings"
-	"net/url"
-	"net"
 )
 
 var Chain_Node_List []string
@@ -23,39 +19,39 @@ func init() {
 }
 
 func chainpeer_monitoring()  {
-	for { // I will run forever
-		//log.Println("chain_peer_monitoring")
-		time.Sleep(time.Minute * 5)
-
-		travelled_nodes := map[string]string{} 	// holding all nodes travelled
-
-
-		// find peers on this node
-		err := chainpeer_findpeers (app.GlogchainConfigGlobal.TmRpcLaddr, travelled_nodes, true)
-		if (err != nil) {
-			log.Println(err.Error())
-			continue
-		}
-
-		// update to the list
-		Chain_Node_List = []string{}
-		for k := range travelled_nodes {
-			u, err := url.Parse(k)
-			if err != nil {
-				log.Println(err.Error())
-				break
-			}
-
-			host, _, err := net.SplitHostPort(u.Host)
-			if err != nil {
-				log.Println(err.Error())
-				break
-			}
-
-			Chain_Node_List = append(Chain_Node_List, host)
-		}
-		log.Println(Chain_Node_List)
-	}
+	//for { // I will run forever
+	//	//log.Println("chain_peer_monitoring")
+	//	time.Sleep(time.Minute * 5)
+	//
+	//	travelled_nodes := map[string]string{} 	// holding all nodes travelled
+	//
+	//
+	//	// find peers on this node
+	//	err := chainpeer_findpeers (app.GlogchainConfigGlobal.TmRpcLaddr, travelled_nodes, true)
+	//	if (err != nil) {
+	//		log.Println(err.Error())
+	//		continue
+	//	}
+	//
+	//	// update to the list
+	//	Chain_Node_List = []string{}
+	//	for k := range travelled_nodes {
+	//		u, err := url.Parse(k)
+	//		if err != nil {
+	//			log.Println(err.Error())
+	//			break
+	//		}
+	//
+	//		host, _, err := net.SplitHostPort(u.Host)
+	//		if err != nil {
+	//			log.Println(err.Error())
+	//			break
+	//		}
+	//
+	//		Chain_Node_List = append(Chain_Node_List, host)
+	//	}
+	//	log.Println(Chain_Node_List)
+	//}
 }
 
 

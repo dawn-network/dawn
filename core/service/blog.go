@@ -3,9 +3,10 @@ package service
 import (
 	"math/rand"
 	"log"
-	"net/http"
 	"io/ioutil"
+	"encoding/hex"
 	"github.com/dawn-network/glogchain/core/app"
+	"net/http"
 )
 
 //func categories_normalize(jsonstr string) (string, error) {
@@ -45,7 +46,16 @@ func RandSeq(n int) string {
 
 /////////////////
 
-func TM_broadcast_tx_commit(data string) {
+func TM_broadcast_tx_commit(tx []byte) {
+	log.Println("tx_json=", string(tx[:]))
+
+	tx_json_hex := make([]byte, len(tx) * 2)
+	hex.Encode(tx_json_hex, tx)
+	log.Println("tx_json_hex", string(tx_json_hex[:]))
+	//
+	data := string(tx_json_hex[:])
+
+
 	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
 	log.Println("TM_broadcast_tx_commit url_request: %#v\n", url_request)
 	resp, err := http.Get(url_request)
