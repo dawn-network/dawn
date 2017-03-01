@@ -33,7 +33,7 @@ func StartRpcServer() {
 	s.RegisterCodec(json.NewCodec(), "application/json")
 	s.RegisterCodec(json.NewCodec(), "application/json;charset=UTF-8")
 
-	s.RegisterService(new(RpcSample), "")
+	s.RegisterService(new(RpcPost), "")
 
 	r := mux.NewRouter()
 	r.Handle("/rpc", s)
