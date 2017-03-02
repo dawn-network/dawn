@@ -71,7 +71,7 @@ func Exec_CheckTx(tx []byte) tm_types.Result {
 
 	// check if Address existing
 	if (envelope.Type != "AccountCreateOperation") {
-		_, err = TreeGetAccount(GlogGlobal.GlogApp.State, address)
+		_, err = service.TreeGetAccount(GlogGlobal.GlogApp.State, address)
 		if (err != nil) {
 			log.Println(err.Error())
 			return tm_types.ErrInternalError

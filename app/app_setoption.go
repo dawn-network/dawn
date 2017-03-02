@@ -48,12 +48,12 @@ func Exec_SetOption(key string, value string) (logstr string) {
 
 
 		// Save to Merkle Tree App State
-		_, err = TreeGetAccount(GlogGlobal.GlogApp.State, pubkey.Address())
+		_, err = service.TreeGetAccount(GlogGlobal.GlogApp.State, pubkey.Address())
 		if (err == nil) { // return if foud
 			return err.Error()
 		}
 
-		err = TreeSaveAccount(GlogGlobal.GlogApp.State, account)
+		err = service.TreeSaveAccount(GlogGlobal.GlogApp.State, account)
 		if (err != nil) {
 			log.Println(err.Error())
 			return err.Error()

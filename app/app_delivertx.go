@@ -94,14 +94,14 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		account.Sequence = 1
 		account.Balance = 0
 
-		err = TreeSaveAccount(GlogGlobal.GlogApp.State, account)
+		err = service.TreeSaveAccount(GlogGlobal.GlogApp.State, account)
 		if (err != nil) {
 			log.Println(err.Error())
 			return tm_types.ErrInternalError
 		}
 		break
 	case types.SendTokenOperation:
-		var sendtoken SendToken
+		var sendtoken service.SendToken
 		sendtoken.From = Address
 
 		opt, ok := obj.(types.SendTokenOperation)
@@ -119,7 +119,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		sendtoken.To = ToAddress
 		sendtoken.Amount = opt.Amount
 
-		err = Exec_SendToken(GlogGlobal.GlogApp.State, sendtoken)
+		err = service.Exec_SendToken(GlogGlobal.GlogApp.State, sendtoken)
 		if (err != nil) {
 			log.Println(err.Error())
 			return tm_types.ErrEncodingError
