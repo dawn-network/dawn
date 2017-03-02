@@ -8,6 +8,7 @@ import (
 	"encoding/gob"
 	//"github.com/dawn-network/glogchain/core/db"
 	"github.com/dawn-network/glogchain/types"
+	"github.com/dawn-network/glogchain/service"
 )
 
 func Exec_DeliverTx(tx []byte) tm_types.Result {
@@ -34,7 +35,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 	//app.state.Set(opt_hash, tx)
 
 	///////////////////////////
-	env, obj , err := UnMarshal(jsonstring)
+	env, obj , err := types.UnMarshal(jsonstring)
 	if (err != nil) {
 		log.Println(err.Error())
 		return tm_types.ErrEncodingError
@@ -47,7 +48,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		return tm_types.ErrEncodingError
 	}
 
-	PubKey, err := GetPubKeyFromBytes(bPubKey)
+	PubKey, err := service.GetPubKeyFromBytes(bPubKey)
 	if (err != nil) {
 		log.Println(err.Error())
 		return tm_types.ErrInternalError
@@ -66,7 +67,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 	}
 
 	switch obj.(type) {
-	case AccountCreateOperation:
+	case types.AccountCreateOperation:
 		var user types.User
 		err = dec.Decode(&user)
 		if err != nil {
@@ -99,11 +100,11 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 			return tm_types.ErrInternalError
 		}
 		break
-	case SendTokenOperation:
+	case types.SendTokenOperation:
 		var sendtoken SendToken
 		sendtoken.From = Address
 
-		opt, ok := obj.(SendTokenOperation)
+		opt, ok := obj.(types.SendTokenOperation)
 		if (!ok) {
 			log.Println(err.Error())
 			return tm_types.ErrInternalError
@@ -125,7 +126,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		}
 
 		break
-	case PostCreateOperation:
+	case types.PostCreateOperation:
 		var post types.Post
 		err = dec.Decode(&post)
 		if err != nil {
@@ -139,7 +140,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		//	return tm_types.ErrInternalError
 		//}
 		break
-	case PostEditOperation:
+	case types.PostEditOperation:
 		var post types.Post
 		err = dec.Decode(&post)
 		if err != nil {
@@ -153,7 +154,7 @@ func Exec_DeliverTx(tx []byte) tm_types.Result {
 		//	return tm_types.ErrInternalError
 		//}
 		break
-	case CommentCreateOperation:
+	case types.CommentCreateOperation:
 		var comment types.Comment
 		err = dec.Decode(&comment)
 		if err != nil {

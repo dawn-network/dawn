@@ -1,12 +1,10 @@
-package app
+package types
 
 import (
-	//"github.com/dawn-network/glogchain/db"
 	"encoding/json"
 	"log"
 	"fmt"
 	"encoding/hex"
-	"github.com/dawn-network/glogchain/types"
 )
 
 // In prototype, we'll use json because we don't need high performance and protocols will need to be change however.
@@ -25,7 +23,7 @@ type OperationEnvelope struct {
 ////////////////////////////////////////
 // Account
 
-type AccountCreateOperation types.User
+type AccountCreateOperation User
 
 //type AccountUpdateOperation struct {
 //	// need to define here
@@ -34,11 +32,11 @@ type AccountCreateOperation types.User
 ////////////////////////////////////////
 // Posting
 
-type PostCreateOperation types.Post
+type PostCreateOperation Post
 
-type PostEditOperation types.Post
+type PostEditOperation Post
 
-type CommentCreateOperation types.Comment
+type CommentCreateOperation Comment
 
 //type VoteOperation struct {
 //	PostId 		string

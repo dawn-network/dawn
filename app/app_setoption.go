@@ -7,6 +7,7 @@ import (
 	"strconv"
 	//"github.com/dawn-network/glogchain/db"
 	"github.com/dawn-network/glogchain/types"
+	"github.com/dawn-network/glogchain/service"
 )
 
 /**
@@ -39,7 +40,7 @@ func Exec_SetOption(key string, value string) (logstr string) {
 		}
 
 		//
-		pubkey, err := GetPubKeyFromBytes(account.PubKey)
+		pubkey, err := service.GetPubKeyFromBytes(account.PubKey)
 		if err != nil {
 			log.Println(err.Error())
 			return err.Error()

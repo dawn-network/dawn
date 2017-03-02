@@ -5,8 +5,9 @@ import (
 	"log"
 	"io/ioutil"
 	"encoding/hex"
-	"github.com/dawn-network/glogchain/app"
+	//"github.com/dawn-network/glogchain/app"
 	"net/http"
+	"github.com/dawn-network/glogchain/types"
 )
 
 //func categories_normalize(jsonstr string) (string, error) {
@@ -56,7 +57,7 @@ func TM_broadcast_tx_commit(tx []byte) {
 	data := string(tx_json_hex[:])
 
 
-	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
+	var url_request string = types.GlogchainConfigGlobal.TmRpcLaddr + "/broadcast_tx_commit?tx=%22" + data + "%22"
 	log.Println("TM_broadcast_tx_commit url_request: %#v\n", url_request)
 	resp, err := http.Get(url_request)
 	if err != nil {

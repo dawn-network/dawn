@@ -4,7 +4,6 @@ import (
 	"flag"
 	. "github.com/tendermint/go-common"
 	"github.com/dawn-network/glogchain/rpc"
-	//"github.com/dawn-network/glogchain/web"
 	. "github.com/dawn-network/glogchain/app"
 	"log"
 	cfg "github.com/tendermint/go-config"
@@ -14,11 +13,11 @@ import (
 	"time"
 	"os"
 	"github.com/tendermint/abci/server"
-	//"github.com/dawn-network/web"
+	"github.com/dawn-network/glogchain/types"
 )
 
 func main() {
-	addrPtr := flag.String("addr", GlogchainConfigGlobal.TmspAddr, "Listen address")
+	addrPtr := flag.String("addr", types.GlogchainConfigGlobal.TmspAddr, "Listen address")
 	flag.Parse()
 
 	GlogGlobal.GlogApp = NewGlogChainApp()
@@ -80,7 +79,7 @@ var tm_config cfg.Config
  */
 func startTendermintNode()  {
 	// Get configuration
-	tm_config = tmcfg.GetConfig(GlogchainConfigGlobal.TmRoot)
+	tm_config = tmcfg.GetConfig(types.GlogchainConfigGlobal.TmRoot)
 	//parseFlags(config, args[1:]) // Command line overrides
 
 	// set the log level
@@ -127,5 +126,5 @@ func init() {
 		os.Mkdir("./tmp", os.ModePerm)
 	}
 
-	ReadConfig()
+	types.ReadConfig()
 }

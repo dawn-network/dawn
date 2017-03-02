@@ -7,6 +7,7 @@ import (
 	"github.com/tendermint/go-merkle"
 	dbm "github.com/tendermint/go-db"
 	"encoding/hex"
+	"github.com/dawn-network/glogchain/service"
 )
 
 type GlogChainApp struct {
@@ -31,7 +32,7 @@ func NewGlogChainApp() *GlogChainApp {
 	db := dbm.NewDB("state", dbm.GoLevelDBBackendStr, ".")
 	state := merkle.NewIAVLTree(0, db)
 
-	lastBlock := LoadLastBlock(db)
+	lastBlock := service.LoadLastBlock(db)
 	state.Load(lastBlock.AppHash)
 	savedAppHash = state.Hash()
 
@@ -44,7 +45,7 @@ func (app *GlogChainApp) Info() (resInfo types.ResponseInfo) {
 	resInfo = types.ResponseInfo{}
 	resInfo.Data = "GlogChainApp"
 
-	lastBlock := LoadLastBlock(app.Db)
+	lastBlock := service.LoadLastBlock(app.Db)
 	resInfo.LastBlockHeight = lastBlock.Height
 	resInfo.LastBlockAppHash = lastBlock.AppHash
 
@@ -76,13 +77,13 @@ func (app *GlogChainApp) Commit() types.Result {
 	// dont need to save state if there is no transaction or state doesnt change
 	if hasTx || (app.Height <= 1)  { // (app.Height % 10000 == 0
 		savedAppHash = app.State.Save()
-		lastBlock := LastBlockInfo {
+		lastBlock := service.LastBlockInfo {
 			Height:  app.Height,
 			AppHash: savedAppHash, 			// this hash will be in the next block header
 			TxCount: app.TxCount,
 		}
 
-		SaveLastBlock(app.Db, lastBlock)
+		service.SaveLastBlock(app.Db, lastBlock)
 	}
 
 	return types.NewResultOK(savedAppHash, "")

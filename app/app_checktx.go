@@ -4,6 +4,8 @@ import (
 	tm_types "github.com/tendermint/abci/types"
 	"encoding/hex"
 	"log"
+	"github.com/dawn-network/glogchain/service"
+	"github.com/dawn-network/glogchain/types"
 )
 
 /**
@@ -21,7 +23,7 @@ func Exec_CheckTx(tx []byte) tm_types.Result {
 	jsonstring:= string(arr[:])
 
 	// decode jsonstring to OperationEnvelope and Operation
-	envelope, operation , err := UnMarshal(jsonstring)
+	envelope, operation , err := types.UnMarshal(jsonstring)
 	if (err != nil) {
 		log.Println(err.Error())
 		return tm_types.ErrEncodingError
@@ -38,7 +40,7 @@ func Exec_CheckTx(tx []byte) tm_types.Result {
 		return tm_types.ErrEncodingError
 	}
 
-	pubKey, err := GetPubKeyFromBytes(bPubKey)
+	pubKey, err := service.GetPubKeyFromBytes(bPubKey)
 	if (err != nil) {
 		log.Println(err.Error())
 		return tm_types.ErrInternalError
@@ -51,7 +53,7 @@ func Exec_CheckTx(tx []byte) tm_types.Result {
 		return tm_types.ErrEncodingError
 	}
 
-	signature, err := GetSignatureFromBytes(bSignature)
+	signature, err := service.GetSignatureFromBytes(bSignature)
 	if (err != nil) {
 		log.Println(err.Error())
 		return tm_types.ErrInternalError
@@ -87,40 +89,40 @@ func Exec_CheckTx(tx []byte) tm_types.Result {
 	///////////
 
 	switch operation.(type) {
-	case AccountCreateOperation:
-		_, ok := operation.(AccountCreateOperation)
+	case types.AccountCreateOperation:
+		_, ok := operation.(types.AccountCreateOperation)
 		if (!ok) {
 			log.Println("Can not cast operation to AccountCreateOperation")
 			return tm_types.ErrInternalError
 		}
 
 		break
-	case SendTokenOperation:
-		_, ok := operation.(SendTokenOperation)
+	case types.SendTokenOperation:
+		_, ok := operation.(types.SendTokenOperation)
 		if (!ok) {
 			log.Println("Can not cast operation to SendTokenOperation")
 			return tm_types.ErrInternalError
 		}
 
 		break
-	case PostCreateOperation:
-		_, ok := operation.(PostCreateOperation)
+	case types.PostCreateOperation:
+		_, ok := operation.(types.PostCreateOperation)
 		if (!ok) {
 			log.Println("Can not cast operation to PostCreateOperation")
 			return tm_types.ErrInternalError
 		}
 
 		break
-	case PostEditOperation:
-		_, ok := operation.(PostEditOperation)
+	case types.PostEditOperation:
+		_, ok := operation.(types.PostEditOperation)
 		if (!ok) {
 			log.Println("Can not cast operation to PostEditOperation")
 			return tm_types.ErrInternalError
 		}
 
 		break
-	case CommentCreateOperation:
-		_, ok := operation.(CommentCreateOperation)
+	case types.CommentCreateOperation:
+		_, ok := operation.(types.CommentCreateOperation)
 		if (!ok) {
 			log.Println("Can not cast operation to CommentCreateOperation")
 			return tm_types.ErrInternalError

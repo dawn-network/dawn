@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"github.com/tendermint/go-wire"
 	"github.com/dawn-network/glogchain/types"
+	"github.com/dawn-network/glogchain/service"
 )
 
 
@@ -19,13 +20,13 @@ type SendToken struct {
 }
 
 func TreeSaveAccount(state merkle.Tree, acc types.Account) error  {
-	pubkey, err := GetPubKeyFromBytes(acc.PubKey)
+	pubkey, err := service.GetPubKeyFromBytes(acc.PubKey)
 	if err != nil {
 		log.Println(err.Error())
 		return err
 	}
 
-	raw, err := StructToBytes(acc)
+	raw, err := service.StructToBytes(acc)
 	if err != nil {
 		log.Println(err.Error())
 		return err

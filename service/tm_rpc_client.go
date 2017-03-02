@@ -3,9 +3,10 @@ package service
 import (
 	"log"
 	"io/ioutil"
-	"github.com/dawn-network/glogchain/app"
+	//"github.com/dawn-network/glogchain/app"
 	"net/http"
 	"fmt"
+	"github.com/dawn-network/glogchain/types"
 )
 
 // https://github.com/tendermint/tendermint/wiki/RPC
@@ -33,7 +34,7 @@ import (
 
 //http://localhost:46657/dump_consensus_state
 func TmRpc_Dump_Consensus_State() (str_json_response string, err error) {
-	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/dump_consensus_state"
+	var url_request string = types.GlogchainConfigGlobal.TmRpcLaddr + "/dump_consensus_state"
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -93,7 +94,7 @@ func TmRpc_Status() (str_json_response string, err error) {
 	}
 	 */
 
-	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/status"
+	var url_request string = types.GlogchainConfigGlobal.TmRpcLaddr + "/status"
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -324,7 +325,7 @@ func TmRpc_NetInfo() (str_json_response string, err error) {
 	}
 	 */
 
-	var url_request string = app.GlogchainConfigGlobal.TmRpcLaddr + "/net_info"
+	var url_request string = types.GlogchainConfigGlobal.TmRpcLaddr + "/net_info"
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
@@ -420,7 +421,7 @@ func TmRpc_Block(height int64) (str_json_response string, err error) {
 	   "error":""
 	}
 	 */
-	var url_request string = fmt.Sprintf("%s/block?height=%d", app.GlogchainConfigGlobal.TmRpcLaddr, height)
+	var url_request string = fmt.Sprintf("%s/block?height=%d", types.GlogchainConfigGlobal.TmRpcLaddr, height)
 	log.Println("url_request", url_request)
 
 	resp, err := http.Get(url_request)
