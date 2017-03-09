@@ -8,6 +8,24 @@ By building this repository you can use an incomplete version of our software.
 
 Join our discourse chat at: https://discord.gg/8dWYbFS 
 
+## development environment configuration (debian) (Assumes you've no go env at install time)
+```
+apt install build-essential bison
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+source /home/$USER/.gvm/scripts/gvm
+gvm use go1.8
+gvm install go1.8 --default
+mkdir $GOPATH/bin
+go get -u github.com/tendermint/tendermint/...
+cd $GOPATH/src/github.com/tendermint/tendermint
+make install
+go get -u github.com/dawn-network/glogchain/...
+cd $GOPATH/src/github.com/dawn-network/glogchain
+glide install
+
+```
+
+
 ## test network
 ![Screen_Shot_2017-02-07_at_2.09.09_PM396a4.png](http://www.steemimg.com/images/2017/02/07/Screen_Shot_2017-02-07_at_2.09.09_PM396a4.png)
 
