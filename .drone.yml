@@ -16,8 +16,6 @@ gh_publish:
     files:
       - src/github.com/dawn-network/glogchain
       
-docker_publish
-
 
 bt_publish:
   bintray:
