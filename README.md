@@ -8,7 +8,13 @@ By building this repository you can use an incomplete version of our software.
 
 Join our discourse chat at: https://discord.gg/8dWYbFS 
 
-## development environment configuration (debian) (Assumes you've no go env at install time)
+## Opinionated development environment configuration (debian) (Assumes you've no go env at install time)
+
+IDEs
+* Jetbrains Gogland
+* VSCode
+* Vim
+
 ```
 apt install build-essential bison
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
