@@ -9,18 +9,8 @@ pipeline:
       - go get github.com/Masterminds/glide
       - glide install
       
-pipeline:
+ publish:
   github_release:
-    image: plugins/github-release
+    api_key: my_github_api_key
     files:
-      - src/github.com/dawn-network/glogchain/glogchain
-    checksum:
-      - md5
-      - sha1
-      - sha256
-      - sha512
-      - adler32
-      - crc32
-    when:
-      event: tag
-    
+      - src/github.com/dawn-network/glogchain
