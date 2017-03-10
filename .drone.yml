@@ -15,24 +15,7 @@ gh_publish:
     api_key: my_github_api_key
     files:
       - src/github.com/dawn-network/glogchain
-      
-
-bt_publish:
-  bintray:
-    username: faddat
-    password: bintray_password
-    branch: master
-    artifacts: 
-      - file: bin/glogchain
-        owner: dawn-network
-        type: executable
-        repository: dawn-network/glogchain
-        package: glogchain
-        target: glogchain
-        publish: true
-        override: true
-
-      
+            
 notify:
   downstream:
     repositories:
