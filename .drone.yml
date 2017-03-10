@@ -15,9 +15,6 @@ publish:
     api_key: my_github_api_key
     files:
       - bin/glogchain
-      
-      
-publish:
   docker:
     environment:
       - DOCKER_LAUNCH_DEBUG=true
