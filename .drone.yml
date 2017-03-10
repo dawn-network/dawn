@@ -19,7 +19,7 @@ notify:
   downstream:
     repositories:
       - dawn-network/dawnos
-    token: e3b0c44298fc1c149afbf4
+    token: drone_token
     when:
       event: push
       branch: master
