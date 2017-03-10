@@ -1,6 +1,8 @@
 # glogchain: better communities
 
 [![CircleCI](https://circleci.com/gh/dawn-network/glogchain/tree/master.svg?style=svg)](https://circleci.com/gh/dawn-network/glogchain/tree/master)
+[![Build Status](http://163.172.170.63/api/badges/dawn-network/glogchain/status.svg)](http://163.172.170.63/dawn-network/glogchain)
+
 
 Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve [webtorent](webtorrent.io) files to a single page web application that handles a number of different content types.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
 
