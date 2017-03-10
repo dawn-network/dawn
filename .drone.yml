@@ -9,4 +9,9 @@ pipeline:
       - go get github.com/Masterminds/glide
       - glide install
       
+publish:
+  github_release:
+    api_key: my_github_api_key
+    files:
+      - dist/*
     
