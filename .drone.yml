@@ -5,3 +5,8 @@ workspace:
 pipeline:
   build:
     image: golang:1.8
+    commands: 
+      - go get github.com/masterminds/glide
+      - glide install
+      
+    
