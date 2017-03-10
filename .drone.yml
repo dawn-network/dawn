@@ -1,0 +1,7 @@
+workspace:
+  base: /go
+  path: src/github.com/dawn-network/glogchain
+
+pipeline:
+  build:
+    image: golang:1.8
