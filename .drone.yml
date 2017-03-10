@@ -14,6 +14,10 @@ publish:
     image: plugins/github_release
     api_key: my_github_api_key
     files:
-      - src/github.com/dawn-network/glogchain
-  docker_publish:
-    image: plugin/docker
+      - bin/glogchain
+      
+      
+publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
