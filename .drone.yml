@@ -14,3 +14,13 @@ pipeline:
     api_key: my_github_api_key
     files:
       - src/github.com/dawn-network/glogchain
+      
+notify:
+  downstream:
+    repositories:
+      - dawn-network/dawnos
+    token: e3b0c44298fc1c149afbf4
+    when:
+      event: push
+      branch: master
+      success: true
