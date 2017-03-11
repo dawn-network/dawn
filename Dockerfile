@@ -9,4 +9,3 @@ RUN go build .
 RUN go install .
 EXPOSE 8000
 CMD ["glogchain"]
-
