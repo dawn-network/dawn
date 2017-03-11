@@ -10,8 +10,9 @@ By building this repository you can use an incomplete version of our software.
 
 Join our discourse chat at: https://discord.gg/8dWYbFS 
 
-## Opinionated development environment configuration (debian) (Assumes you've no go env at install time)
-
+* pinionated development environment configuration (debian) (Assumes you've no go env at install time) (click to expand)
+<summary>debian</summary>
+<details>
 IDEs
 * Jetbrains Gogland
 * VSCode
@@ -32,6 +33,7 @@ cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
 
 ```
+</details>
 
 
 ## test network
@@ -41,8 +43,13 @@ glide install
 
 By storing hashes to our blockchain, and checking file hashes for validity, we are able to provide an immutability mechansim beyond our blockchain for the files that users upload.  
 
-## Development
-
+* developer experience
+<summary>Development</summary>
+<details>
+IDEs
+* Jetbrains Gogland
+* VSCode
+* Vim
 [![Router6d7376.md.png](http://www.steemimg.com/images/2017/02/07/Router6d7376.md.png)](http://www.steemimg.com/image/GhYv7)
 
 We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with a modern x86 CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an opinionated golang development environment.  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment.  If you've any questions about the router or would like to buy one (sold at cost to developers who have made code commits to our projects) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.  
