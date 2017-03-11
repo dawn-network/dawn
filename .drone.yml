@@ -12,12 +12,29 @@ pipeline:
       - go build .
       
   publish:
-    image: plugins/docker
-    repo: faddat/glogchain
-    username: faddat
-    password: docker_password
-    tag: [ "latest" ]
-    when:
+    docker:
+      repo: faddat/glogchain
+      email: faddat@gmail.com
+      image-name: glogchain        
+      push_latest: true
+      keep_builds: false
+      username: faddat
+      password: docker_password
+      tag: [ "latest" ]
+      when:
+        branch: master
+        event: push
+    github:
       branch: master
-      event: push
+      script:
+        - make embed
+        - make release
+      artifacts:
+        - release/
+      tag: v$(cat VERSION)
+      token: 
+      user: faddat
+      repo: dawn-network/glogchain
+      
+  
       
