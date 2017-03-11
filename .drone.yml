@@ -5,7 +5,7 @@ workspace:
 pipeline:
   build:
     image: golang:1.8
-    commands: 
+    commands:
       - go get github.com/Masterminds/glide
       - go get github.com/gorilla/rpc
       - glide install
@@ -16,6 +16,12 @@ pipeline:
       api_key: my_github_api_key
       files:
         - ./glogchain        
-    docker:
-      image: plugins/docker
-      repo: faddat/glogchain
+  publish:
+    image: plugins/docker
+    repo: drone/drone
+    username: faddat
+    password: docker_password
+    tag: [ "latest" ]
+    when:
+      branch: master
+      event: push
