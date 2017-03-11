@@ -7,6 +7,7 @@ pipeline:
     image: golang:1.8
     commands: 
       - go get github.com/Masterminds/glide
+      - go get github.com/gorilla/rpc
       - glide install
       - go build .
       
