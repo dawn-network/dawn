@@ -8,13 +8,15 @@ pipeline:
     commands: 
       - go get github.com/Masterminds/glide
       - glide install
+      - go build .
       
-publish:
-  github_release:
-    image: plugins/github_release
-    api_key: my_github_api_key
-    files:
-      - bin/glogchain
+  publish:
+    github_release:
+      image: plugins/github_release
+      api_key: my_github_api_key
+      files:
+        - ./glogchain
+        
   docker:
     environment:
       - DOCKER_LAUNCH_DEBUG=true
