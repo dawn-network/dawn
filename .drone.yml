@@ -10,15 +10,10 @@ pipeline:
       - go get github.com/gorilla/rpc
       - glide install
       - go build .
-  publish:
-    github_release:
-      image: plugins/github_release
-      api_key: my_github_api_key
-      files:
-        - ./glogchain        
+      
   publish:
     image: plugins/docker
-    repo: drone/drone
+    repo: faddat/glogchain
     username: faddat
     password: docker_password
     tag: [ "latest" ]
