@@ -10,7 +10,6 @@ pipeline:
       - go get github.com/gorilla/rpc
       - glide install
       - go build .
-      
   publish:
     github_release:
       image: plugins/github_release
@@ -18,5 +17,5 @@ pipeline:
       files:
         - ./glogchain        
     docker:
-      environment:
-        - DOCKER_LAUNCH_DEBUG=true
+      image: plugins/docker
+      repo: faddat/glogchain
