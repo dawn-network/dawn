@@ -11,8 +11,9 @@ By building this repository you can use an incomplete version of our software.
 Join our discourse chat at: https://discord.gg/8dWYbFS 
 
 * pinionated development environment configuration (debian) (Assumes you've no go env at install time) (click to expand)
-<summary>debian</summary>
 <details>
+<summary>debian</summary>
+
 IDEs
 * Jetbrains Gogland
 * VSCode
