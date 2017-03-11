@@ -15,6 +15,7 @@ pipeline:
     docker:
       repo: faddat/glogchain
       email: faddat@gmail.com
+      image: golang:stretch
       image-name: glogchain        
       push_latest: true
       keep_builds: false
