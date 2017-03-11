@@ -15,8 +15,7 @@ pipeline:
       image: plugins/github_release
       api_key: my_github_api_key
       files:
-        - ./glogchain
-        
-  docker:
-    environment:
-      - DOCKER_LAUNCH_DEBUG=true
+        - ./glogchain        
+    docker:
+      environment:
+        - DOCKER_LAUNCH_DEBUG=true
