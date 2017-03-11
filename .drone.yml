@@ -15,7 +15,7 @@ pipeline:
     docker:
       repo: faddat/glogchain
       email: faddat@gmail.com
-      image: golang:stretch
+      image: golang:1.8
       image-name: glogchain        
       push_latest: true
       keep_builds: false
@@ -27,13 +27,10 @@ pipeline:
         event: push
     github:
       branch: master
-      script:
-        - make embed
-        - make release
       artifacts:
-        - release/
+        - glogchain
       tag: v$(cat VERSION)
-      token: 
+      token: my_github_api_key
       user: faddat
       repo: dawn-network/glogchain
       
