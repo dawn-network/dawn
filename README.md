@@ -1,4 +1,4 @@
-# glogchain: user-centric technosocial collaborative utility set
+# glogchain
 
 [![CircleCI](https://circleci.com/gh/dawn-network/glogchain/tree/master.svg?style=svg)](https://circleci.com/gh/dawn-network/glogchain/tree/master)
 [![Build Status](http://163.172.170.63/api/badges/dawn-network/glogchain/status.svg)](http://163.172.170.63/dawn-network/glogchain)
@@ -23,15 +23,18 @@ IDEs
 apt install build-essential bison
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /home/$USER/.gvm/scripts/gvm
-gvm use go1.8
-gvm install go1.8 --default
+gvm install go1.8 -B -pb
+gvm use go1.8 --default
 mkdir $GOPATH/bin
+go get -u github.com/Masterminds/glide
 go get -u github.com/tendermint/tendermint/...
 cd $GOPATH/src/github.com/tendermint/tendermint
 make install
 go get -u github.com/dawn-network/glogchain/...
 cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
+go build .
+go install .
 
 ```
 </details>
