@@ -1,4 +1,4 @@
-# glogchain: user-centric technosocial collaborative utility set
+# glogchain: Let's upgrade the web
 
 [![Build Status](http://163.172.170.63/api/badges/dawn-network/glogchain/status.svg)](http://163.172.170.63/dawn-network/glogchain)
 
