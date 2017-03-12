@@ -32,7 +32,7 @@ go install .
 </details>
 
 <details>
-<summary>test network</xummary>
+<summary>test network</summary>
 You can currently e-mail or send a google hangouts message to Jacob Gadikian at faddat@gmail.com for help getting onto one of our testnets as a validator, non-validator or light client.
 </details>
 
