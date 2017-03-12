@@ -72,7 +72,7 @@ Privacy is implemented as follows:
 Please see @baabeetaa's [guide to creating non-validator nodes](https://github.com/dawn-network/glogchain/wiki/Create-local-testnet).  Seed addresses are listed there and you should be able to join our test network.
 
 ## binaries
-Binaries for OSX, Linux, and windows will be available shortly. 
+Linux binaries are available from here: https://github.com/dawn-network/glogchain/releases
 
 ## Coin and inflation
 To ensure its survival in perpetuity, we have implemented a cryptocurrency system called Ray in glogchain.  One unit of currency is created with each block, forever.  This means that while early years will have a high inflation rate, actual currency supply after the 10th year or so will ahve relatively low inflation.  Given that content distribution and storage in this manner is at an infant state, we feel that ensuring a high enough validator count and a high (90%) rate of payments to creators based on hit count + eyeball-time will distribute the network's creative rays in a manner that reflects reality.  
@@ -80,6 +80,7 @@ To ensure its survival in perpetuity, we have implemented a cryptocurrency syste
 ## Tendermint and Cosmos
 We are of course huge fans of the tendermint blockchain toolkit, and of the inter-network of blocckahins called cosmos.  For more information, please see their whitepaper.  
 
-## Piracy
-
+<details>
+<summary>## Piracy</summary>
 We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music. 
+</details>
