@@ -81,6 +81,6 @@ To ensure its survival in perpetuity, we have implemented a cryptocurrency syste
 We are of course huge fans of the tendermint blockchain toolkit, and of the inter-network of blocckahins called cosmos.  For more information, please see their whitepaper.  
 
 <details>
-<summary>## Piracy</summary>
+## <summary>Piracy</summary>
 We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music. 
 </details>
