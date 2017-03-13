@@ -21,8 +21,10 @@ mkdir $GOPATH/bin
 go get -u github.com/Masterminds/glide
 go get -u github.com/tendermint/tendermint/...
 cd $GOPATH/src/github.com/tendermint/tendermint
+git branch develop
 make install
 go get -u github.com/dawn-network/glogchain/...
+git branch develop
 cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
 go build .
