@@ -1,6 +1,5 @@
 #/bin/bash
-echo "what is your public IP address?"
-read -p 'Public IP' uservar
+wget canhazip.com | export PUBIP
 apt install build-essential bison git
 if [[ ! -f ./gvm-installer ]]
 then
@@ -24,3 +23,10 @@ cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
 go build .
 go install .
+go get github.com/ipfs/go-ipfs
+cd $GOPATH/src/github.com/ipfs/go-ipfs
+make install
+cd ~/
+ipfs init
+ipfs cat /ipfs/QmVLDAhCY3X9P2uRudKAryuQFPM5zqA3Yij1dY8FpGbL7T/readme
+
