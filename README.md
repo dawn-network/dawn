@@ -2,36 +2,16 @@
 
 [![Build Status](http://163.172.170.63/api/badges/dawn-network/glogchain/status.svg)](http://163.172.170.63/dawn-network/glogchain)
 
-Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve [webtorent](webtorrent.io) files to a single page web application that handles a number of different content types.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
+Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve files via [webtorent](webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types, or to various and sundry client applications that use bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to share this content with their friends.  
 
 You can download linux-only binaries here:  
 https://github.com/dawn-network/glogchain/releases
 
+If you have a mac, please do build binaries for us, and mail them to faddat@gmail.com.  We don't support windows for validators/back end nodes.  We will have windows clients, as well as mac clients, and android/ios clients.  As they are completed, we'll fill in the links.  
+
+Install script is here: https://github.com/dawn-network/glogchain/blob/master/install.sh
+
 Join our discourse chat at: https://discord.gg/8dWYbFS
-
-<details>
-<summary>Opinionated build for debian</summary>
-```
-apt install build-essential bison
-bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-source /home/$USER/.gvm/scripts/gvm
-gvm install go1.8 -B -pb
-gvm use go1.8 --default
-mkdir $GOPATH/bin
-go get -u github.com/Masterminds/glide
-go get -u github.com/tendermint/tendermint/...
-cd $GOPATH/src/github.com/tendermint/tendermint
-git branch develop
-make install
-go get -u github.com/dawn-network/glogchain/...
-git branch develop
-cd $GOPATH/src/github.com/dawn-network/glogchain
-glide install
-go build .
-go install .
-
-```
-</details>
 
 <details>
 <summary>test network</summary>
@@ -76,4 +56,9 @@ We are of course huge fans of the [tendermint blockchain toolkit](github.com/ten
 <details>
 <summary>Piracy</summary>
 We encourage users to upload works to which they own the copyright.  Our seeders must unfortunately stop seeding files determined to contain copyrighted content not owned by the user.  Users may also choose to copyleft their content, or license it as they see fit.  The difference is that in our implementation, users drive decisionmaking about copyright, not a cabal of governmnet backed companies that have been around as long as recorded music.
+</details>
+
+<details>
+<summary>Open Source</summary>
+Open source can change the world for the better.  Drug patents are morally bankrupt.  The time it takes to copy a product is more than enough time for any exclusivity:  Patent and copyright laws were made in the 1800s and a spineless, cowardly American government too focused on warfare abroad to even be capable of ensuring the well-being of its own people, let alone anyone else's has tried to make its copyright agenda the global norm.  And that should be fine with you-- if you're Coca-Cola, or Microsoft, or Google, or Facebook, or Apple, or Michael Jackons's heirs.  But you're not any of those (even if you're on the board of one of the entities I named)-- you are YOU.  So-- when's the last time copyright/patent law did anything good for YOU?   Copyrights that were intended to last for no longer than seven years now last 25 years longer than the author's lifespan.  There is absolutley no way that patents and copyrights aren't holding back the pace of innovation.  This is 100% open source software.  We're working very hard to ship it on 100% open source hardware, but things are so far gone that isn't even possible for our first revision, despite our efforts to do so.  
 </details>
