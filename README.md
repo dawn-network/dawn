@@ -2,7 +2,7 @@
 
 [![Build Status](http://163.172.170.63/api/badges/dawn-network/glogchain/status.svg)](http://163.172.170.63/dawn-network/glogchain)
 
-Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve files via [webtorent](webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types, or to various and sundry client applications that use bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to:
+Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.  It will serve files via [webtorent](webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types via webtorrent, or to various and sundry client applications via bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to:
 
 * Share with friends
 * Sell to customers
