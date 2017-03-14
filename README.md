@@ -50,7 +50,7 @@ To ensure its survival in perpetuity, we have implemented a cryptocurrency syste
 
 <details>
 <summary>Tendermint and Cosmos</summary>
-We are of course huge fans of the [tendermint blockchain toolkit](github.com/tendermint/tendermint), and of the inter-network of blocckahins called [cosmos](github.com/tendermint/cosmos).  For more information, please see their whitepaper.  
+We are of course huge fans of the [tendermint blockchain toolkit](http://github.com/tendermint/tendermint), and of the inter-network of blocckahins called [cosmos](http://github.com/tendermint/cosmos).  For more information, please see their whitepaper.  
 </details>
 
 <details>
