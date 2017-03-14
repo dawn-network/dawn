@@ -1,6 +1,6 @@
 #/bin/bash
 wget canhazip.com | export PUBIP
-apt install build-essential bison git
+apt install -y build-essential bison git
 if [[ ! -f ./gvm-installer ]]
 then
 	wget https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer
