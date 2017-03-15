@@ -5,6 +5,9 @@ workspace:
 pipeline:
   build:
     image: golang:1.8
+    branch: master
+    artifacts:
+      - glogchain
     commands:
       - go get github.com/Masterminds/glide
       - go get github.com/gorilla/rpc
