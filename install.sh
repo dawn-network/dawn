@@ -5,7 +5,8 @@ apt-get -y upgrade
 apt-get -y autoremove
 curl canhazip.com | export PUBIP
 apt-get -y install build-essential bison git golang curl
-git clone https://github.com/moovweb/gvm .gvm
+git clone https://github.com/moovweb/gvm
+mv gvm .gvm
 source /$HOME/.gvm/scripts/gvm
 gvm install go1.8 -pb
 gvm use go1.8 --default
