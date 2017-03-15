@@ -5,7 +5,7 @@ echo -n "node listening address $PUBIP:46656"
 echo -n "HTTP address [ENTER]: $PUBIP:80"
 apt-get update
 apt-get -y upgrade
-apt-get -y install build-essential bison git curl 
+apt-get -y install build-essential bison git curl protobuf-compiler
 git clone https://github.com/hypriot/golang-armbuilds.git golang-armbuilds-1.4
 cd golang-armbuilds-1.4
 export SKIP_TEST=1
