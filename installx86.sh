@@ -8,10 +8,9 @@ apt-get update
 apt-get -y upgrade
 apt-get -y autoremove
 apt-get -y install build-essential bison git curl mercurial
-sed -ie 's/10.0.0.11/$PUBIP/g' hello.txt
+sed -ie 's/10.0.0.11/$PUBIP/g' config.json
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /root/.gvm/scripts/gvm
-sed -i -e 
 gvm install go1.8 -B -pb
 gvm use go1.8 --default
 mkdir $GOPATH/bin
