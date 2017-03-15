@@ -1,5 +1,10 @@
 #!/bin/bash
 cd /root
+echo -n "Enter your public IP address and press [ENTER]: "
+read PUBIP
+echo -n "node listening address $PUBIP:46656"
+echo -n "HTTP address [ENTER]: "
+echo
 apt-get update
 apt-get -y upgrade
 apt-get -y autoremove
@@ -31,4 +36,4 @@ cd ~/
 ipfs init
 ipfs cat /ipfs/QmVLDAhCY3X9P2uRudKAryuQFPM5zqA3Yij1dY8FpGbL7T/readme
 tendermint init
-echo "Please ensure that you have set up any needed forwarding.  This script detects your public IP address, but there are many good reasons why your machine may not be using a public IP address.  We've no love for NAT, so if you're running a validator, we do expect that you'll be able to use the forwarding features on your router.
+echo "Please ensure that you have set up any needed forwarding.  This script detects your public IP address, but there are many good reasons why your machine may not be using a public IP address.  We've no love for NAT, so if you're running a validator, please, no NAT.
