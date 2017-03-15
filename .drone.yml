@@ -36,6 +36,3 @@ pipeline:
       token: my_github_api_key
       user: faddat
       repo: dawn-network/glogchain
-      
-  
-      
