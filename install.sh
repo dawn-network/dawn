@@ -1,14 +1,13 @@
-#/bin/bash
-wget canhazip.com | export PUBIP
-apt install -y build-essential bison git
-if [[ ! -f ./gvm-installer ]]
-then
-	wget https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer
-fi
-chmod +x gvm-installer
-./gvm-installer
+#!/bin/bash
+cd /root
+apt update
+apt-get -y upgrade
+apt-get -y autoremove
+curl canhazip.com | export PUBIP
+apt-get -y install build-essential bison git golang curl
+git clone https://github.com/moovweb/gvm .gvm
 source /$HOME/.gvm/scripts/gvm
-gvm install go1.8 -B -pb
+gvm install go1.8 -pb
 gvm use go1.8 --default
 mkdir $GOPATH/bin
 go get -u github.com/Masterminds/glide
