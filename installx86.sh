@@ -3,7 +3,10 @@ cd /root
 apt-get update
 apt-get -y upgrade
 apt-get -y autoremove
-apt-get -y install build-essential bison git golang curl 
+apt-get -y install build-essential bison git curl
+mkdir /root/go
+export GOPATH=/root/go
+export PATH=$PATH:/root/go/bin
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /root/.gvm/scripts/gvm
 gvm install go1.8 -pb
