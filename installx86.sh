@@ -3,17 +3,15 @@ cd /root
 echo -n "Enter your public IP address and press [ENTER]: "
 read PUBIP
 echo -n "node listening address $PUBIP:46656"
-echo -n "HTTP address [ENTER]: "
-echo
+echo -n "HTTP address [ENTER]: $PUBIP:80"
 apt-get update
 apt-get -y upgrade
 apt-get -y autoremove
-apt-get -y install build-essential bison git curl
-mkdir /root/go
-export GOPATH=/root/go
-export PATH=$PATH:/root/go/bin
+apt-get -y install build-essential bison git curl mercurial
+sed -ie 's/10.0.0.11/$PUBIP/g' hello.txt
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /root/.gvm/scripts/gvm
+sed -i -e 
 gvm install go1.8 -B -pb
 gvm use go1.8 --default
 mkdir $GOPATH/bin
