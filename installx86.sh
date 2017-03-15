@@ -9,7 +9,7 @@ export GOPATH=/root/go
 export PATH=$PATH:/root/go/bin
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /root/.gvm/scripts/gvm
-gvm install go1.8 -pb
+gvm install go1.8 -B -pb
 gvm use go1.8 --default
 mkdir $GOPATH/bin
 go get -u github.com/Masterminds/glide
