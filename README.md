@@ -1,6 +1,6 @@
 # glogchain: Let's upgrade the web
 
-[Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)](http://163.172.150.160/dawn-network/glogchain)
+ [Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)
 
 Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.   It will serve files via [webtorent](http://webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types via webtorrent, or to various and sundry client applications via bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to:
 
