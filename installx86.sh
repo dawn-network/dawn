@@ -1,14 +1,13 @@
 #!/bin/bash
 cd /root
 echo -n "Enter your public IP address and press [ENTER]: "
-read PUBIP
+read $PUBIP
 echo -n "node listening address $PUBIP:46656"
 echo -n "HTTP address [ENTER]: $PUBIP:80"
 apt-get update
 apt-get -y upgrade
 apt-get -y autoremove
 apt-get -y install build-essential bison git curl mercurial
-sed -ie 's/10.0.0.11/$PUBIP/g' config.json
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source /root/.gvm/scripts/gvm
 gvm install go1.8 -B -pb
@@ -21,6 +20,7 @@ git branch develop
 make install
 go get -u github.com/dawn-network/glogchain/...
 cd $GOPATH/src/github.com/dawn-network/glogchain
+sed -ie 's/10.0.0.11/$PUBIP/g' /root/config.json
 git branch develop
 cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
