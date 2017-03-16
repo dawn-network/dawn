@@ -21,8 +21,6 @@ make install
 git clone https://github.com/dawn-network/glogchain/ $GOPATH/src/github.com/dawn-network/glogchain
 cd $GOPATH/src/github.com/dawn-network/glogchain
 sed -ie 's/10.0.0.11/$PUBIP/g' config.json
-git branch develop
-glide install
 go build .
 go install .
 go get github.com/ipfs/go-ipfs
