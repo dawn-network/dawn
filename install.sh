@@ -12,7 +12,6 @@ gvm install go1.8 -B -pb
 gvm use go1.8 --default
 mkdir -p $GOPATH/bin
 go get -u github.com/Masterminds/glide
-go get -u github.com/gorilla/rpc/...
 mkdir $GOPATH/src/github.com/tendermint
 git clone https://github.com/tendermint/tendermint/ $GOPATH/src/github.com/tendermint/tendermint
 cd $GOPATH/src/github.com/tendermint/tendermint
