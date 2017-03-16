@@ -8,9 +8,7 @@ apt-get -y upgrade
 apt-get -y install  curl git mercurial make binutils bison gcc build-essential protobuf-compiler
 curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer| bash
 source /root/.gvm/scripts/gvm
-gvm install go1.4
-gvm use go1.4
-gvm install go1.8 -pb
+gvm install go1.8 -B -pb
 gvm use go1.8 --default
 mkdir -p $GOPATH/bin
 go get -u github.com/Masterminds/glide
