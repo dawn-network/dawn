@@ -18,7 +18,7 @@ git clone https://github.com/tendermint/tendermint/ $GOPATH/src/github.com/tende
 cd $GOPATH/src/github.com/tendermint/tendermint
 git branch develop
 make install
-git clone https://github.com/dawn-network/glogchain/ $GOPATH/src/github.com/dawn-network/glogchain
+go get -u github.com/dawn-network/glogchain
 cd $GOPATH/src/github.com/dawn-network/glogchain
 sed -ie 's/10.0.0.11/$PUBIP/g' config.json
 go build .
