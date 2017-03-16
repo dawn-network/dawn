@@ -18,11 +18,10 @@ go get -u github.com/tendermint/tendermint/...
 cd $GOPATH/src/github.com/tendermint/tendermint
 git branch develop
 make install
-go get -u github.com/dawn-network/glogchain/...
+git clone https://github.com/dawn-network/glogchain/ $GOPATH/src/github.com/dawn-network/glogchain
 cd $GOPATH/src/github.com/dawn-network/glogchain
-sed -ie 's/10.0.0.11/$PUBIP/g' /root/config.json
+sed -ie 's/10.0.0.11/$PUBIP/g' config.json
 git branch develop
-cd $GOPATH/src/github.com/dawn-network/glogchain
 glide install
 go build .
 go install .
