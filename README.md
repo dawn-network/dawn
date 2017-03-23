@@ -31,18 +31,19 @@ You can currently e-mail or send a google hangouts message to Jacob Gadikian at 
 
 By storing hashes to our blockchain, and checking file hashes for validity, we are able to provide an immutability mechansim beyond our blockchain for the files that users upload.  
 
-[![Router6d7376.md.png](http://www.steemimg.com/images/2017/02/07/Router6d7376.md.png)](http://www.steemimg.com/image/GhYv7)
 </details>
 <BR>
 <details>
 <summary><b>Developer Experience</b></summary>
 
 We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with a modern x86 CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an opinionated golang development environment.  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment that allows for fast, known-good development against our stack.  If you've any questions about the router or would like to buy one (sold at cost to developers who have made code commits to our projects) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.
+
+[![Router6d7376.md.png](http://www.steemimg.com/images/2017/02/07/Router6d7376.md.png)](http://www.steemimg.com/image/GhYv7)
 </details>
 <BR>
 <details>
 <summary><b>Privacy</b></summary>
-![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
+[![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
 This.
 
 Privacy is implemented as follows:
