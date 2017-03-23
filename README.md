@@ -74,5 +74,6 @@ We encourage users to upload works to which they own the copyright.  Our seeders
 <BR>
 <details>
 <summary><b>How to help?</b></summary>
-article on jacobgadikian.com forthcoming.  
 <details>
+article on jacobgadikian.com forthcoming.  
+</details>
