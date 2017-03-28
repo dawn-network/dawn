@@ -26,6 +26,7 @@ Join our discourse chat at: https://discord.gg/8dWYbFS
 You can currently e-mail or send a google hangouts message to Jacob Gadikian at faddat@gmail.com for help getting onto one of our testnets as a validator, non-validator or light client.
 </details>
 <BR>
+
 <details>
 <summary><b>Torrent Hashing: Intentionally Awesome</b></summary>
 
@@ -43,7 +44,7 @@ We have made a router, the Dawn R1, which happens to handily double as a compute
 <BR>
 <details>
 <summary><b>Privacy</b></summary>
-[![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
+[![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)]
 This.
 
 Privacy is implemented as follows:
