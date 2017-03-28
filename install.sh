@@ -1,24 +1,31 @@
 #!/bin/bash
-#Prompt user for their public IP address
-echo -n "Enter your public IP address and press [ENTER]: "
-read $PUBIP
-echo -n "node listening address $PUBIP:46656"
-echo -n "HTTP address [ENTER]: $PUBIP:80"
+
+#Ensure that we're root
+if [[ $UID != 0 ]]; then
+    echo "Please run this script with sudo:"
+    echo "sudo $0 $*"
+    exit 1
+fi
+
+#Change to /root because script is relative to that path
+cd /root
+
 #Update Machine and install dependencies
 apt-get update
 apt-get -y upgrade
 apt-get -y install  curl git mercurial make binutils bison gcc build-essential protobuf-compiler
 
 #install GVM and go1.8
-curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer| bash
+curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer | bash
 source /root/.gvm/scripts/gvm
 gvm install go1.8 -B -pb
 gvm use go1.8 --default
 
-
-#Install glide and tendermint
+#Install glide
 mkdir -p $GOPATH/bin
 go get -u github.com/Masterminds/glide
+
+#Install Tendermint
 mkdir $GOPATH/src/github.com/tendermint
 git clone https://github.com/tendermint/tendermint/ $GOPATH/src/github.com/tendermint/tendermint
 cd $GOPATH/src/github.com/tendermint/tendermint
@@ -28,11 +35,9 @@ make install
 #Install glogchain
 go get -u github.com/dawn-network/glogchain
 cd $GOPATH/src/github.com/dawn-network/glogchain
-sed -ie 's/10.0.0.11/$PUBIP/g' config.json
 mkdir ~/.glogchain
 go build .
 go install .
-
 
 #Install IPFS
 go get github.com/ipfs/go-ipfs
