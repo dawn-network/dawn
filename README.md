@@ -44,7 +44,7 @@ We have made a router, the Dawn R1, which happens to handily double as a compute
 <BR>
 <details>
 <summary><b>Privacy</b></summary>
-[![Screenshotfrom2017-02-0714-13-47dd71e.png](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)]
+[![Slashdot Screencap](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)](http://www.steemimg.com/images/2017/02/07/Screenshotfrom2017-02-0714-13-47dd71e.png)
 This.
 
 Privacy is implemented as follows:
@@ -52,7 +52,9 @@ Privacy is implemented as follows:
 * Public - Shared far and wide
 * Private - Restricted to a key-holding group of individuals.  Users who do not possess the needed key are not allowed to decrypt private content.  We never possess the keys needed to unlock private content.
 </details>
+
 <BR>
+
 <details>
 <summary><b>Coin and inflation</b></summary>
 To ensure its survival in perpetuity, we have implemented a cryptocurrency system called Ray in glogchain.  One unit of currency is created with each block, forever.  This means that while early years will have a high inflation rate, actual currency supply after the 10th year or so will ahve relatively low inflation.  Given that content distribution and storage in this manner is at an infant state, we feel that ensuring a high enough validator count and a high (90%) rate of payments to creators based on hit count + eyeball-time will distribute the network's creative rays in a manner that reflects reality.  
