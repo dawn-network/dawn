@@ -25,6 +25,7 @@ import:
 - package: github.com/tendermint/go-merkle
 - package: github.com/tendermint/go-wire
 - package: github.com/tendermint/tendermint
+  version: ^0.9.0
   subpackages:
   - config/tendermint
   - node
