@@ -1,6 +1,6 @@
 # glogchain: Let's upgrade the web
 
-Notice: We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think about/in:
+Notice: We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think/pursue/create about/in:
 
 * Go
 * TRUTH
@@ -13,6 +13,10 @@ Notice: We are looking for programmers, and we want those programmers to be vali
 * systems
 * FREEDOM
 * qt
+* PROSPERITY
+* gopherjs
+* STALLMANESQUE UNCOMPOROMISINGNESS with slightly different values
+* vecty
 
 for the next 16 or so validators, we'd like to attract only those with code skills.  faddat@gmail.com on google hangouts for info.  
 
