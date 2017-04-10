@@ -15,6 +15,7 @@ Notice: We are looking for programmers, and we want those programmers to be vali
 * qt
 * PROSPERITY
 * gopherjs
+* VOLUNTARYISM
 * vecty
 
 for the next 16 or so validators, we'd like to attract only those with code skills.  faddat@gmail.com on google hangouts for info.  
