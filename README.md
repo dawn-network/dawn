@@ -1,5 +1,21 @@
 # glogchain: Let's upgrade the web
 
+Notice: We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think about/in:
+
+* Go
+* TRUTH
+* javascript
+* TRUTH
+* dart
+* TRUTH
+* tendermint
+* TRUTH
+* systems
+* FREEDOM
+* qt
+
+for the next 16 or so validators, we'd like to attract only those with code skills.  faddat@gmail.com on google hangouts for info.  
+
  [Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)
 
 Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.   It will serve files via [webtorent](http://webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types via webtorrent, or to various and sundry client applications via bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to:
