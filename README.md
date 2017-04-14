@@ -18,6 +18,8 @@ Notice: We are looking for programmers, and we want those programmers to be vali
 * VOLUNTARYISM
 * vecty
 
+## https://riot.im/app/#/room/#dawn:matrix.org  <-Our Chat.  All are welcome.  Friendly people who may or may not cuss a lot.  
+
 for the next 16 or so validators, we'd like to attract only those with code skills.  faddat@gmail.com on google hangouts for info.  
 
  [Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)
