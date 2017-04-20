@@ -3,7 +3,7 @@
 #### Notice: 
 This reposiory isn't super-active right now. You can look to a number of test repositories, like dawn-network/pasture and dawn-network/gloggie2 and dawn-network/basecoin to know more about our attempts to create code that follows the  basecoin design pattern.  Most code in this repository was written by github.com/@baabeetaa, a truly masterful programmer.  
 
-If you are working on a blockchain system that uses IPFS or webtorrent, I strongly recommend that you check out the code here as it's been proven to work well.  
+If you are working on a blockchain system that uses IPFS or webtorrent, I strongly recommend that you check out the code here as it's been proven to work well on both the front end and the back end.  
 
 #### Notice: 
 We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think/pursue/create about/in:
