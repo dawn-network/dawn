@@ -1,15 +1,19 @@
 # glogchain: Let's upgrade the web
 
-Notice: We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think/pursue/create about/in:
+#### Notice: 
+This reposiory isn't super-active right now. You can look to a number of test repositories, like dawn-network/pasture and dawn-network/gloggie2 to know more about our attempts to create code that follows the current basecoin design pattern.  Most code in this repository was written by github.com/@baabeetaa, a truly masterful programmer.  
+
+#### Notice: 
+We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think/pursue/create about/in:
 
 * Go
 * TRUTH
 * javascript
-* TRUTH
+* CREATIVITY
 * dart
-* TRUTH
+* FUN
 * tendermint
-* TRUTH
+* GEEKINESS
 * systems
 * FREEDOM
 * qt
