@@ -23,6 +23,9 @@ We are looking for programmers, and we want those programmers to be validators o
 * gopherjs
 * VOLUNTARYISM
 * vecty
+* android
+* c
+* electron
 
 ## https://riot.im/app/#/room/#dawn:matrix.org  <-Our Chat.  All are welcome.  Friendly people who may or may not cuss a lot.  
 
