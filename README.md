@@ -1,7 +1,7 @@
 # glogchain: Let's upgrade the web
 
 #### Notice: 
-This reposiory isn't super-active right now. You can look to a number of test repositories, like dawn-network/pasture and dawn-network/gloggie2 and dawn-network/basecoin to know more about our attempts to create code that follows the  basecoin design pattern.  Most code in this repository was written by github.com/@baabeetaa, a truly masterful programmer.  
+This repository isn't super-active right now. You can look to a number of test repositories, like dawn-network/pasture and dawn-network/gloggie2 and dawn-network/basecoin to know more about our attempts to create code that follows the  basecoin design pattern.  Most code in this repository was written by github.com/@baabeetaa, a truly masterful programmer.  
 
 If you are working on a blockchain system that uses IPFS or webtorrent, I strongly recommend that you check out the code here as it's been proven to work well on both the front end and the back end.  
 
