@@ -5,29 +5,16 @@ This repository isn't super-active right now. You can look to a number of test r
 
 If you are working on a blockchain system that uses IPFS or webtorrent, I strongly recommend that you check out the code here as it's been proven to work well on both the front end and the back end.  
 
-#### Notice: 
-We are looking for programmers, and we want those programmers to be validators on the dawn network.  Validators collectively get 10% of the coin produced.  The kinds of programmers we'd love to have join up like to think/pursue/create about/in:
 
 * Go
-* TRUTH
 * javascript
-* CREATIVITY
 * dart
-* FUN
 * tendermint
-* GEEKINESS
 * systems
-* FREEDOM
-* qt
-* PROSPERITY
 * gopherjs
-* VOLUNTARYISM
-* vecty
 * android
-* c
 * electron
 
-for the next 16 or so validators, we'd like to attract only those with code skills.  faddat@gmail.com on google hangouts for info.  
 
  [Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)
 
