@@ -1,22 +1,13 @@
 # glogchain: Let's upgrade the web
 
-#### Notice: 
-This repository isn't super-active right now. You can look to a number of test repositories, like dawn-network/pasture and dawn-network/gloggie2 and dawn-network/basecoin to know more about our attempts to create code that follows the  basecoin design pattern.  Most code in this repository was written by github.com/@baabeetaa, a truly masterful programmer.  
-
-If you are working on a blockchain system that uses IPFS or webtorrent, I strongly recommend that you check out the code here as it's been proven to work well on both the front end and the back end.  
-
-
 * Go
 * javascript
-* dart
 * tendermint
 * systems
 * gopherjs
 * android
 * electron
 
-
- [Build Status](http://163.172.150.160/api/badges/dawn-network/glogchain/status.svg)
 
 Glogchain is dawn's first application specific blockchain.  Our blockchain stores a ledger and webtorrent/bittorrent hashes.   It will serve files via [webtorent](http://webtorrent.io) and [bittorrent](http://bittorrent.org/) to a single page web application that handles a number of different content types via webtorrent, or to various and sundry client applications via bittorrent.  The back end API is provided by our network of validators.  Users upload content in text, audio, and video file formats and are able to:
 
@@ -26,8 +17,7 @@ Glogchain is dawn's first application specific blockchain.  Our blockchain store
 
 Download linux-only [binaries](https://github.com/dawn-network/glogchain/releases) here:  
 
-Install script is here: https://github.com/dawn-network/glogchain/blob/master/install.sh  (linux only)
-This is the repository for our server software.  Clients will be in a different repository and will support all major operating systems and platforms:
+Clients will be in a different repository and will support all major operating systems and platforms:
 
 * Android
 * ios
