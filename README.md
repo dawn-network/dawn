@@ -6,7 +6,7 @@
 
 
 
-We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with an Amlogic S922x CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an [opinionated golang development environment](https://github.com/faddat/sos).  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment that allows for fast, known-good development against our stack.  If you've any questions about the router or would like to buy one (sold at cost to developers who have made code commits to our projects) please contact Jacob Gadikian at faddat@gmail.com on google hangouts.
+We have made a router, the Dawn R1, which happens to handily double as a computer which is equipped with an Amlogic S922x CPU and adequate RAM and SSD storage.  This router makes an ideal development setup and comes pre-stocked with an [opinionated golang development environment](https://github.com/faddat/sos).  Developers do not need this router to participate, however fresh developers and experts alike will appreciate its isolated development environment that allows for fast, known-good development against our stack.  If you've any questions about the router or would like to buy one (sold at cost to developers who have made code commits to our projects) please contact Jacob Gadikian at jacobgadikian@gmail.com.
 
 
 <details>
